@@ -76,7 +76,7 @@ class Tmsm_Frontend_Optimizations {
 
 		$this->load_dependencies();
 		$this->set_locale();
-		$this->define_admin_hooks();
+		//$this->define_admin_hooks();
 		$this->define_public_hooks();
 
 	}
@@ -98,6 +98,11 @@ class Tmsm_Frontend_Optimizations {
 	 * @access   private
 	 */
 	private function load_dependencies() {
+
+		/**
+		 * Asset Optimizer Class
+		 */
+		require_once plugin_dir_path( dirname( __FILE__ ) ) . 'includes/class-wp-simple-asset-optimizer.php';
 
 		/**
 		 * The class responsible for orchestrating the actions and filters of the
@@ -170,8 +175,60 @@ class Tmsm_Frontend_Optimizations {
 
 		$plugin_public = new Tmsm_Frontend_Optimizations_Public( $this->get_plugin_name(), $this->get_version() );
 
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		//$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+		//$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+
+		// Scripts to footer
+		$this->loader->add_action( 'init', $plugin_public, 'gtm4wp_scriptsfooter', 10 ); // Google Tag Manager for WordPress
+		$this->loader->add_action( 'init', $plugin_public, 'assetoptimizer' ); // Asset Optimizer
+
+		// Remove styles
+		$this->loader->add_filter( 'use_default_gallery_style', $plugin_public, '__return_false', 10 ); //Default gallery
+		remove_action( 'wp_print_styles', 'print_emoji_styles' ); // Emoji
+
+		// Remove scripts
+		remove_action( 'wp_head', 'print_emoji_detection_script', 7 ); //Emoji
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'jetpack_dequeue_scripts', 10 ); //Jetpack
+
+		// Development
+		$this->loader->add_action( 'wp_head', $plugin_public, 'staging_noindex', 10 );
+
+		// Head
+		remove_action('wp_head', 'wlwmanifest_link');
+		remove_action('wp_head', 'rsd_link');
+		remove_action('wp_head', 'wp_generator');
+		remove_action('wp_head', 'wp_shortlink_wp_head');
+
+
+		// Cookies
+		remove_action('set_comment_cookies', 'wp_set_comment_cookies');
+
+		// Storefront Theme
+		remove_action( 'storefront_footer', 'storefront_credit', 20 );
+
+		// WPML
+		if ( function_exists( 'icl_get_languages' ) ) {
+			add_shortcode( 'language_switcher', 'wpml_language_switcher' );
+			define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS',true);
+			define('ICL_DONT_LOAD_NAVIGATION_CSS',true);
+			define('ICL_DONT_LOAD_LANGUAGES_JS',true);
+			$this->loader->add_filter( 'body_class', $plugin_public, 'wpml_body_class', 10 );
+		}
+
+		// Polylang
+		if ( function_exists( 'pll_the_languages' ) ) {
+			add_shortcode( 'language_switcher', 'polylang_language_switcher' );
+			$this->loader->add_filter( 'body_class', $plugin_public, 'polylang_body_class', 10 );
+		}
+
+		// Gravity Forms
+		$this->loader->add_filter( 'gform_cdata_close', $plugin_public, 'gravityforms_wrap_gform_cdata_close', 10 );
+		$this->loader->add_filter( 'gform_init_scripts_footer', $plugin_public, 'gravityforms_footer_noblockrender', 10 );
+		$this->loader->add_filter( 'gform_cdata_open', $plugin_public, 'gravityforms_wrap_gform_cdata_open', 10 );
+		$this->loader->add_action( 'gform_enqueue_scripts', $plugin_public, 'gravityforms_dequeue_stylesheets', 10 );
+
+		// Google Tag Manager / OceanWP
+		$this->loader->add_action( 'ocean_before_outer_wrap', $plugin_public, 'googletagmanager_after_body', 10 ); // For OceanWP
 
 	}
 

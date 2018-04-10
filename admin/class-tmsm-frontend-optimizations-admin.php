@@ -72,7 +72,7 @@ class Tmsm_Frontend_Optimizations_Admin {
 	 */
 	public function enqueue_scripts() {
 
-		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/tmsm-frontend-optimizations-admin.js', array( 'jquery' ), $this->version, false );
+		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/tmsm-frontend-optimizations-admin.js', array( 'jquery' ), $this->version, true );
 
 	}
 
