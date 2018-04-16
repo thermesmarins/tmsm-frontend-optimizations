@@ -313,4 +313,34 @@ class Tmsm_Frontend_Optimizations_Public {
 		if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); }
 	}
 
+	/**
+	 * WPSEO Breadcrumb wrapper
+	 *
+	 * @return string
+	 */
+	function wpseo_breadcrumb_output_wrapper() {
+		return 'p';
+	}
+
+	/**
+	 * WPSEO Breadcrumb wrapper class
+	 *
+	 * @return string
+	 */
+	function wpseo_breadcrumb_output_class() {
+		return 'breadcrumb';
+	}
+
+	/**
+	 * WPSEO Breadcrumb next rel link, disable on home
+	 *
+	 * @return string
+	 */
+	function wpseo_disable_rel_next_home( $link ) {
+		if ( is_home() ) {
+			return false;
+		}
+		return $link;
+	}
+
 }

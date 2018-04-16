@@ -231,6 +231,11 @@ class Tmsm_Frontend_Optimizations {
 		// Google Tag Manager / OceanWP
 		$this->loader->add_action( 'ocean_before_outer_wrap', $plugin_public, 'googletagmanager_after_body', 10 ); // For OceanWP
 
+		// Yoast SEO
+		$this->loader->add_filter( 'wpseo_breadcrumb_output_wrapper', $plugin_public, 'wpseo_breadcrumb_output_wrapper', 10 );
+		$this->loader->add_filter( 'wpseo_breadcrumb_output_class', $plugin_public, 'wpseo_breadcrumb_output_class', 10 );
+		$this->loader->add_filter( 'wpseo_next_rel_link', $plugin_public, 'wpseo_disable_rel_next_home', 10 );
+
 	}
 
 	/**

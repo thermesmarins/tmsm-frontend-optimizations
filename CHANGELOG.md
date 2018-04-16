@@ -1,4 +1,5 @@
 ### Unreleased ###
+* Yoast SEO: breadcrumb class
 
 ### 1.0.1: April 16th, 2018
 * Polylang javascript variables
