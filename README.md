@@ -26,5 +26,6 @@ Features
 * Polylang:
     * Body Class Lang
     * Shortcode for language switcher
+    * Javascript variables
 * OceanWP:
     * Inject Google Tag Manager after body

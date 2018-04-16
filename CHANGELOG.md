@@ -1,5 +1,8 @@
 ### Unreleased ###
 
+### 1.0.1: April 16th, 2018
+* Polylang javascript variables
+
 ### 1.0.0: April 10th, 2018
 * Remove CSS styles:
     * Default gallery

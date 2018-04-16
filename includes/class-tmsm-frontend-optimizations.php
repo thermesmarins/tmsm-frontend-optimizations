@@ -216,9 +216,10 @@ class Tmsm_Frontend_Optimizations {
 		}
 
 		// Polylang
-		if ( function_exists( 'pll_the_languages' ) ) {
+		if ( is_plugin_active( 'polylang/polylang.php' ) || is_plugin_active( 'polylang-pro/polylang.php' )) {
 			add_shortcode( 'language_switcher', 'polylang_language_switcher' );
 			$this->loader->add_filter( 'body_class', $plugin_public, 'polylang_body_class', 10 );
+			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'polylang_configjavascript' ); // Localize
 		}
 
 		// Gravity Forms

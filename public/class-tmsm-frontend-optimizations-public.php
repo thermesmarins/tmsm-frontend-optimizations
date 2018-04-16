@@ -253,6 +253,18 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * Polylang: Config As Javascript
+	 *
+	 */
+	function polylang_configjavascript() {
+		wp_localize_script('jquery', 'polylang_params', array(
+			'current_language' => pll_current_language(),
+			'home_url' => pll_home_url(),
+			'the_languages' => pll_the_languages(['raw' => 1]),
+		));
+	}
+
+	/**
 	 * Gravity Forms: Non Blocking Render
 	 *
 	 * @return bool
