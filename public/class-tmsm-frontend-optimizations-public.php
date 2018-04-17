@@ -86,6 +86,24 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * Remove "Category:" in titles
+	 *
+	 * @param $title
+	 *
+	 * @return string
+	 */
+	public function get_the_archive_title_category($title){
+		if ( is_category() ) {
+			$title = single_cat_title( '', false );
+		} elseif ( is_tag() ) {
+			$title = single_tag_title( '', false );
+		} elseif ( is_author() ) {
+			$title = '<span class="vcard">' . get_the_author() . '</span>' ;
+		}
+		return $title;
+	}
+
+	/**
 	 * Google Tag Manager for WordPress: Scripts in footer
 	 */
 	function gtm4wp_scriptsfooter() {

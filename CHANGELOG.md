@@ -1,5 +1,9 @@
 ### Unreleased ###
+--
+
+### 1.0.2: April 17th, 2018
 * Yoast SEO: breadcrumb class
+* Remove "Category:" in titles
 
 ### 1.0.1: April 16th, 2018
 * Polylang javascript variables

@@ -178,8 +178,10 @@ class Tmsm_Frontend_Optimizations {
 		//$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		//$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
+		$this->loader->add_action( 'get_the_archive_title', $plugin_public, 'get_the_archive_title_category', 10 ); // Remove "Category:" in titles
+
 		// Scripts to footer
-		$this->loader->add_action( 'init', $plugin_public, 'gtm4wp_scriptsfooter', 10 ); // Google Tag Manager for WordPress
+		$this->loader->add_filter( 'init', $plugin_public, 'gtm4wp_scriptsfooter', 10 ); // Google Tag Manager for WordPress
 		$this->loader->add_action( 'init', $plugin_public, 'assetoptimizer' ); // Asset Optimizer
 
 		// Remove styles
