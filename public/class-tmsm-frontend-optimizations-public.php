@@ -318,7 +318,7 @@ class Tmsm_Frontend_Optimizations_Public {
 	 *
 	 * @return string
 	 */
-	function wpseo_breadcrumb_output_wrapper() {
+	public function wpseo_breadcrumb_output_wrapper() {
 		return 'p';
 	}
 
@@ -327,7 +327,7 @@ class Tmsm_Frontend_Optimizations_Public {
 	 *
 	 * @return string
 	 */
-	function wpseo_breadcrumb_output_class() {
+	public function wpseo_breadcrumb_output_class() {
 		return 'breadcrumb';
 	}
 
@@ -336,7 +336,7 @@ class Tmsm_Frontend_Optimizations_Public {
 	 *
 	 * @return string
 	 */
-	function wpseo_disable_rel_next_home( $link ) {
+	public function wpseo_disable_rel_next_home( $link ) {
 		if ( is_home() ) {
 			return false;
 		}
