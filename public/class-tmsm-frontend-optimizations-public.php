@@ -325,6 +325,15 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * Gravity Forms: Do not collect IP Address from user
+	 *
+	 * @return bool
+	 */
+	public function gravityforms_donotcollect_ipaddress() {
+		return false;
+	}
+
+	/**
 	 * OceanWP / Google Tag Manager: inject tag after body
 	 */
 	public function googletagmanager_after_body(){

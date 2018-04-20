@@ -229,6 +229,7 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_filter( 'gform_init_scripts_footer', $plugin_public, 'gravityforms_footer_noblockrender', 10 );
 		$this->loader->add_filter( 'gform_cdata_open', $plugin_public, 'gravityforms_wrap_gform_cdata_open', 10 );
 		$this->loader->add_action( 'gform_enqueue_scripts', $plugin_public, 'gravityforms_dequeue_stylesheets', 10 );
+		$this->loader->add_action( 'gform_ip_address', $plugin_public, 'gravityforms_donotcollect_ipaddress', 10 );
 
 		// Google Tag Manager / OceanWP
 		$this->loader->add_action( 'ocean_before_outer_wrap', $plugin_public, 'googletagmanager_after_body', 10 ); // For OceanWP
