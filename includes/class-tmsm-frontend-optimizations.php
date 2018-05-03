@@ -210,7 +210,7 @@ class Tmsm_Frontend_Optimizations {
 
 		// WPML
 		if ( function_exists( 'icl_get_languages' ) ) {
-			add_shortcode( 'language_switcher', 'wpml_language_switcher' );
+			add_shortcode( 'language_switcher', array($plugin_public, 'wpml_language_switcher'));
 			define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS',true);
 			define('ICL_DONT_LOAD_NAVIGATION_CSS',true);
 			define('ICL_DONT_LOAD_LANGUAGES_JS',true);
@@ -219,7 +219,7 @@ class Tmsm_Frontend_Optimizations {
 
 		// Polylang
 		if ( is_plugin_active( 'polylang/polylang.php' ) || is_plugin_active( 'polylang-pro/polylang.php' )) {
-			add_shortcode( 'language_switcher', 'polylang_language_switcher' );
+			add_shortcode( 'language_switcher', array($plugin_public, 'polylang_language_switcher'));
 			$this->loader->add_filter( 'body_class', $plugin_public, 'polylang_body_class', 10 );
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'polylang_configjavascript' ); // Localize
 		}

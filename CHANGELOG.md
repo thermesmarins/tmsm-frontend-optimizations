@@ -1,5 +1,6 @@
 ### Unreleased ###
 * Gravity Forms: Do not collect IP Address (GDPR compliance)
+* Fix language shortcode
 
 ### 1.0.2: April 17th, 2018
 * Yoast SEO: breadcrumb class
