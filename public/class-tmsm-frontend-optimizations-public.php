@@ -264,7 +264,27 @@ class Tmsm_Frontend_Optimizations_Public {
 				'show_names' => 1,
 				'echo'       => 0,
 			];
-			$output = '<ul class="language-switcher language-switcher-polylang dropdown-menu hide-mobile hide-tablet">'.pll_the_languages( $args ). '</ul>';
+			$ul_classes = '';
+			$theme = wp_get_theme();
+			if(!empty($theme)){
+				$parent_theme = $theme->parent();
+				$theme_name = $theme->name;
+				if(!empty($parent_theme)){
+					$theme_name = $parent_theme->name;
+				}
+				switch($theme_name){
+					case 'OceanWP':
+						$ul_classes= 'dropdown-menu';
+						break;
+					case 'StormBringer':
+						$ul_classes= 'list-unstyled list-inline';
+						break;
+					default:
+						$ul_classes= '';
+						break;
+				}
+			}
+			$output = '<ul class="language-switcher language-switcher-polylang '.$ul_classes.'">'.pll_the_languages( $args ). '</ul>';
 		}
 
 		return $output;

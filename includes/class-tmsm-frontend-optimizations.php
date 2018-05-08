@@ -209,20 +209,20 @@ class Tmsm_Frontend_Optimizations {
 		remove_action( 'storefront_footer', 'storefront_credit', 20 );
 
 		// WPML
-		if ( function_exists( 'icl_get_languages' ) ) {
+		/*if ( function_exists( 'icl_get_languages' ) ) {
 			add_shortcode( 'language_switcher', array($plugin_public, 'wpml_language_switcher'));
 			define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS',true);
 			define('ICL_DONT_LOAD_NAVIGATION_CSS',true);
 			define('ICL_DONT_LOAD_LANGUAGES_JS',true);
 			$this->loader->add_filter( 'body_class', $plugin_public, 'wpml_body_class', 10 );
-		}
+		}*/
 
 		// Polylang
-		if ( is_plugin_active( 'polylang/polylang.php' ) || is_plugin_active( 'polylang-pro/polylang.php' )) {
-			add_shortcode( 'language_switcher', array($plugin_public, 'polylang_language_switcher'));
+		if ( function_exists('is_plugin_active') && (is_plugin_active( 'polylang/polylang.php' ) || is_plugin_active( 'polylang-pro/polylang.php' ))) {
 			$this->loader->add_filter( 'body_class', $plugin_public, 'polylang_body_class', 10 );
 			$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'polylang_configjavascript' ); // Localize
 		}
+		add_shortcode( 'language_switcher', array($plugin_public, 'polylang_language_switcher'));
 
 		// Gravity Forms
 		$this->loader->add_filter( 'gform_cdata_close', $plugin_public, 'gravityforms_wrap_gform_cdata_close', 10 );
