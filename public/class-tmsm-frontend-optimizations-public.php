@@ -86,6 +86,20 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * Embed wrap
+	 *
+	 * @param        $cache
+	 * @param        $url
+	 * @param string $attr
+	 * @param string $post_ID
+	 *
+	 * @return string
+	 */
+	function embed_wrap( $cache, $url, $attr = '', $post_ID = '' ) {
+		return '<div class="embed">' . $cache . '</div>';
+	}
+
+	/**
 	 * Remove "Category:" in titles
 	 *
 	 * @param $title

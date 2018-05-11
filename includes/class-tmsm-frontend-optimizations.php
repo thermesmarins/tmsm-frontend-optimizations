@@ -175,7 +175,7 @@ class Tmsm_Frontend_Optimizations {
 
 		$plugin_public = new Tmsm_Frontend_Optimizations_Public( $this->get_plugin_name(), $this->get_version() );
 
-		//$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		//$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 		$this->loader->add_action( 'get_the_archive_title', $plugin_public, 'get_the_archive_title_category', 10 ); // Remove "Category:" in titles
@@ -194,6 +194,10 @@ class Tmsm_Frontend_Optimizations {
 
 		// Development
 		$this->loader->add_action( 'wp_head', $plugin_public, 'staging_noindex', 10 );
+
+		// Embed
+		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'embed_wrap', 10, 4 );
+		$this->loader->add_filter( 'embed_googlevideo', $plugin_public, 'embed_wrap', 10, 4 );
 
 		// Head
 		remove_action('wp_head', 'wlwmanifest_link');
