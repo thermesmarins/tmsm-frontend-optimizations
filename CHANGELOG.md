@@ -1,5 +1,5 @@
 ### Unreleased ###
-
+* Disable default gallery style
 
 ### 1.0.3: May 11st, 2018
 * Gravity Forms: Do not collect IP Address (GDPR compliance)

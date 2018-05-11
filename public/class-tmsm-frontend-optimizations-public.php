@@ -174,6 +174,12 @@ class Tmsm_Frontend_Optimizations_Public {
 		new WP_Simple_Asset_Optimizer( $wp_scripts, $wp_styles );
 	}
 
+	/**
+	 * Disable default gallery style
+	 */
+	function use_default_gallery_style(){
+		return false;
+	}
 
 	/**
 	 * Jetpack: remove scripts

@@ -185,7 +185,7 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_action( 'init', $plugin_public, 'assetoptimizer' ); // Asset Optimizer
 
 		// Remove styles
-		$this->loader->add_filter( 'use_default_gallery_style', $plugin_public, '__return_false', 10 ); //Default gallery
+		$this->loader->add_filter( 'use_default_gallery_style', $plugin_public, 'use_default_gallery_style', 10 ); //Default gallery
 		remove_action( 'wp_print_styles', 'print_emoji_styles' ); // Emoji
 
 		// Remove scripts
