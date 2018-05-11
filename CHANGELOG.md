@@ -1,6 +1,10 @@
 ### Unreleased ###
+
+
+### 1.0.3: May 11st, 2018
 * Gravity Forms: Do not collect IP Address (GDPR compliance)
 * Fix language shortcode
+* Embed responsive (max width)
 
 ### 1.0.2: April 17th, 2018
 * Yoast SEO: breadcrumb class
