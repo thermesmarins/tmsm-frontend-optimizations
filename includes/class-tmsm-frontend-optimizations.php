@@ -235,6 +235,9 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_action( 'gform_enqueue_scripts', $plugin_public, 'gravityforms_dequeue_stylesheets', 10 );
 		$this->loader->add_action( 'gform_ip_address', $plugin_public, 'gravityforms_donotcollect_ipaddress', 10 );
 
+		// Jetpack
+		$this->loader->add_action( 'loop_start', $plugin_public, 'jetpack_remove_share', 10 );
+
 		// Google Tag Manager / OceanWP
 		$this->loader->add_action( 'ocean_before_outer_wrap', $plugin_public, 'googletagmanager_after_body', 10 ); // For OceanWP
 

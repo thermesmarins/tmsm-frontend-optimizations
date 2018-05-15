@@ -85,6 +85,7 @@ class Tmsm_Frontend_Optimizations_Public {
 		}
 	}
 
+
 	/**
 	 * Embed wrap
 	 *
@@ -115,6 +116,17 @@ class Tmsm_Frontend_Optimizations_Public {
 			$title = '<span class="vcard">' . get_the_author() . '</span>' ;
 		}
 		return $title;
+	}
+
+	// Jetpack: Remove Sharing Filters
+	public function jetpack_remove_share() {
+
+		remove_filter( 'the_content', 'sharing_display',19 );
+		remove_filter( 'the_excerpt', 'sharing_display',19 );
+
+		if ( class_exists( 'Jetpack_Likes' ) ) {
+			remove_filter( 'the_content', array( Jetpack_Likes::init(), 'post_likes' ), 30 );
+		}
 	}
 
 	/**
