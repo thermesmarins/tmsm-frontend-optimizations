@@ -382,7 +382,7 @@ class Tmsm_Frontend_Optimizations_Public {
 	 * @return bool
 	 */
 	public function gravityforms_donotcollect_ipaddress() {
-		return false;
+		return '';
 	}
 
 	/**

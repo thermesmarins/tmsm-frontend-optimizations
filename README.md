@@ -29,3 +29,4 @@ Features
     * Javascript variables
 * OceanWP:
     * Inject Google Tag Manager after body
+* Gravity Forms: Anonymize user IPs
