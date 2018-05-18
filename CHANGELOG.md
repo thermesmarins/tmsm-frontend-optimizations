@@ -1,4 +1,6 @@
 ### Unreleased ###
+
+### 1.0.4: May 18st, 2018
 * Disable default gallery style
 * Jetpack: Remove Sharing Filters
 
