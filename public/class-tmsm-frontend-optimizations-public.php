@@ -140,6 +140,8 @@ class Tmsm_Frontend_Optimizations_Public {
 			add_filter('gtm4wp_event-email-clicks', '__return_true');
 			add_filter('gtm4wp_event-downloads', '__return_true');
 			add_filter('gtm4wp_scroller-enabled', '__return_true');
+			add_filter('gtm4wp_integrate-woocommerce-track-classic-ecommerce', '__return_true');
+			add_filter('gtm4wp_integrate-woocommerce-track-enhanced-ecommerce', '__return_true');
 
 			if(function_exists('gtm4wp_wp_footer')){
 				remove_action( 'wp_footer', 'gtm4wp_wp_footer' );
