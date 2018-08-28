@@ -27,6 +27,7 @@ Features
     * Body Class Lang
     * Shortcode for language switcher
     * Javascript variables
-* OceanWP:
-    * Inject Google Tag Manager after body
+* Google Tag Manager for WordPress:
+    * Inject Google Tag Manager after body in OceanWP Theme
+    * Exclude orders with status failed (only paid statuses)
 * Gravity Forms: Anonymize user IPs
