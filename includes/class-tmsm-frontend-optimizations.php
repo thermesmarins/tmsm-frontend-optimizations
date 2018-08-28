@@ -238,8 +238,9 @@ class Tmsm_Frontend_Optimizations {
 		// Jetpack
 		$this->loader->add_action( 'loop_start', $plugin_public, 'jetpack_remove_share', 10 );
 
-		// Google Tag Manager / OceanWP
-		$this->loader->add_action( 'ocean_before_outer_wrap', $plugin_public, 'googletagmanager_after_body', 10 ); // For OceanWP
+		// Google Tag Manager
+		$this->loader->add_action( 'ocean_before_outer_wrap', $plugin_public, 'googletagmanager_after_body', 10 ); // For OceanWP theme
+		$this->loader->add_filter( 'gtm4wp_get_the_gtm_tag', $plugin_public, 'googletagmanager_getthetag', 10, 1 );
 
 		// Yoast SEO
 		$this->loader->add_filter( 'wpseo_breadcrumb_output_wrapper', $plugin_public, 'wpseo_breadcrumb_output_wrapper', 10 );

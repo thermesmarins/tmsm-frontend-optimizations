@@ -388,10 +388,36 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
-	 * OceanWP / Google Tag Manager: inject tag after body
+	 * Google Tag Manager: inject tag after body in OceanWP theme
 	 */
 	public function googletagmanager_after_body(){
 		if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); }
+	}
+
+	/**
+	 * Google Tag Manager: Exclude orders with status failed (only paid statuses)
+	 *
+	 * @param $tag
+	 *
+	 * @return string
+	 */
+	public function googletagmanager_getthetag( $tag ) {
+		global $wp;
+
+		if ( function_exists('is_order_received_page') && is_order_received_page() ) {
+			if ( ! empty( $wp->query_vars['order-received'] ) ) {
+
+				$order = wc_get_order( absint( $wp->query_vars['order-received'] ) );
+
+				// Order is not paid, remove the tag
+				if ( !empty($order) && !$order->is_paid() ) {
+					$tag = '';
+				}
+
+			}
+		}
+
+		return $tag;
 	}
 
 	/**

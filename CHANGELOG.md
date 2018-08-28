@@ -1,4 +1,5 @@
-### Unreleased ###
+### 1.0.5: August 28th, 2018
+* Google Tag Manager: Exclude orders with status failed (only paid statuses)
 
 ### 1.0.4: May 18st, 2018
 * Disable default gallery style
