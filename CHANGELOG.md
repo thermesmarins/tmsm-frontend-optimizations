@@ -1,3 +1,5 @@
+* WP Rocket: Lazyload, Exclude attributes from Elementor
+
 ### 1.0.5: August 28th, 2018
 * Google Tag Manager: Exclude orders with status failed (only paid statuses)
 

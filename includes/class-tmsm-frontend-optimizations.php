@@ -247,6 +247,9 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_filter( 'wpseo_breadcrumb_output_class', $plugin_public, 'wpseo_breadcrumb_output_class', 10 );
 		$this->loader->add_filter( 'wpseo_next_rel_link', $plugin_public, 'wpseo_disable_rel_next_home', 10 );
 
+		// WP Rocket
+		$this->loader->add_filter( 'rocket_lazyload_excluded_attributes', $plugin_public, 'rocket_lazyload_excluded_attributes_elementor', 10 );
+
 	}
 
 	/**

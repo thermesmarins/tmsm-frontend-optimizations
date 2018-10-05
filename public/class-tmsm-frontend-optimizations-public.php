@@ -450,4 +450,17 @@ class Tmsm_Frontend_Optimizations_Public {
 		return $link;
 	}
 
+	/**
+	 * WP Rocket: Lazyload, Exclude attributes from Elementor
+	 *
+	 * @param $attributes
+	 *
+	 * @return array
+	 */
+	function rocket_lazyload_excluded_attributes_elementor( $attributes ) {
+		$attributes[] = 'class="slick-slide-image"';
+
+		return $attributes;
+	}
+
 }
