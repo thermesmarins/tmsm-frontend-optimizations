@@ -376,6 +376,7 @@ class Tmsm_Frontend_Optimizations_Public {
 	 */
 	public function gravityforms_dequeue_stylesheets() {
 		wp_dequeue_style( 'gforms_browsers_css' );
+		wp_deregister_style( 'gforms_browsers_css' );
 	}
 
 	/**
