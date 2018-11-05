@@ -2,3 +2,7 @@
   width: 100%;
   max-width: 100%;
 }
+
+body.login-action-confirmaction h1{
+  display: none;
+}

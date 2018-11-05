@@ -1,3 +1,5 @@
+* Hide WordPress logo on GDPR confirmation page
+
 ### 1.0.7: November 5th, 2018
 * Default DPO email
 
