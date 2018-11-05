@@ -479,7 +479,7 @@ class Tmsm_Frontend_Optimizations_Public {
 	 * @param WP_User_Request $request_data The request that is initiating the notification.
 	 */
 	function user_request_confirmed_email_to($email, $request_data){
-		$email = 'dpo@thalassotherapie.com, nmollet@thalassotherapie.com';
+		$email = 'dpo@thalassotherapie.com';
 
 		return $email;
 	}
