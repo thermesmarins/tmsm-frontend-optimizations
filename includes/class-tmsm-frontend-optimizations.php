@@ -250,6 +250,9 @@ class Tmsm_Frontend_Optimizations {
 		// WP Rocket
 		$this->loader->add_filter( 'rocket_lazyload_excluded_attributes', $plugin_public, 'rocket_lazyload_excluded_attributes_elementor', 10 );
 
+		// GDPR Data Request Recipient
+		$this->loader->add_filter( 'user_request_confirmed_email_to', $plugin_public, 'user_request_confirmed_email_to', 10 );
+
 	}
 
 	/**

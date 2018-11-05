@@ -1,3 +1,4 @@
+* Recipient of the data request confirmation notification
 * WP Rocket: Lazyload, Exclude attributes from Elementor
 
 ### 1.0.5: August 28th, 2018

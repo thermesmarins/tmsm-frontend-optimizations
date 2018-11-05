@@ -464,4 +464,23 @@ class Tmsm_Frontend_Optimizations_Public {
 		return $attributes;
 	}
 
+	/**
+	 * Recipient of the data request confirmation notification
+	 *
+	 * In a Multisite environment, this will default to the email address of the
+	 * network admin because, by default, single site admins do not have the
+	 * capabilities required to process requests. Some networks may wish to
+	 * delegate those capabilities to a single-site admin, or a dedicated person
+	 * responsible for managing privacy requests.
+	 *
+	 * @since 1.0.6
+	 *
+	 * @param string          $email  The email address of the notification recipient.
+	 * @param WP_User_Request $request_data The request that is initiating the notification.
+	 */
+	function user_request_confirmed_email_to($email, $request_data){
+		$email = 'dpo@thalassotherapie.com, nmollet@thalassotherapie.com';
+
+		return $email;
+	}
 }
