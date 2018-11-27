@@ -1,4 +1,4 @@
-### 1.0.8: December 27th, 2018
+### 1.0.8: November 27th, 2018
 * Hide WordPress logo on GDPR confirmation page
 * OptinMonster script to footer
 
