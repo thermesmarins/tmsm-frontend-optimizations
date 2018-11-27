@@ -178,7 +178,8 @@ class Tmsm_Frontend_Optimizations_Public {
 				'optin-monster-api-script',
 				'wp-mediaelement',
 				'visualizer-google-jsapi',
-				'visualizer-render'
+				'visualizer-render',
+				'optinmonster-api-script',
 			);
 		} );
 
