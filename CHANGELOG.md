@@ -1,3 +1,4 @@
+### 1.0.9: December 7th, 2018
 * WooCommerce Scheduled Sales: everyday, sales start, cache should be emptied (WP Rocket)
 
 ### 1.0.8: November 27th, 2018
