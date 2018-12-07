@@ -1,3 +1,5 @@
+* WooCommerce Scheduled Sales: everyday, sales start, cache should be emptied (WP Rocket)
+
 ### 1.0.8: November 27th, 2018
 * Hide WordPress logo on GDPR confirmation page
 * OptinMonster script to footer

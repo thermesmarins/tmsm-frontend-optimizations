@@ -484,4 +484,17 @@ class Tmsm_Frontend_Optimizations_Public {
 
 		return $email;
 	}
+
+	/**
+	 * WooCommerce Scheduled Sales: everyday, sales start, cache should be emptied (WP Rocket)
+	 *
+	 * @since 1.0.9
+	 */
+	function woocommerce_scheduled_sales_empty_cache(){
+		// Clear WP Rocket Cache (whole site)
+		if ( function_exists( 'rocket_clean_domain' ) ) {
+			rocket_clean_domain();
+		}
+	}
+
 }

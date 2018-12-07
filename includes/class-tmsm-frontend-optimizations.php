@@ -253,6 +253,9 @@ class Tmsm_Frontend_Optimizations {
 		// GDPR Data Request Recipient
 		$this->loader->add_filter( 'user_request_confirmed_email_to', $plugin_public, 'user_request_confirmed_email_to', 10 );
 
+		// WooCommerce
+		$this->loader->add_action( 'woocommerce_scheduled_sales', $plugin_public, 'woocommerce_scheduled_sales_empty_cache', 200 );
+
 	}
 
 	/**
