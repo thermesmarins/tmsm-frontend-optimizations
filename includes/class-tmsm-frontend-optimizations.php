@@ -237,6 +237,9 @@ class Tmsm_Frontend_Optimizations {
 
 		// Jetpack
 		$this->loader->add_action( 'loop_start', $plugin_public, 'jetpack_remove_share', 10 );
+		add_filter( 'jetpack_tools_to_include', function( $tools ) {
+			return array_diff( $tools, array( 'geo-location.php' ) );
+		} );
 
 		// Google Tag Manager
 		$this->loader->add_action( 'ocean_before_outer_wrap', $plugin_public, 'googletagmanager_after_body', 10 ); // For OceanWP theme

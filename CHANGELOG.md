@@ -1,3 +1,5 @@
+* Remove Jetpack Geo Location module
+
 ### 1.0.9: December 7th, 2018
 * WooCommerce Scheduled Sales: everyday, sales start, cache should be emptied (WP Rocket)
 
