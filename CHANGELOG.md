@@ -1,3 +1,4 @@
+### 1.0.10: April 1st, 2019
 * Remove Jetpack Geo Location module
 
 ### 1.0.9: December 7th, 2018
