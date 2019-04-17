@@ -390,6 +390,57 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * Gravity Forms: Execute Personal Data Requests
+	 *
+	 * @param array $form The Form object
+	 */
+	public function gform_pre_submission_personal_data( $form ) {
+
+		$radio_fields = GFAPI::get_fields_by_type( $form, array( 'radio' ), true );
+
+		$personal_data_type  = null;
+		$personal_data_email = null;
+
+		// Look for a personal data type field
+		foreach ( $radio_fields as $field ) {
+			if ( $field['cssClass'] === 'personal_data' ) { // CSS class has to be "personal_data"
+				$personal_data_type = RGFormsModel::get_field_value( $field );
+			}
+		}
+
+		// Found personal data type field
+		if ( ! empty( $personal_data_type ) ) {
+
+			if ( in_array( $personal_data_type, array( 'export_personal_data', 'remove_personal_data' ), true ) ) {
+
+				// Look for an email field
+				$email_fields = GFAPI::get_fields_by_type( $form, array( 'email' ) );
+				foreach ( $email_fields as $field ) {
+					$personal_data_email = RGFormsModel::get_field_value( $field );
+				}
+
+				// Found personal data email field
+				if ( ! empty( $personal_data_email ) ) {
+					$personal_data_email = is_array($personal_data_email) ? $personal_data_email[0] : $personal_data_email;
+
+					if(is_email($personal_data_email)){
+
+						// Create personal data request
+						$request_id = wp_create_user_request( $personal_data_email, $personal_data_type );
+						if ( is_wp_error( $request_id ) ) {
+							error_log('request_id #'.$request_id. ': '.$request_id->get_error_message());
+						}
+						else{
+							// Send personal data request confirmation
+							wp_send_user_request( $request_id );
+						}
+					}
+				}
+			}
+		}
+	}
+
+	/**
 	 * Google Tag Manager: inject tag after body in OceanWP theme
 	 */
 	public function googletagmanager_after_body(){

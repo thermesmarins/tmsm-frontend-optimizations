@@ -1,3 +1,4 @@
+* Gravity Forms function execute personal data requests
 * Fix DPO recipient function fatal error
 
 ### 1.0.10: April 1st, 2019

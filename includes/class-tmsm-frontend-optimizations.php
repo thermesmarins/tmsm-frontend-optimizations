@@ -234,6 +234,7 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_filter( 'gform_cdata_open', $plugin_public, 'gravityforms_wrap_gform_cdata_open', 10 );
 		$this->loader->add_action( 'gform_enqueue_scripts', $plugin_public, 'gravityforms_dequeue_stylesheets', 10 );
 		$this->loader->add_action( 'gform_ip_address', $plugin_public, 'gravityforms_donotcollect_ipaddress', 10 );
+		$this->loader->add_action( 'gform_pre_submission', $plugin_public, 'gform_pre_submission_personal_data', 10, 1 );
 
 		// Jetpack
 		$this->loader->add_action( 'loop_start', $plugin_public, 'jetpack_remove_share', 10 );
