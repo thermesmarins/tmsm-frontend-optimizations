@@ -476,10 +476,12 @@ class Tmsm_Frontend_Optimizations_Public {
 	 *
 	 * @since 1.0.6
 	 *
-	 * @param string          $email  The email address of the notification recipient.
+	 * @param string          $email        The email address of the notification recipient.
 	 * @param WP_User_Request $request_data The request that is initiating the notification.
+	 *
+	 * @return string
 	 */
-	function user_request_confirmed_email_to($email, $request_data){
+	function user_request_confirmed_email_to_dpo( $email, $request_data ) {
 		$email = 'dpo@thalassotherapie.com';
 
 		return $email;
