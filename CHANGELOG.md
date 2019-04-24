@@ -1,3 +1,5 @@
+* Prevent duplicate transactions by checking paid date: if paid date is older than 24 hours, do not fire Google Tag Manager
+
 ### 1.1.0: April 17th, 2019
 * Gravity Forms function execute personal data requests
 * Fix DPO recipient function fatal error

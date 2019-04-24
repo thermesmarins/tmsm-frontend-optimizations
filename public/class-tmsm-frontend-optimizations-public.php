@@ -460,10 +460,21 @@ class Tmsm_Frontend_Optimizations_Public {
 		if ( function_exists('is_order_received_page') && is_order_received_page() ) {
 			if ( ! empty( $wp->query_vars['order-received'] ) ) {
 
+				echo '***order-received***';
 				$order = wc_get_order( absint( $wp->query_vars['order-received'] ) );
 
+				// Check if paid date is in the past 24 hours
+				if ( ! empty( $order ) && ! empty( $order->get_date_paid() ) ) {
+					$paid_time = $order->get_date_paid()->getTimestamp();
+					$time = time();
+					$difference = $time - $paid_time;
+					if($difference > 24 * 3600){ // order paid for more than 24 hours, remove the tag
+						$tag = '';
+					}
+				}
+
 				// Order is not paid, remove the tag
-				if ( !empty($order) && !$order->is_paid() ) {
+				if ( ! empty( $order ) && ! $order->is_paid() ) {
 					$tag = '';
 				}
 
