@@ -460,7 +460,6 @@ class Tmsm_Frontend_Optimizations_Public {
 		if ( function_exists('is_order_received_page') && is_order_received_page() ) {
 			if ( ! empty( $wp->query_vars['order-received'] ) ) {
 
-				echo '***order-received***';
 				$order = wc_get_order( absint( $wp->query_vars['order-received'] ) );
 
 				// Check if paid date is in the past 24 hours
