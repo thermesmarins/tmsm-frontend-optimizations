@@ -1,3 +1,5 @@
+* **New** - Empty cache when TAO Schedule Update is fired
+
 ### 1.1.2: April 30th, 2019
 * Remove debug
 

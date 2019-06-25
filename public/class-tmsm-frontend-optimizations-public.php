@@ -564,4 +564,17 @@ class Tmsm_Frontend_Optimizations_Public {
 		}
 	}
 
+	/**
+	 * Empty cache when TAO Schedule Update is fired
+	 *
+	 * @since 1.1.3
+	 */
+	function tao_publish_post_emptycache(){
+
+		// Clear WP Rocket Cache (whole site)
+		if ( function_exists( 'rocket_clean_domain' ) ) {
+			rocket_clean_domain();
+		}
+	}
+
 }
