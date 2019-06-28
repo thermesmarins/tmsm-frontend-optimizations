@@ -462,23 +462,19 @@ class Tmsm_Frontend_Optimizations_Public {
 
 				$order = wc_get_order( absint( $wp->query_vars['order-received'] ) );
 
-				error_log('order received: '.$order->get_id());
 				// Check if paid date is in the past 24 hours
 				if ( ! empty( $order ) && ! empty( $order->get_date_paid() ) ) {
 					$paid_time = $order->get_date_paid()->getTimestamp();
 					$time = time();
 					$difference = $time - $paid_time;
-					error_log('order timestamp: '.$paid_time);
 					if($difference > 24 * 3600){ // order paid for more than 24 hours, remove the tag
-						error_log('order is 24 hours old');
-						$tag = '';
+						$tag = '<!-- order is 24 hours old -->';
 					}
 				}
 
 				// Order is not paid, remove the tag
 				if ( ! empty( $order ) && ! $order->is_paid() ) {
-					error_log('order not paid');
-					$tag = '';
+					$tag = '<!-- order not paid -->';
 				}
 
 			}
