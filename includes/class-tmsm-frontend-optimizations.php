@@ -205,7 +205,6 @@ class Tmsm_Frontend_Optimizations {
 		remove_action('wp_head', 'wp_generator');
 		remove_action('wp_head', 'wp_shortlink_wp_head');
 
-
 		// Cookies
 		remove_action('set_comment_cookies', 'wp_set_comment_cookies');
 
@@ -262,6 +261,9 @@ class Tmsm_Frontend_Optimizations {
 
 		// TAO Schedule Update
 		$this->loader->add_action( 'tao_publish_post', $plugin_public, 'tao_publish_post_emptycache', 200 );
+
+		// Script loader tag
+		$this->loader->add_filter( 'script_loader_tag', $plugin_public, 'script_loader_tag', 10, 3 );
 
 	}
 

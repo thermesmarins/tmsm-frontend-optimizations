@@ -573,4 +573,22 @@ class Tmsm_Frontend_Optimizations_Public {
 		}
 	}
 
+	/**
+	 * Filters the HTML script tag of an enqueued script.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $tag    The `<script>` tag for the enqueued script.
+	 * @param string $handle The script's registered handle.
+	 * @param string $src    The script's source URL.
+	 *
+	 * @return string
+	 */
+	function script_loader_tag( $tag, $handle, $src )
+	{
+		$tag = '<script id="js-'.$handle.'" data-name="'.$handle.'" src="' . esc_url( $src ) . '"></script>';
+
+		return $tag;
+	}
+
 }

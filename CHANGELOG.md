@@ -1,4 +1,5 @@
 * **Tweak** - Remove debug notices
+* **New** - Script Tag now with "data-name" attribute
 
 ### 1.1.3: June 25th, 2019
 * **New** - Empty cache when TAO Schedule Update is fired
