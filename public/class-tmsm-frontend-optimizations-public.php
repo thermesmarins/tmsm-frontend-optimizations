@@ -586,7 +586,10 @@ class Tmsm_Frontend_Optimizations_Public {
 	 */
 	function script_loader_tag( $tag, $handle, $src )
 	{
-		$tag = '<script id="js-'.$handle.'" data-name="'.$handle.'" src="' . esc_url( $src ) . '"></script>';
+
+		if ( ! class_exists('\Elementor\Plugin') || ( class_exists('\Elementor\Plugin') && (! \Elementor\Plugin::$instance->preview->is_preview_mode() && ! \Elementor\Plugin::$instance->editor->is_edit_mode())) ) {
+			$tag = '<script id="js-'.$handle.'" data-name="'.$handle.'" src="' . esc_url( $src ) . '"></script>';
+		}
 
 		return $tag;
 	}
