@@ -1,3 +1,4 @@
+### 1.1.4: August 07th, 2019
 * **Tweak** - Remove debug notices
 * **New** - Script Tag now with "data-name" attribute
 * **Tweak** - Paypal Checkout: Make Billing Address not Required
