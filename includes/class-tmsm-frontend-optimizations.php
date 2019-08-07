@@ -265,6 +265,9 @@ class Tmsm_Frontend_Optimizations {
 		// Script loader tag
 		$this->loader->add_filter( 'script_loader_tag', $plugin_public, 'script_loader_tag', 10, 3 );
 
+		// Paypal Checkout
+		$this->loader->add_filter( 'woocommerce_paypal_express_checkout_address_not_required', $plugin_public, 'woocommerce_paypal_checkout_address_not_required', 10, 1 );
+
 	}
 
 	/**

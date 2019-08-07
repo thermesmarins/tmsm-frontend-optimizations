@@ -587,6 +587,10 @@ class Tmsm_Frontend_Optimizations_Public {
 	function script_loader_tag( $tag, $handle, $src )
 	{
 
+		if ( is_admin()){
+			return $tag;
+		}
+
 		if ( ! class_exists('\Elementor\Plugin') || ( class_exists('\Elementor\Plugin') && (! \Elementor\Plugin::$instance->preview->is_preview_mode() && ! \Elementor\Plugin::$instance->editor->is_edit_mode())) ) {
 			$tag = '<script id="js-'.$handle.'" data-name="'.$handle.'" src="' . esc_url( $src ) . '"></script>';
 		}
@@ -594,4 +598,16 @@ class Tmsm_Frontend_Optimizations_Public {
 		return $tag;
 	}
 
+
+	/**
+	 * Paypal Checkout: Make Billing Address not Required
+	 *
+	 * @param bool $address_not_required
+	 *
+	 * @return bool
+	 */
+	function woocommerce_paypal_checkout_address_not_required($address_not_required){
+		$address_not_required = false;
+		return $address_not_required;
+	}
 }
