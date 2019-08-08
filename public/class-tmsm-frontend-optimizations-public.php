@@ -592,7 +592,8 @@ class Tmsm_Frontend_Optimizations_Public {
 		}
 
 		if ( ! class_exists('\Elementor\Plugin') || ( class_exists('\Elementor\Plugin') && (! \Elementor\Plugin::$instance->preview->is_preview_mode() && ! \Elementor\Plugin::$instance->editor->is_edit_mode())) ) {
-			$tag = '<script id="js-'.$handle.'" data-name="'.$handle.'" src="' . esc_url( $src ) . '"></script>';
+			//$tag = '<script id="js-'.$handle.'" data-name="'.$handle.'" src="' . esc_url( $src ) . '"></script>';
+			$tag = str_replace( '<script type=\'text/javascript\' src', '<script id="js-'.$handle.'" data-name="'.$handle.'" type=\'text/javascript\' src', $tag );
 		}
 
 		return $tag;
