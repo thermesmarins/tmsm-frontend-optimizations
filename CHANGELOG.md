@@ -1,3 +1,4 @@
+### 1.1.5: August 08th, 2019
 * **Fix** - Script Tag broken when inline script
 
 ### 1.1.4: August 07th, 2019
