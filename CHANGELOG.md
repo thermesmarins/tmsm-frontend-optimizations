@@ -1,3 +1,5 @@
+* **New** - GitHub Actions for code review
+
 ### 1.1.5: August 08th, 2019
 * **Fix** - Script Tag broken when inline script
 
