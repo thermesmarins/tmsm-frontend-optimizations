@@ -1,11 +1,10 @@
-workflow "PHPCS Inspections" {
-  resolves = ["Run phpcs inspection"]
-  on = "push"
+workflow "Run Code Review" {
+  resolves = ["PHPCS Code Review"]
+  on = "pull_request"
 }
 
-action "Run phpcs inspection" {
-  uses = "rtCamp/rtCamp/action-phpcs-inspection@master"
-  env = {
-    DIFF_BASE="master"
-  }
+action "PHPCS Code Review" {
+  uses = "rtCamp/action-phpcs-code-review@master"
+  secrets = ["GH_BOT_TOKEN"]
+  args = ["WordPress,WordPress-Core,WordPress-Docs"]
 }
