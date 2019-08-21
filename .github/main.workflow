@@ -1,6 +1,6 @@
 workflow "Run Code Review" {
   resolves = ["PHPCS Code Review"]
-  on = "pull_request"
+  on = "push"
 }
 
 action "PHPCS Code Review" {
