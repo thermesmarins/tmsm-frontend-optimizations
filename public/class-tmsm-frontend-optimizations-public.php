@@ -543,7 +543,7 @@ class Tmsm_Frontend_Optimizations_Public {
 	 * @return string
 	 */
 	function user_request_confirmed_email_to_dpo( $email, $request_data ) {
-		$email = 'dpo@thalassotherapie.com';
+		$email = 'dpo@thalasso-saintmalo.com';
 
 		return $email;
 	}
