@@ -1,3 +1,5 @@
+* **New** - Customize password hint text to explain better what WooCommerce customers must respect
+
 ### 1.1.6: November 08th, 2019
 * **New** - GitHub Actions for code review
 * **Tweak** - Update dpo email

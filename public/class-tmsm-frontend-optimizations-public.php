@@ -561,6 +561,21 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * Filters the text describing the site's password complexity policy.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $hint The password hint text.
+	 *
+	 * @return string
+	 */
+	function password_hint( $hint ) {
+
+		$hint = __( 'The password must be at least twelve characters long. Use at least one upper case letter, one lower case letter, one number, and one symbol like ! ? $ % ^ &amp; ).', 'tmsm-frontend-optimizations' );
+		return $hint;
+	}
+
+	/**
 	 * Empty cache when TAO Schedule Update is fired
 	 *
 	 * @since 1.1.3
