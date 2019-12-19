@@ -1,3 +1,4 @@
+### 1.1.7: December 19th, 2019
 * **New** - Customize password hint text to explain better what WooCommerce customers must respect
 
 ### 1.1.6: November 08th, 2019
