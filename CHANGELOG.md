@@ -1,3 +1,4 @@
+### 1.1.8: January 7th, 2020
 * **New** - WooCommerce Advanced Messages: add "after summary" location for Product 
 
 ### 1.1.7: December 19th, 2019
