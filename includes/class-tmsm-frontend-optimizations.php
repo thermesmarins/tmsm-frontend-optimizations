@@ -269,6 +269,9 @@ class Tmsm_Frontend_Optimizations {
 		// Paypal Checkout
 		$this->loader->add_filter( 'woocommerce_paypal_express_checkout_address_not_required', $plugin_public, 'woocommerce_paypal_checkout_address_not_required', 10, 1 );
 
+		// WooCommerce Advanced messages
+		$this->loader->add_filter( 'wcam_locations', $plugin_public, 'wcam_locations', 10, 1 );
+
 	}
 
 	/**

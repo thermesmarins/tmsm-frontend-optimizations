@@ -626,4 +626,31 @@ class Tmsm_Frontend_Optimizations_Public {
 		$address_not_required = false;
 		return $address_not_required;
 	}
+
+
+	/**
+	 * WooCommerce Advanced Messages: Get locations.
+	 *
+	 * Get all the location groups, names containing hook, priority, type and name.
+	 * Used (but not only) for the 'location' setting.
+	 *
+	 * @since 1.1.8
+	 *
+	 * @return array List of location groups containing location_name + data.
+	 */
+	function wcam_locations($locations){
+
+		$locations['Product']['woocommerce_single_product_summary_excerpt_ocean'] = array(
+			'action_hook' => 'ocean_after_single_product_excerpt',
+			'priority'    => 15,
+			'name'        => 'After product summary (with Ocean theme)',
+		);
+		$locations['Product']['woocommerce_single_product_summary_excerpt'] = array(
+			'action_hook' => 'woocommerce_single_product_summary',
+			'priority'    => 30,
+			'name'        => 'After product summary (with standard theme)',
+		);
+
+		return $locations;
+	}
 }

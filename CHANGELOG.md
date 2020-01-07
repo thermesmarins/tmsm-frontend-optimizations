@@ -1,3 +1,5 @@
+* **New** - WooCommerce Advanced Messages: add "after summary" location for Product 
+
 ### 1.1.7: December 19th, 2019
 * **New** - Customize password hint text to explain better what WooCommerce customers must respect
 
