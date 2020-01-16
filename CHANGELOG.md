@@ -1,3 +1,4 @@
+### 1.2.0: January 16th, 2020
 * **New** - WooCommerce Style Password Strength Hint
 
 ### 1.1.9: January 16th, 2020
