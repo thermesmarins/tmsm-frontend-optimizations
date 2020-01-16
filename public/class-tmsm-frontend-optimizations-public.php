@@ -578,6 +578,8 @@ class Tmsm_Frontend_Optimizations_Public {
 	/**
 	 * WooCommerce Lower Password Strength: 0 - Anything, 1 - Weakest, 2 - Weak, 3 - Medium (Default), 4 - Strong
 	 *
+	 * @since 1.1.8
+	 *
 	 * @return int
 	 */
 	function woocommerce_min_password_strength() {
