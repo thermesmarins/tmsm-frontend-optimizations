@@ -8,7 +8,7 @@ body.login-action-confirmaction h1{
 }
 
 .woocommerce-password-strength,
-.woocommerce-password-strength.short
+.woocommerce-password-strength.short,
 .woocommerce-password-strength.bad {
   color: darkred;
 }
