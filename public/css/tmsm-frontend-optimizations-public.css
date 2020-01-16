@@ -6,3 +6,13 @@
 body.login-action-confirmaction h1{
   display: none;
 }
+
+.woocommerce-password-strength,
+.woocommerce-password-strength.short
+.woocommerce-password-strength.bad {
+  color: darkred;
+}
+
+.woocommerce-password-strength.strong {
+  color: darkgreen;
+}
