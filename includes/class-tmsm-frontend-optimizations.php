@@ -259,6 +259,7 @@ class Tmsm_Frontend_Optimizations {
 		// WooCommerce
 		$this->loader->add_action( 'woocommerce_scheduled_sales', $plugin_public, 'woocommerce_scheduled_sales_empty_cache', 200 );
 		$this->loader->add_filter( 'password_hint', $plugin_public, 'password_hint', 10, 1 );
+		$this->loader->add_filter( 'woocommerce_min_password_strength', $plugin_public, 'woocommerce_min_password_strength', 10, 0 );
 
 		// TAO Schedule Update
 		$this->loader->add_action( 'tao_publish_post', $plugin_public, 'tao_publish_post_emptycache', 200 );

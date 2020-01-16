@@ -1,3 +1,5 @@
+* **New** - WooCommerce Lower Password Strength to Weak
+
 ### 1.1.8: January 7th, 2020
 * **New** - WooCommerce Advanced Messages: add "after summary" location for Product 
 

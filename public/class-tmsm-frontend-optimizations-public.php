@@ -576,6 +576,17 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * WooCommerce Lower Password Strength: 0 - Anything, 1 - Weakest, 2 - Weak, 3 - Medium (Default), 4 - Strong
+	 *
+	 * @return int
+	 */
+	function woocommerce_min_password_strength() {
+		$strength = 2;
+
+		return intval( $strength );
+	}
+
+	/**
 	 * Empty cache when TAO Schedule Update is fired
 	 *
 	 * @since 1.1.3
