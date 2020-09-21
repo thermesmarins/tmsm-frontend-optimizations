@@ -1,3 +1,5 @@
+* **New** - Oembed: YouTube videos always with rel=0 modestbranding=1 showinfo=0
+
 ### 1.2.0: January 16th, 2020
 * **New** - WooCommerce Style Password Strength Hint
 

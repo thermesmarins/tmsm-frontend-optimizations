@@ -666,4 +666,19 @@ class Tmsm_Frontend_Optimizations_Public {
 
 		return $locations;
 	}
+
+	/**
+	 * Remove YouTube related content and have modestbranding always on
+	 *
+	 * @param $html
+	 * @param $url
+	 * @param $attr
+	 * @param $post_ID
+	 *
+	 * @return mixed
+	 */
+	function oembed_result_modest( $html, $url, $attr, $post_ID ) {
+		return str_replace( 'feature=oembed', 'feature=oembed&modestbranding=1&showinfo=0&rel=0', $html );
+	}
+
 }

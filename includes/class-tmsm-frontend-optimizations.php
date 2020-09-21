@@ -273,6 +273,9 @@ class Tmsm_Frontend_Optimizations {
 		// WooCommerce Advanced messages
 		$this->loader->add_filter( 'wcam_locations', $plugin_public, 'wcam_locations', 10, 1 );
 
+		// Oembed content
+		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'oembed_result_modest', 100, 4 );
+
 	}
 
 	/**
