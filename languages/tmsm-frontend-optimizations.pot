@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TMSM Frontend Optimizations\n"
-"POT-Creation-Date: 2019-12-19 13:23+0100\n"
+"POT-Creation-Date: 2020-10-26 10:22+0100\n"
 "PO-Revision-Date: 2014-10-24 21:08+0100\n"
 "Last-Translator: Nicolas Mollet <nico.mollet@gmail.com>\n"
 "Language-Team: https://github.com/thermesmarins/\n"
@@ -18,7 +18,11 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:574
+#: ../public/class-tmsm-frontend-optimizations-public.php:565
+msgid "Payment Failed"
+msgstr ""
+
+#: ../public/class-tmsm-frontend-optimizations-public.php:594
 msgid ""
 "The password must be at least twelve characters long. Use at "
 "least one upper case letter, one lower case letter, one number, "

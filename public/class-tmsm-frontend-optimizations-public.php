@@ -549,6 +549,26 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * WooCommerce customize the "order received" page title when payment failed
+	 *
+	 * @since 1.2.2
+	 * @param string $title
+	 *
+	 * @return string
+	 */
+	function woocommerce_endpoint_order_received_title( string $title ){
+		global $wp;
+		$order_id  = isset( $wp->query_vars['order-received'] ) ? absint( $wp->query_vars['order-received'] ) : 0;
+		$order     = wc_get_order( $order_id );
+
+		if ( $order && $order->has_status( 'failed' ) ) {
+			return __( 'Payment Failed', 'tmsm-frontend-optimizations' );
+		}
+
+		return $title;
+	}
+
+	/**
 	 * WooCommerce Scheduled Sales: everyday, sales start, cache should be emptied (WP Rocket)
 	 *
 	 * @since 1.0.9

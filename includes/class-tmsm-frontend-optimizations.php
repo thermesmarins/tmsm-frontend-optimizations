@@ -257,6 +257,7 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_filter( 'user_request_confirmed_email_to', $plugin_public, 'user_request_confirmed_email_to_dpo', 10, 2 );
 
 		// WooCommerce
+		$this->loader->add_action( 'woocommerce_endpoint_order-received_title', $plugin_public, 'woocommerce_endpoint_order_received_title', 200 );
 		$this->loader->add_action( 'woocommerce_scheduled_sales', $plugin_public, 'woocommerce_scheduled_sales_empty_cache', 200 );
 		$this->loader->add_filter( 'password_hint', $plugin_public, 'password_hint', 10, 1 );
 		$this->loader->add_filter( 'woocommerce_min_password_strength', $plugin_public, 'woocommerce_min_password_strength', 10, 0 );
