@@ -609,6 +609,37 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * WooCommerce Gateway Icon for COD
+	 *
+	 * @since 1.2.3
+	 *
+	 * @param string $icon The icon html markup
+	 * @param string $payment_gateway_id The Payment Method ID
+	 *
+	 * @return string
+	 */
+	function woocommerce_cod_icon( ) {
+
+		$icon = '';
+		$payment_gateway_id = 'cod';
+
+		// Get an instance of the WC_Payment_Gateways object
+		$payment_gateways   = WC_Payment_Gateways::instance();
+
+		// Get the desired WC_Payment_Gateway object
+		$payment_gateway    = $payment_gateways->payment_gateways()[$payment_gateway_id];
+		if ( is_a( $payment_gateway, 'WC_Payment_Gateway' ) ) {
+			//$payment_gateway->icon = TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL . '/public/img/cod-payment-icon.png';
+			$payment_gateway->icon = '';
+
+			$icon = $payment_gateway->icon ? '<img src="' . WC_HTTPS::force_https_url( $payment_gateway->icon ) . '" alt="'
+			                                 . esc_attr( $payment_gateway->get_title() ) . '" />' : '';
+		}
+
+		return $icon;
+	}
+
+	/**
 	 * Empty cache when TAO Schedule Update is fired
 	 *
 	 * @since 1.1.3

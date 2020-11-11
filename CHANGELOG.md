@@ -1,3 +1,5 @@
+* Prepare payment gateway icon for "Cash on Delivery"
+
 ### 1.2.2: October 26th, 2020
 * **New** - WooCommerce: customer the order received title page when payment failed
 

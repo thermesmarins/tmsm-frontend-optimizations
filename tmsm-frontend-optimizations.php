@@ -39,6 +39,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Rename this for your plugin and update it as you release new versions.
  */
 define( 'TMSM_FRONTEND_OPTIMIZATIONS_VERSION', '1.2.2' );
+defined( 'TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL' ) || define( 'TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL', plugin_dir_url( __FILE__ ) );
 
 /**
  * The code that runs during plugin activation.
