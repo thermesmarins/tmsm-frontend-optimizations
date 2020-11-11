@@ -629,14 +629,27 @@ class Tmsm_Frontend_Optimizations_Public {
 		// Get the desired WC_Payment_Gateway object
 		$payment_gateway    = $payment_gateways->payment_gateways()[$payment_gateway_id];
 		if ( is_a( $payment_gateway, 'WC_Payment_Gateway' ) ) {
-			//$payment_gateway->icon = TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL . '/public/img/cod-payment-icon.png';
-			$payment_gateway->icon = '';
+			$payment_gateway->icon = TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL . '/public/img/cod-payment-icon.png';
 
 			$icon = $payment_gateway->icon ? '<img src="' . WC_HTTPS::force_https_url( $payment_gateway->icon ) . '" alt="'
 			                                 . esc_attr( $payment_gateway->get_title() ) . '" />' : '';
 		}
 
 		return $icon;
+	}
+
+	/**
+	 * WooCommerce: Override Shipping Classes
+	 *
+	 * @param array $shipping_classes
+	 *
+	 * @return array
+	 */
+	public function woocommerce_get_shipping_classes_localpickup( array $shipping_classes ){
+
+		//error_log(print_r($shipping_classes, true));
+
+		return $shipping_classes;
 	}
 
 	/**

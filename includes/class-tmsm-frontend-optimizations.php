@@ -262,6 +262,7 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_filter( 'password_hint', $plugin_public, 'password_hint', 10, 1 );
 		$this->loader->add_filter( 'woocommerce_min_password_strength', $plugin_public, 'woocommerce_min_password_strength', 10, 0 );
 		$this->loader->add_filter( 'woocommerce_cod_icon', $plugin_public, 'woocommerce_cod_icon', 10 );
+		$this->loader->add_filter( 'woocommerce_get_shipping_classes', $plugin_public, 'woocommerce_get_shipping_classes_localpickup', 10 );
 
 		// TAO Schedule Update
 		$this->loader->add_action( 'tao_publish_post', $plugin_public, 'tao_publish_post_emptycache', 200 );
