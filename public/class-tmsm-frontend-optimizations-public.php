@@ -618,38 +618,88 @@ class Tmsm_Frontend_Optimizations_Public {
 	 *
 	 * @return string
 	 */
-	function woocommerce_cod_icon( ) {
+	public function woocommerce_cod_icon_travel( ) {
 
-		$icon = '';
-		$payment_gateway_id = 'cod';
+		$icon = '<img src="' . WC_HTTPS::force_https_url( TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL . '/public/img/cod-payment-icon.png' ) .
+		'" alt="' 		. esc_attr( __( 'Cash on Delivery', 'tmsm-frontend-optimizations' ) ) . '" />';
 
-		// Get an instance of the WC_Payment_Gateways object
-		$payment_gateways   = WC_Payment_Gateways::instance();
-
-		// Get the desired WC_Payment_Gateway object
-		$payment_gateway    = $payment_gateways->payment_gateways()[$payment_gateway_id];
-		if ( is_a( $payment_gateway, 'WC_Payment_Gateway' ) ) {
-			$payment_gateway->icon = TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL . '/public/img/cod-payment-icon.png';
-
-			$icon = $payment_gateway->icon ? '<img src="' . WC_HTTPS::force_https_url( $payment_gateway->icon ) . '" alt="'
-			                                 . esc_attr( $payment_gateway->get_title() ) . '" />' : '';
-		}
-
+		$icon = WC_HTTPS::force_https_url( TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL . '/public/img/cod-payment-icon.png' ) ;
 		return $icon;
 	}
 
 	/**
-	 * WooCommerce: Override Shipping Classes
+	 * WooCommerce: hide shipping when products marked as "local pickup only" are in the cart
 	 *
-	 * @param array $shipping_classes
+	 * The shipping class "local-pickup-only" needs to be created first.
+	 * Then assign the products that are have "local pickup only" to this class
+	 *
+	 * @since 1.2.3
+	 *
+	 * @param array $rates
+	 * @param array $package
 	 *
 	 * @return array
 	 */
-	public function woocommerce_get_shipping_classes_localpickup( array $shipping_classes ){
+	function woocommerce_package_rates_hide_shipping_on_local_pickup_required( $rates, $package )
+	{
+		$shipping_class_local_pickup_only = 'local_pickup_only';
 
-		//error_log(print_r($shipping_classes, true));
+		$local = [];
 
-		return $shipping_classes;
+		foreach( $package['contents'] as $item )
+		{
+			$product = $item['data'];
+			$shipping_class = $product->get_shipping_class();
+
+			if( $shipping_class == $shipping_class_local_pickup_only )
+			{
+				foreach( $rates as $rate_id => $rate )
+				{
+					if( in_array( $rate->method_id, array( 'local_pickup', 'legacy_local_pickup' ) ) )
+					{
+						//echo '*** il y a le local pickup';
+						$local[ $rate_id ] = $rate;
+						break;
+					}
+				}
+			}
+		}
+
+		return !empty( $local ) ? $local : $rates;
+	}
+
+	/**
+	 * WooCommerce: Hides local_pickup shipping method if no_local_pickup shipping class is found in cart
+	 *
+	 * @since 1.2.3
+	 *
+	 * @param $available_shipping_methods
+	 * @param $package
+	 *
+	 * @return mixed
+	 */
+	function woocommerce_package_rates_hide_local_pickup( $available_shipping_methods, $package ) {
+
+		$shipping_class_to_exclude = 'no_local_pickup';
+		$shipping_method_to_exclude = 'local_pickup';
+
+		$shipping_class_to_exclude_exists = false;
+		foreach(WC()->cart->cart_contents as $key => $values) {
+			if ($values['data']->get_shipping_class() == $shipping_class_to_exclude) {
+				$shipping_class_to_exclude_exists = true;
+				break;
+			}
+		}
+
+		if ($shipping_class_to_exclude_exists) {
+			foreach($available_shipping_methods as $rate_id => $rate) {
+				if($rate->method_id == $shipping_method_to_exclude){
+					unset($available_shipping_methods[$rate_id]);
+				}
+			}
+		}
+
+		return $available_shipping_methods;
 	}
 
 	/**

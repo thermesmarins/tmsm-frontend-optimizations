@@ -1,5 +1,7 @@
-* Prepare payment gateway icon for "Cash on Delivery"
-* Image for "Cash on Delivery" with payment means: cash, travel checks, gift checks
+### 1.2.3: November 11th, 2020
+* **New** - WooCommerce: Image for "Cash on Delivery" with payment means: cash, travel checks, gift checks
+* **New** - WooCommerce: hide shipping when products marked as "local pickup only" are in the cart (needs a shipping class with value=local_pickup_only"
+* **New** - WooCommerce: Hides local_pickup shipping method if no_local_pickup shipping class is found in cart
 
 ### 1.2.2: October 26th, 2020
 * **New** - WooCommerce: customer the order received title page when payment failed
