@@ -1,3 +1,4 @@
+### 1.2.4: November 12th, 2020
 * **Fix** - Missing image for "Cash on Delivery"
 
 ### 1.2.3: November 11th, 2020
