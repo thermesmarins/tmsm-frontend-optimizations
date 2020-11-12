@@ -1,3 +1,5 @@
+* **Fix** - Missing image for "Cash on Delivery"
+
 ### 1.2.3: November 11th, 2020
 * **New** - WooCommerce: Image for "Cash on Delivery" with payment means: cash, travel checks, gift checks
 * **New** - WooCommerce: hide shipping when products marked as "local pickup only" are in the cart (needs a shipping class with value=local_pickup_only"
