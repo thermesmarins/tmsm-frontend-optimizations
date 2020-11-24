@@ -614,11 +614,10 @@ class Tmsm_Frontend_Optimizations_Public {
 	 * @since 1.2.3
 	 *
 	 * @param string $icon The icon html markup
-	 * @param string $payment_gateway_id The Payment Method ID
 	 *
 	 * @return string
 	 */
-	public function woocommerce_cod_icon_travel( ) {
+	public function woocommerce_cod_icon_travel( $icon ) {
 
 		$icon = '<img src="' . WC_HTTPS::force_https_url( TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL . '/public/img/cod-payment-icon.png' ) .
 		'" alt="' 		. esc_attr( __( 'Cash on Delivery', 'tmsm-frontend-optimizations' ) ) . '" />';
