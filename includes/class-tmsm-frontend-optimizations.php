@@ -263,7 +263,7 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_filter( 'woocommerce_min_password_strength', $plugin_public, 'woocommerce_min_password_strength', 10, 0 );
 		$this->loader->add_filter( 'woocommerce_cod_icon', $plugin_public, 'woocommerce_cod_icon_travel', 10 );
 		$this->loader->add_filter( 'woocommerce_package_rates', $plugin_public, 'woocommerce_package_rates_hide_shipping_on_local_pickup_required', 10, 2 );
-		$this->loader->add_filter( 'woocommerce_package_rates', $plugin_public, 'woocommerce_package_rates_hide_local_pickup', 20, 2 );
+		$this->loader->add_action( 'woocommerce_product_meta_end', $plugin_public, 'woocommerce_product_meta_end', 50 );
 
 		// TAO Schedule Update
 		$this->loader->add_action( 'tao_publish_post', $plugin_public, 'tao_publish_post_emptycache', 200 );

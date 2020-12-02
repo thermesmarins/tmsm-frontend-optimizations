@@ -10,6 +10,8 @@
  * @subpackage Tmsm_Frontend_Optimizations/public
  */
 
+use Elementor\Plugin;
+
 /**
  * The public-facing functionality of the plugin.
  *
@@ -667,6 +669,65 @@ class Tmsm_Frontend_Optimizations_Public {
 		return !empty( $local ) ? $local : $rates;
 	}
 
+
+	/**
+	 * Display shipping options in product meta
+	 *
+	 * @since 1.2.5
+	 */
+	public function woocommerce_product_meta_end(){
+		global $product;
+		if(!empty($product) ){
+			if(!empty(WC()) && !empty(WC()->shipping())){
+
+				$package = array();
+				$package['destination']['country'] = get_option( 'woocommerce_default_country' );
+				$package['destination']['state'] = '';
+				$package['destination']['postcode'] = '';
+				$shipping_methods = WC()->shipping()->load_shipping_methods($package);
+				//print_r($shipping_methods);
+				foreach($shipping_methods as $shipping_method){
+
+					if($shipping_method->is_enabled() && !empty($shipping_method->get_title())){
+
+						// Free Shipping: displayed for all shipping options except if "Local Pickup Only" has been selected
+						if(!empty($product) && $product->get_type() !== 'external' && (empty($product->get_shipping_class_id()) || $product->get_shipping_class() !== 'local_pickup_only')){
+							if(!empty($shipping_method->id) && $shipping_method->id === 'free_shipping'){
+
+								// Requires min amount
+								if($shipping_method->get_option('requires') === 'min_amount' && !empty($shipping_method->get_option('min_amount')) && method_exists($shipping_method, 'get_title')){
+									echo '<p class="product_meta_freeshipping" '.(!current_user_can('manage_options') ? ' style="display:none" ':'').'>
+									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.sprintf(__('%1$s from %2$s','tmsm-frontend-optimizations'), $shipping_method->get_title(), strip_tags(wc_price($shipping_method->get_option('min_amount'), ['decimals'=> false]))).'</p>';
+								}
+
+								// Requires nothing
+								if($shipping_method->get_option('requires') === '' && method_exists($shipping_method, 'get_title')){
+									echo '<p class="product_meta_freeshipping" '.(!current_user_can('manage_options') ? ' style="display:none" ':'').'>
+									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.$shipping_method->get_title().'</p>';
+								}
+
+							}
+						}
+
+						// Lcaol Pickup: displayed for all shipping options except if "No Local Pickup" has been selected
+						if(!empty($product) && $product->get_type() !== 'external' && (empty($product->get_shipping_class_id()) || $product->get_shipping_class() !== 'no_local_pickup')){
+							if(!empty($shipping_method->id) && $shipping_method->id === 'local_pickup'){
+								if( method_exists($shipping_method, 'get_title') ){
+									echo '<p class="product_meta_localpickup" '.(!current_user_can('manage_options') ? ' style="display:none" ':'').'>
+									<span class="glyphicon glyphicon-forward fa fa-map-marker"></span> '.$shipping_method->get_title().'</p>';
+								}
+							}
+						}
+					}
+				}
+			}
+
+			// Secure payment
+			echo '<p class="product_meta_securepayment" '.(!current_user_can('manage_options') ? ' style="display:none" ':'').'><span class="glyphicon glyphicon-credit-card fa fa-credit-card"></span> '.__('Secure payments','tmsm-frontend-optimizations').'</p>';
+		}
+	}
+
+
 	/**
 	 * WooCommerce: Hides local_pickup shipping method if no_local_pickup shipping class is found in cart
 	 *
@@ -732,7 +793,7 @@ class Tmsm_Frontend_Optimizations_Public {
 			return $tag;
 		}
 
-		if ( ! class_exists('\Elementor\Plugin') || ( class_exists('\Elementor\Plugin') && (! \Elementor\Plugin::$instance->preview->is_preview_mode() && ! \Elementor\Plugin::$instance->editor->is_edit_mode())) ) {
+		if ( ! class_exists('\Elementor\Plugin') || ( class_exists('\Elementor\Plugin') && (! Plugin::$instance->preview->is_preview_mode() && ! Plugin::$instance->editor->is_edit_mode())) ) {
 			//$tag = '<script id="js-'.$handle.'" data-name="'.$handle.'" src="' . esc_url( $src ) . '"></script>';
 			$tag = str_replace( '<script type=\'text/javascript\' src', '<script id="js-'.$handle.'" data-name="'.$handle.'" type=\'text/javascript\' src', $tag );
 		}

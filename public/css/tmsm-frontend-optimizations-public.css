@@ -16,3 +16,8 @@ body.login-action-confirmaction h1{
 .woocommerce-password-strength.strong {
   color: darkgreen;
 }
+
+/* Align Product Meta Icons */
+.product_meta .fa{
+  display: inline-block;
+}
