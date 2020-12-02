@@ -16,16 +16,16 @@
  * Plugin Name:       TMSM Frontend Optimizations
  * Plugin URI:        https://github.com/thermesmarins/tmsm-frontend-optimizations
  * Description:       Frontend Optimizations for Thermes Marins de Saint-Malo
- * Version:           1.2.4
+ * Version:           1.2.5
  * Author:            Nicolas Mollet
  * Author URI:        https://github.com/nicomollet
- * License:           GPL-2.0+
- * License URI:       http://www.gnu.org/licenses/gpl-2.0.txt
+ * License:           GPL-3.0+
+ * License URI:       http://www.gnu.org/licenses/gpl-3.0.txt
  * Text Domain:       tmsm-frontend-optimizations
  * Domain Path:       /languages
  * Github Plugin URI: https://github.com/thermesmarins/tmsm-frontend-optimizations
  * Github Branch:     master
- * Requires PHP:      5.6
+ * Requires PHP:      7.0
  */
 
 // If this file is called directly, abort.
@@ -38,7 +38,7 @@ if ( ! defined( 'WPINC' ) ) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define( 'TMSM_FRONTEND_OPTIMIZATIONS_VERSION', '1.2.4' );
+define( 'TMSM_FRONTEND_OPTIMIZATIONS_VERSION', '1.2.5' );
 defined( 'TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL' ) || define( 'TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL', plugin_dir_url( __FILE__ ) );
 
 /**

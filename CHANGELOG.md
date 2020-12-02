@@ -1,5 +1,6 @@
-* **New** - WooCommerce: Product meta includes free shipping if available
-* **New** - WooCommerce: Product meta includes local pickup if available
+### 1.2.5: December 02nd, 2020
+* **New** - WooCommerce: Product meta includes free shipping if available (testing: display none for non admins)
+* **New** - WooCommerce: Product meta includes local pickup if available (testing: display none for non admins)
 
 ### 1.2.4: November 12th, 2020
 * **Fix** - Missing image for "Cash on Delivery"
