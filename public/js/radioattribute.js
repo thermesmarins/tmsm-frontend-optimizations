@@ -1,4 +1,11 @@
-/*global wc_add_to_cart_variation_params, wc_cart_fragments_params */
+/*
+This file replaces WooCommerce Add To Cart Variation JS file
+
+@author 8manos
+@link https://github.com/8manos/wc-variations-radio-buttons
+
+global wc_add_to_cart_variation_params, wc_cart_fragments_params
+*/
 ;(function ( $, window, document, undefined ) {
   /**
    * VariationForm class which handles variation forms and attributes.
