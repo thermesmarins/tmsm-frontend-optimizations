@@ -1,6 +1,7 @@
-* **New** - Update FR translations
+### 1.2.6: December 2nd, 2020
+* **Tweak** - Update FR translations
 
-### 1.2.5: December 02nd, 2020
+### 1.2.5: December 2nd, 2020
 * **New** - WooCommerce: Product meta includes free shipping if available (testing: display none for non admins)
 * **New** - WooCommerce: Product meta includes local pickup if available (testing: display none for non admins)
 
