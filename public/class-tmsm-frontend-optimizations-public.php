@@ -76,6 +76,11 @@ class Tmsm_Frontend_Optimizations_Public {
 
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/tmsm-frontend-optimizations-public.js', array( 'jquery' ), $this->version, true );
 
+		// Don't load JS if current product type is bundle to prevent the page from not working
+		if (!(wc_get_product() && wc_get_product()->is_type('bundle'))) {
+			wp_deregister_script( 'wc-add-to-cart-variation' );
+			wp_register_script( 'wc-add-to-cart-variation', plugin_dir_url( __FILE__ ) . 'js/radioattribute.js', array( 'jquery', 'wp-util' ), $this->version, true );
+		}
 	}
 
 	/**
@@ -641,7 +646,7 @@ class Tmsm_Frontend_Optimizations_Public {
 	 *
 	 * @return array
 	 */
-	function woocommerce_package_rates_hide_shipping_on_local_pickup_required( $rates, $package )
+	public function woocommerce_package_rates_hide_shipping_on_local_pickup_required( $rates, $package )
 	{
 		$shipping_class_local_pickup_only = 'local_pickup_only';
 
@@ -675,7 +680,7 @@ class Tmsm_Frontend_Optimizations_Public {
 	 *
 	 * @since 1.2.5
 	 */
-	public function woocommerce_product_meta_end(){
+	public function woocommerce_product_meta_end_freeshippingpocalpickup(){
 		global $product;
 		if(!empty($product) ){
 			if(!empty(WC()) && !empty(WC()->shipping())){
@@ -685,7 +690,7 @@ class Tmsm_Frontend_Optimizations_Public {
 				$package['destination']['state'] = '';
 				$package['destination']['postcode'] = '';
 				$shipping_methods = WC()->shipping()->load_shipping_methods($package);
-				//print_r($shipping_methods);
+
 				foreach($shipping_methods as $shipping_method){
 
 					if($shipping_method->is_enabled() && !empty($shipping_method->get_title())){
@@ -727,6 +732,97 @@ class Tmsm_Frontend_Optimizations_Public {
 		}
 	}
 
+	/**
+	 * WooCommerce attributes <select> dropdown as <input> type radio
+	 *
+	 * @param $html
+	 * @param $args
+	 */
+	public function woocommerce_dropdown_variation_attribute_options_html_radio( $html, $args ) {
+		$old_html = $html;
+
+		$args = wp_parse_args( apply_filters( 'woocommerce_dropdown_variation_attribute_options_html_radio_args', $args ), array(
+			'options'          => false,
+			'attribute'        => false,
+			'product'          => false,
+			'selected' 	       => false,
+			'name'             => '',
+			'id'               => '',
+			'class'            => '',
+			'show_option_none' => __( 'Choose an option', 'tmsm-frontend-optimizations' ),
+		) );
+
+		$options               = $args['options'];
+		$product               = $args['product'];
+		$attribute             = $args['attribute'];
+		$name                  = $args['name'] ? $args['name'] : sanitize_title( $attribute );
+		$sanitized_name = sanitize_title( $name );
+		$id                    = $args['id'] ? $args['id'] : sanitize_title( $attribute );
+		$class                 = $args['class'];
+		$show_option_none      = $args['show_option_none'] ? true : false;
+		$show_option_none_text = $args['show_option_none'] ? $args['show_option_none'] : __( 'Choose an option', 'tmsm-frontend-optimizations' ); // We'll do our best to hide the placeholder, but we'll need to show something when resetting options.
+
+		if ( empty( $options ) && ! empty( $product ) && ! empty( $attribute ) ) {
+			$selected_attributes = $product->get_default_attributes();
+			$attributes = $product->get_variation_attributes();
+			$options    = $attributes[ $attribute ];
+		}
+		else{
+			$selected_attributes = [];
+		}
+
+		if ( isset( $_REQUEST[ 'attribute_' . $sanitized_name ] ) ) {
+			$checked_value = $_REQUEST[ 'attribute_' . $sanitized_name ];
+		} elseif ( isset( $selected_attributes[ $sanitized_name ] ) ) {
+			$checked_value = $selected_attributes[ $sanitized_name ];
+		} else {
+			$checked_value = '';
+		}
+
+		$html = '';
+
+		if ( ! empty( $options ) ) {
+			if ( $product && taxonomy_exists( $attribute ) ) {
+				// Get terms if this is a taxonomy - ordered. We need the names too.
+				$terms = wc_get_product_terms( $product->get_id(), $attribute, array( 'fields' => 'all' ) );
+
+				foreach ( $terms as $term ) {
+					if ( in_array( $term->slug, $options ) ) {
+
+						$value = $term->slug;
+						$label = $term->name;
+						$sanitized_name = $name;
+						$description = $term->description;
+
+						$checked = sanitize_title( $checked_value ) === $checked_value ? checked( $checked_value, sanitize_title( $value ), false ) : checked( $checked_value, $value, false );
+
+						if(!empty($description)){
+							$description = ' ('.$description.')';
+						}
+						$input_name = 'attribute_' . esc_attr( $name ) ;
+						$esc_value = esc_attr( $value );
+						$id = esc_attr( $name . '_v_' . $value );
+						$filtered_label = apply_filters( 'woocommerce_variation_option_name', $label );
+						printf( '<div class="radio"><input type="radio" name="%1$s" value="%2$s" id="%3$s" %4$s><label for="%3$s">%5$s%6$s</label></div>', $input_name, $esc_value, $id, $checked, $filtered_label, $description );
+					}
+				}
+			} else {
+				foreach ( $options as $option ) {
+					// This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
+					$selected = sanitize_title( $args['selected'] ) === $args['selected'] ? checked( $args['selected'], sanitize_title( $option ), false ) : checked( $args['selected'], $option, false );
+					$input_name = 'attribute_' . esc_attr( $name ) ;
+					$esc_value = esc_attr( $option );
+					$id = esc_attr( $name . '_v_' . $option . $product->get_id() ); //added product ID at the end of the name to target single products
+					$checked = checked( $args['selected'], $option, false );
+					$filtered_label = esc_html( apply_filters( 'woocommerce_variation_option_name', $option ) );
+					$html .=  sprintf( '<div class="radio"><input type="radio" name="%1$s" value="%2$s" id="%3$s" %4$s><label for="%3$s">%5$s</label></div>', $input_name, $esc_value, $id, $checked, $filtered_label );
+
+				}
+			}
+		}
+
+		echo $html; // WPCS: XSS ok.
+	}
 
 	/**
 	 * WooCommerce: Hides local_pickup shipping method if no_local_pickup shipping class is found in cart

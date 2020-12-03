@@ -176,7 +176,7 @@ class Tmsm_Frontend_Optimizations {
 		$plugin_public = new Tmsm_Frontend_Optimizations_Public( $this->get_plugin_name(), $this->get_version() );
 
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
-		//$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
 		$this->loader->add_action( 'get_the_archive_title', $plugin_public, 'get_the_archive_title_category', 10 ); // Remove "Category:" in titles
 
@@ -263,7 +263,8 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_filter( 'woocommerce_min_password_strength', $plugin_public, 'woocommerce_min_password_strength', 10, 0 );
 		$this->loader->add_filter( 'woocommerce_cod_icon', $plugin_public, 'woocommerce_cod_icon_travel', 10 );
 		$this->loader->add_filter( 'woocommerce_package_rates', $plugin_public, 'woocommerce_package_rates_hide_shipping_on_local_pickup_required', 10, 2 );
-		$this->loader->add_action( 'woocommerce_product_meta_end', $plugin_public, 'woocommerce_product_meta_end', 50 );
+		$this->loader->add_action( 'woocommerce_product_meta_end', $plugin_public, 'woocommerce_product_meta_end_freeshippingpocalpickup', 50 );
+		$this->loader->add_action( 'woocommerce_dropdown_variation_attribute_options_html', $plugin_public, 'woocommerce_dropdown_variation_attribute_options_html_radio', 50, 2 );
 
 		// TAO Schedule Update
 		$this->loader->add_action( 'tao_publish_post', $plugin_public, 'tao_publish_post_emptycache', 200 );

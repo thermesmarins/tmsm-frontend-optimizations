@@ -1,3 +1,5 @@
+* **New** - New Feature to replace WC Variations Radio Buttons plugin; All template overriding woocommerce/single-product/add-to-cart/variable.php should be removed
+
 ### 1.2.6: December 2nd, 2020
 * **Tweak** - Update FR translations
 
