@@ -697,6 +697,8 @@ class Tmsm_Frontend_Optimizations_Public {
 
 						// Free Shipping: displayed for all shipping options except if "Local Pickup Only" has been selected
 						if(!empty($product) && $product->get_type() !== 'external' && (empty($product->get_shipping_class_id()) || $product->get_shipping_class() !== 'local_pickup_only')){
+
+							// Free shipping
 							if(!empty($shipping_method->id) && $shipping_method->id === 'free_shipping'){
 
 								// Requires min amount
@@ -712,9 +714,25 @@ class Tmsm_Frontend_Optimizations_Public {
 								}
 
 							}
+
+							// Flat rate
+							if(!empty($shipping_method->id) && $shipping_method->id === 'flat_rate'){
+
+								$cost = null;
+								$settings = $shipping_method->instance_settings;
+								if(!empty($settings)){
+									$cost = $settings['cost'] ?? 0;
+									if(!empty($product->get_shipping_class_id()) && !empty($settings['class_cost_'.$product->get_shipping_class_id()])){
+										$cost = $settings['class_cost_'.$product->get_shipping_class_id()];
+									}
+								}
+								echo '<p class="product_meta_flatrateshipping" '.(!current_user_can('manage_options') ? ' style="display:none" ':'').'>
+									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.$shipping_method->get_title().' '.($cost !== null ? ($cost == 0 ? __('(free)','tmsm-frontend-optimizations') : sprintf(__('(%s)','tmsm-frontend-optimizations'), strip_tags(wc_price($cost, ['decimals'=> false])))) : '').'</p>';
+
+							}
 						}
 
-						// Lcaol Pickup: displayed for all shipping options except if "No Local Pickup" has been selected
+						// Local Pickup: displayed for all shipping options except if "No Local Pickup" has been selected
 						if(!empty($product) && $product->get_type() !== 'external' && (empty($product->get_shipping_class_id()) || $product->get_shipping_class() !== 'no_local_pickup')){
 							if(!empty($shipping_method->id) && $shipping_method->id === 'local_pickup'){
 								if( method_exists($shipping_method, 'get_title') ){
