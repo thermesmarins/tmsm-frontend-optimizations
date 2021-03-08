@@ -280,6 +280,7 @@ class Tmsm_Frontend_Optimizations {
 
 		// Oembed content
 		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'oembed_result_modest', 100, 4 );
+		$this->loader->add_filter( 'oembed_result', $plugin_public, 'oembed_result_nosnippet', 100, 3 );
 
 	}
 
