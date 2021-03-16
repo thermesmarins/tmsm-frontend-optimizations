@@ -704,13 +704,15 @@ class Tmsm_Frontend_Optimizations_Public {
 								// Requires min amount
 								if($shipping_method->get_option('requires') === 'min_amount' && !empty($shipping_method->get_option('min_amount')) && method_exists($shipping_method, 'get_title')){
 									echo '<p class="product_meta_freeshipping" '.(!current_user_can('manage_options') ? ' style="display:none" ':'').'>
-									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.sprintf(__('%1$s from %2$s','tmsm-frontend-optimizations'), $shipping_method->get_title(), strip_tags(wc_price($shipping_method->get_option('min_amount'), ['decimals'=> false]))).'</p>';
+									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.sprintf(__('%1$s from %2$s','tmsm-frontend-optimizations'), ( function_exists( 'pll__' )
+											? pll__( $shipping_method->get_title() ) : $shipping_method->get_title() ), strip_tags(wc_price($shipping_method->get_option('min_amount'), ['decimals'=> false]))).'</p>';
 								}
 
 								// Requires nothing
 								if($shipping_method->get_option('requires') === '' && method_exists($shipping_method, 'get_title')){
 									echo '<p class="product_meta_freeshipping" '.(!current_user_can('manage_options') ? ' style="display:none" ':'').'>
-									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.$shipping_method->get_title().'</p>';
+									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.( function_exists( 'pll__' )
+											? pll__( $shipping_method->get_title() ) : $shipping_method->get_title() ).'</p>';
 								}
 
 							}
@@ -727,7 +729,8 @@ class Tmsm_Frontend_Optimizations_Public {
 									}
 								}
 								echo '<p class="product_meta_flatrateshipping" '.(!current_user_can('manage_options') ? ' style="display:none" ':'').'>
-									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.$shipping_method->get_title().' '.($cost !== null ? ($cost == 0 ? __('(free)','tmsm-frontend-optimizations') : sprintf(__('(%s)','tmsm-frontend-optimizations'), strip_tags(wc_price($cost, ['decimals'=> false])))) : '').'</p>';
+									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.( function_exists( 'pll__' )
+										? pll__( $shipping_method->get_title() ) : $shipping_method->get_title() ).' '.($cost !== null ? ($cost == 0 ? __('(free)','tmsm-frontend-optimizations') : sprintf(__('(%s)','tmsm-frontend-optimizations'), strip_tags(wc_price($cost, ['decimals'=> false])))) : '').'</p>';
 
 							}
 						}
@@ -737,7 +740,8 @@ class Tmsm_Frontend_Optimizations_Public {
 							if(!empty($shipping_method->id) && $shipping_method->id === 'local_pickup'){
 								if( method_exists($shipping_method, 'get_title') ){
 									echo '<p class="product_meta_localpickup" '.(!current_user_can('manage_options') ? ' style="display:none" ':'').'>
-									<span class="glyphicon glyphicon-forward fa fa-map-marker"></span> '.$shipping_method->get_title().'</p>';
+									<span class="glyphicon glyphicon-forward fa fa-map-marker"></span> '.( function_exists( 'pll__' )
+											? pll__( $shipping_method->get_title() ) : $shipping_method->get_title() ).'</p>';
 								}
 							}
 						}
