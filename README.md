@@ -31,5 +31,5 @@ Features
     * Inject Google Tag Manager after body in OceanWP Theme
     * Exclude orders with status failed (only paid statuses)
 * Gravity Forms: Anonymize user IPs
-* WooCommerce: everyday, sales start, cache should be emptied (WP Rocket)
+* WooCommerce: everyday, sales start, cache should be emptied (WP Rocket), dynamic product meta (free shipping, local pickup)
 * User Request: Recipient of the data request confirmation notification
