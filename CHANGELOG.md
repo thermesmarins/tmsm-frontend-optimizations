@@ -1,3 +1,4 @@
+### 1.2.7: May 4th, 2021
 * **New** - New Feature to replace WC Variations Radio Buttons plugin; All template overriding woocommerce/single-product/add-to-cart/variable.php should be removed
 * **New** - WooCommerce: Product meta includes flat rate if available (testing: display none for non admins)
 * **New** - oEmbed: add data-nosnippet on all oembed contents
