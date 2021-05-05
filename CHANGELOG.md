@@ -1,3 +1,4 @@
+### 1.2.9: May 5th, 2021
 * **Fix** - WooCommerce functions must exist before calling them
 
 ### 1.2.8: May 5th, 2021
