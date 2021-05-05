@@ -1,3 +1,5 @@
+* **Fix** - WooCommerce functions must exist before calling them
+
 ### 1.2.8: May 5th, 2021
 * **Fix** - Remove border colors in variations form
 

@@ -77,9 +77,10 @@ class Tmsm_Frontend_Optimizations_Public {
 		wp_enqueue_script( $this->plugin_name, plugin_dir_url( __FILE__ ) . 'js/tmsm-frontend-optimizations-public.js', array( 'jquery' ), $this->version, true );
 
 		// Don't load JS if current product type is bundle to prevent the page from not working
-		if (!(wc_get_product() && wc_get_product()->is_type('bundle'))) {
+		if ( function_exists( 'wc_get_product' ) && ! ( wc_get_product() && wc_get_product()->is_type( 'bundle' ) ) ) {
 			wp_deregister_script( 'wc-add-to-cart-variation' );
-			wp_register_script( 'wc-add-to-cart-variation', plugin_dir_url( __FILE__ ) . 'js/radioattribute.js', array( 'jquery', 'wp-util' ), $this->version, true );
+			wp_register_script( 'wc-add-to-cart-variation', plugin_dir_url( __FILE__ ) . 'js/radioattribute.js', array( 'jquery', 'wp-util' ),
+				$this->version, true );
 		}
 	}
 
