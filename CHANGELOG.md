@@ -1,3 +1,6 @@
+### 1.2.8: May 5th, 2021
+* **Fix** - Remove border colors in variations form
+
 ### 1.2.7: May 4th, 2021
 * **New** - New Feature to replace WC Variations Radio Buttons plugin; All template overriding woocommerce/single-product/add-to-cart/variable.php should be removed
 * **New** - WooCommerce: Product meta includes flat rate if available (testing: display none for non admins)
