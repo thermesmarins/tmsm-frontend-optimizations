@@ -990,4 +990,19 @@ class Tmsm_Frontend_Optimizations_Public {
 		return $data;
 	}
 
+	/**
+	 * Elementor Search Form After Input
+	 *
+	 * @param mixed $form
+	 */
+	function elementor_search_form_after_input( $form){
+
+		$settings = $form->get_data( 'settings' );
+
+		// If search form has "woocommerce-search" in CSS class, then search only in WooCommerce products
+		if ( isset( $settings['_css_classes'] ) && strpos( 'woocommerce-searchform', $settings['_css_classes'] ) !== false  ) {
+			echo '<input type="hidden" name="post_type" value="product" />';
+		}
+
+	}
 }

@@ -1,3 +1,5 @@
+* **New** - Elementor: Filter products in search if Elementor form has "woocommerce-searchform" in CSS classes
+
 ### 1.2.9: May 5th, 2021
 * **Fix** - WooCommerce functions must exist before calling them
 

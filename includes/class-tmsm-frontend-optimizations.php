@@ -282,6 +282,9 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'oembed_result_modest', 100, 4 );
 		$this->loader->add_filter( 'oembed_result', $plugin_public, 'oembed_result_nosnippet', 100, 3 );
 
+		// Elementor
+		$this->loader->add_filter( 'elementor_pro/search_form/after_input', $plugin_public, 'elementor_search_form_after_input', 100, 1 );
+
 	}
 
 	/**
