@@ -228,9 +228,12 @@ class Tmsm_Frontend_Optimizations {
 		add_shortcode( 'language_switcher', array($plugin_public, 'polylang_language_switcher'));
 
 		// Gravity Forms
-		$this->loader->add_filter( 'gform_cdata_close', $plugin_public, 'gravityforms_wrap_gform_cdata_close', 10 );
-		$this->loader->add_filter( 'gform_init_scripts_footer', $plugin_public, 'gravityforms_footer_noblockrender', 10 );
-		$this->loader->add_filter( 'gform_cdata_open', $plugin_public, 'gravityforms_wrap_gform_cdata_open', 10 );
+		if ( class_exists( 'GFForms' ) && property_exists( 'GFForms', 'version' ) && version_compare( GFForms::$version, '2.5', '<' ) ) {
+			$this->loader->add_filter( 'gform_cdata_close', $plugin_public, 'gravityforms_wrap_gform_cdata_close', 10 );
+			$this->loader->add_filter( 'gform_init_scripts_footer', $plugin_public, 'gravityforms_footer_noblockrender', 10 );
+			$this->loader->add_filter( 'gform_cdata_open', $plugin_public, 'gravityforms_wrap_gform_cdata_open', 10 );
+		}
+
 		$this->loader->add_action( 'gform_enqueue_scripts', $plugin_public, 'gravityforms_dequeue_stylesheets', 10 );
 		$this->loader->add_action( 'gform_ip_address', $plugin_public, 'gravityforms_donotcollect_ipaddress', 10 );
 		$this->loader->add_action( 'gform_pre_submission', $plugin_public, 'gform_pre_submission_personal_data', 10, 1 );
