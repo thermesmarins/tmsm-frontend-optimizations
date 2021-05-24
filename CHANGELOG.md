@@ -1,3 +1,4 @@
+### 1.3.1: May 24th, 2021
 * Compatibility with Gravity Forms 2.5
 
 ### 1.3.0: May 17th, 2021
