@@ -398,11 +398,29 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * Gravity Forms: Phone formats
+	 *
+	 * @param $phone_formats
+	 *
+	 * @return mixed
+	 */
+	function gravityforms_phone_formats( $phone_formats ) {
+		$phone_formats['fr'] = array(
+			'label'       => __( 'France', 'tmsm-frontend-optimizations' ),
+			'mask'        => false,
+			'regex'       => '/^((\+)33|0)[1-9](\d{2}){4}$/',
+			'instruction' => __( 'Invalid phone number format', 'tmsm-frontend-optimizations' ),
+		);
+
+		return $phone_formats;
+	}
+
+	/**
 	 * Gravity Forms: Execute Personal Data Requests
 	 *
 	 * @param array $form The Form object
 	 */
-	public function gform_pre_submission_personal_data( $form ) {
+	public function gravityforms_personal_data( $form ) {
 
 		$radio_fields = GFAPI::get_fields_by_type( $form, array( 'radio' ), true );
 
