@@ -1,3 +1,6 @@
+### 1.3.2: June 15th, 2021
+* **New** - Gravity Forms phone number validation
+
 ### 1.3.1: May 24th, 2021
 * Compatibility with Gravity Forms 2.5
 
