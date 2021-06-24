@@ -1,3 +1,5 @@
+* Remove hidden styles for free shipping, local pickup: stable features to be deployed in production
+
 ### 1.3.2: June 15th, 2021
 * **New** - Gravity Forms phone number validation
 
