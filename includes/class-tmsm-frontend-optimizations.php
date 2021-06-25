@@ -233,6 +233,7 @@ class Tmsm_Frontend_Optimizations {
 			$this->loader->add_filter( 'gform_init_scripts_footer', $plugin_public, 'gravityforms_footer_noblockrender', 10 );
 			$this->loader->add_filter( 'gform_cdata_open', $plugin_public, 'gravityforms_wrap_gform_cdata_open', 10 );
 			$this->loader->add_filter( 'gform_phone_formats', $plugin_public, 'gravityforms_phone_formats', 10, 1 );
+			$this->loader->add_filter( 'gform_replace_merge_tags', $plugin_public, 'gravityforms_mergetags', 20, 7 );
 		}
 
 		$this->loader->add_action( 'gform_enqueue_scripts', $plugin_public, 'gravityforms_dequeue_stylesheets', 10 );

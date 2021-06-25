@@ -467,6 +467,65 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * Allow the text to be filtered so custom merge tags can be replaced.
+	 *
+	 * @param $text
+	 * @param $form
+	 * @param $entry
+	 * @param $url_encode
+	 * @param $esc_html
+	 * @param $nl2br
+	 * @param $format
+	 *
+	 * @return string
+	 */
+	public function gravityforms_mergetags( $text, $form, $entry, $url_encode, $esc_html, $nl2br, $format ){
+
+		$current_user = wp_get_current_user();
+
+		$custom_merge_tag_firstname = '{user_firstname}';
+		if ( strpos( $text, $custom_merge_tag_firstname ) !== false ) {
+			$text = str_replace( $custom_merge_tag_firstname, $this->user_has_role( $current_user, 'customer') ? $current_user->user_firstname : '', $text );
+		}
+
+		$custom_merge_tag_lastname = '{user_lastname}';
+		if ( strpos( $text, $custom_merge_tag_lastname ) !== false ) {
+			$text = str_replace( $custom_merge_tag_lastname, $this->user_has_role( $current_user, 'customer') ? $current_user->user_lastname : '', $text );
+		}
+
+		$custom_merge_tag_email = '{user_email}';
+		if ( strpos( $text, $custom_merge_tag_email ) !== false ) {
+			$text = str_replace( $custom_merge_tag_email, $this->user_has_role( $current_user, 'customer') ? $current_user->user_email : '', $text );
+		}
+
+		$custom_merge_tag_billingphone = '{user_billingphone}';
+		if ( strpos( $text, $custom_merge_tag_billingphone ) !== false ) {
+			$text = str_replace( $custom_merge_tag_billingphone, $this->user_has_role( $current_user, 'customer') ? get_user_meta( $current_user->ID, 'billing_phone', true ) : '', $text );
+		}
+
+		return $text;
+	}
+
+	/**
+	 * Checks if a user has a role.
+	 *
+	 * @param int|WP_User $user The user.
+	 * @param string      $role The role.
+	 * @return bool
+	 */
+	function user_has_role( $user, $role ) {
+		if ( ! is_object( $user ) ) {
+			$user = get_userdata( $user );
+		}
+
+		if ( ! $user || ! $user->exists() ) {
+			return false;
+		}
+
+		return in_array( $role, $user->roles, true );
+	}
+
+	/**
 	 * Google Tag Manager: inject tag after body in OceanWP theme
 	 */
 	public function googletagmanager_after_body(){
