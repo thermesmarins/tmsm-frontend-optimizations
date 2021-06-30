@@ -1,3 +1,4 @@
+### 1.3.4: June 30th, 2021
 * Fix voucher help link styling in mobile
 
 ### 1.3.3: June 25th, 2021
