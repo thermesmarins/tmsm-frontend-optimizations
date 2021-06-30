@@ -1,139 +1,144 @@
 .embed, .embed iframe {
-  width: 100%;
-  max-width: 100%;
+    width: 100%;
+    max-width: 100%;
 }
 
-body.login-action-confirmaction h1{
-  display: none;
+body.login-action-confirmaction h1 {
+    display: none;
 }
 
 .woocommerce-password-strength,
 .woocommerce-password-strength.short,
 .woocommerce-password-strength.bad {
-  color: darkred;
+    color: darkred;
 }
 
 .woocommerce-password-strength.strong {
-  color: darkgreen;
+    color: darkgreen;
 }
 
 /* Align Product Meta Icons */
-.product_meta .fa{
-  display: inline-block;
+.product_meta .fa {
+    display: inline-block;
 }
 
 /* Variations */
 .woocommerce div.product {
 
-  form.cart.variations_form {
+    form.cart.variations_form {
 
-    &.cart{
-      border-width: 2px 0;
-    }
-
-    .voucher-help-link{
-      display: block;
-      margin: 10px 0;
-      @media (min-width: 768px) {
-        display: inline-block;
-        margin: 0 0 0 20px;
-      }
-
-      .glyphicon{
-        margin-right: 5px;
-      }
-    }
-
-    .variations {
-
-      input[type=radio] {
-        margin-left: 0;
-      }
-
-      //width:100%;
-      //margin-bottom: $line-height-computed;
-
-      th,
-      td {
-        display: list-item;
-        padding: 0;
-        list-style: none;
-        background-color: transparent;
-        text-align: left;
-      }
-
-      select {
-        display: inline-block;
-        width: auto;
-      }
-
-      td.value {
-        margin-bottom: 1em;
-        border-color: transparent;
-        padding: 0 !important;
-      }
-
-      td.label {
-        border-color: transparent;
-        width: 100%;
-        padding: 0;
-      }
-      .radio {
-        label {
-          font-weight: normal;
-          margin-left: 10px;
+        &.cart {
+            border-width: 2px 0;
         }
-      }
-      .reset_variations {
-      }
+
+        .voucher-help-link {
+            display: block;
+
+            .glyphicon {
+                margin-right: 5px;
+            }
+        }
+
+        .variations {
+
+            input[type=radio] {
+                margin-left: 0;
+            }
+
+            //width:100%;
+            //margin-bottom: $line-height-computed;
+
+            th,
+            td {
+                display: list-item;
+                padding: 0;
+                list-style: none;
+                background-color: transparent;
+                text-align: left;
+            }
+
+            select {
+                display: inline-block;
+                width: auto;
+            }
+
+            td.value {
+                margin-bottom: 1em;
+                border-color: transparent;
+                padding: 0 !important;
+                white-space: normal;
+            }
+
+            td.label {
+                border-color: transparent;
+                width: 100%;
+                padding: 0;
+            }
+
+            .radio {
+                label {
+                    font-weight: normal;
+                    margin-left: 10px;
+                }
+            }
+
+            .reset_variations {
+            }
+        }
+
+        table.woo-vou-recipient-fields {
+            border: 0;
+            width: 100%;
+
+            .woo-vou-recipient-details {
+            }
+
+            td.label {
+                display: table-cell;
+                vertical-align: middle;
+                padding: 0;
+            }
+
+            td.value {
+
+            }
+
+            textarea {
+                min-height: 100px;
+            }
+        }
+
     }
 
-    table.woo-vou-recipient-fields {
-      border: 0;
-      width: 100%;
-
-      .woo-vou-recipient-details {
-      }
-      td.label {
-        display: table-cell;
-        vertical-align: middle;
-        padding: 0;
-      }
-      td.value {
-
-      }
-
-      textarea {
-        min-height: 100px;
-      }
+    .vouchers-fields-wrapper-variation {
+        padding: 20px;
     }
 
-  }
-
-  .vouchers-fields-wrapper-variation{
-    padding: 20px;
-  }
-
-  .vouchers-fields-wrapper{
-    padding: 20px;
-    border:1px solid white;
-    margin-top: 20px;
-    margin-bottom: 20px;
-  }
-
-
-  .attribute-choisissez-le-format-du-bon-cadeau, .attribute-pa_format-bon-cadeau{
-    .radio, td > div{
-      display: inline-block;
-      margin: 0 20px 0 0;
-
-      input[type=radio]{
-        margin-left: 0;
-      }
+    .vouchers-fields-wrapper {
+        padding: 20px;
+        border: 1px solid white;
+        margin-top: 20px;
+        margin-bottom: 20px;
     }
-    .reset_variations{
-      display: none !important;
+
+
+    .attribute-choisissez-le-format-du-bon-cadeau, .attribute-pa_format-bon-cadeau {
+        .label {
+            margin-right: 20px;
+        }
+
+        .radio, td > div {
+            display: inline-block;
+            margin: 0 20px 0 0;
+
+            input[type=radio] {
+                margin-left: 0;
+            }
+        }
+
+        .reset_variations {
+            display: none !important;
+        }
     }
-  }
 
 }

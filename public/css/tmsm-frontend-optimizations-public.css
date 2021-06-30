@@ -24,13 +24,6 @@ body.login-action-confirmaction h1 {
 }
 .woocommerce div.product form.cart.variations_form .voucher-help-link {
   display: block;
-  margin: 10px 0;
-}
-@media (min-width: 768px) {
-  .woocommerce div.product form.cart.variations_form .voucher-help-link {
-    display: inline-block;
-    margin: 0 0 0 20px;
-  }
 }
 .woocommerce div.product form.cart.variations_form .voucher-help-link .glyphicon {
   margin-right: 5px;
@@ -54,6 +47,7 @@ body.login-action-confirmaction h1 {
   margin-bottom: 1em;
   border-color: transparent;
   padding: 0 !important;
+  white-space: normal;
 }
 .woocommerce div.product form.cart.variations_form .variations td.label {
   border-color: transparent;
@@ -84,6 +78,10 @@ body.login-action-confirmaction h1 {
   border: 1px solid white;
   margin-top: 20px;
   margin-bottom: 20px;
+}
+.woocommerce div.product .attribute-choisissez-le-format-du-bon-cadeau .label,
+.woocommerce div.product .attribute-pa_format-bon-cadeau .label {
+  margin-right: 20px;
 }
 .woocommerce div.product .attribute-choisissez-le-format-du-bon-cadeau .radio,
 .woocommerce div.product .attribute-pa_format-bon-cadeau .radio,

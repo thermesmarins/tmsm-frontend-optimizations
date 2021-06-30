@@ -1,3 +1,5 @@
+* Fix voucher help link styling in mobile
+
 ### 1.3.3: June 25th, 2021
 * **New** - Remove hidden styles for free shipping, local pickup: stable features to be deployed in production
 * **New** - Gravity Forms merge tags only filled with role customer: {user_email}, {user_firstname}, {user_lastname}, {user_billingphone}
