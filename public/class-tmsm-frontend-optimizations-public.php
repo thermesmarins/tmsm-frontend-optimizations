@@ -295,6 +295,20 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * Theme has parent theme
+	 *
+	 * @param $theme_name
+	 *
+	 * @return bool
+	 */
+	function has_parent_theme( $theme_name ) {
+		$current_theme = wp_get_theme();
+		$parent_theme  = $current_theme->parent();
+
+		return ! empty( $parent_theme ) && ! empty( $parent_theme->name ) && $parent_theme->name === $theme_name;
+	}
+
+	/**
 	 * Polylang: Language Switcher Function
 	 *
 	 * @return string
@@ -308,25 +322,13 @@ class Tmsm_Frontend_Optimizations_Public {
 				'echo'       => 0,
 			];
 			$ul_classes = '';
-			$theme = wp_get_theme();
-			if(!empty($theme)){
-				$parent_theme = $theme->parent();
-				$theme_name = $theme->name;
-				if(!empty($parent_theme)){
-					$theme_name = $parent_theme->name;
-				}
-				switch($theme_name){
-					case 'OceanWP':
-						$ul_classes= 'dropdown-menu';
-						break;
-					case 'StormBringer':
-						$ul_classes= 'list-unstyled list-inline';
-						break;
-					default:
-						$ul_classes= '';
-						break;
-				}
+			if ( self::has_parent_theme( 'OceanWP' ) ) {
+				$ul_classes = 'dropdown-menu';
 			}
+			if ( self::has_parent_theme( 'StormBringer' ) ) {
+				$ul_classes = 'list-unstyled list-inline';
+			}
+
 			$output = '<ul class="language-switcher language-switcher-polylang '.$ul_classes.'">'.pll_the_languages( $args ). '</ul>';
 		}
 
@@ -760,6 +762,25 @@ class Tmsm_Frontend_Optimizations_Public {
 	 */
 	public function woocommerce_product_meta_end_freeshippingpocalpickup(){
 		global $product;
+
+		$gift_icon        = null;
+		$shipping_icon    = null;
+		$payment_icon     = null;
+		$localpickup_icon = null;
+
+		if ( self::has_parent_theme( 'StormBringer' ) ) {
+			$gift_icon        = 'glyphicon glyphicon-gif';
+			$shipping_icon    = '';
+			$payment_icon     = 'glyphicon glyphicon-credit-card';
+			$localpickup_icon = 'glyphicon glyphicon-map-marker';
+		}
+		if ( self::has_parent_theme( 'OceanWP' ) || wp_style_is( 'font-awesome', 'registered' ) ) {
+			$gift_icon        = 'fa fa-gift';
+			$shipping_icon    = 'fa fa-truck';
+			$payment_icon     = 'fa fa-credit-card';
+			$localpickup_icon = 'fa fa-map-marker';
+		}
+
 		if(!empty($product) ){
 			if(!empty(WC()) && !empty(WC()->shipping())){
 
@@ -782,14 +803,14 @@ class Tmsm_Frontend_Optimizations_Public {
 								// Requires min amount
 								if($shipping_method->get_option('requires') === 'min_amount' && !empty($shipping_method->get_option('min_amount')) && method_exists($shipping_method, 'get_title')){
 									echo '<p class="product_meta_freeshipping">
-									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.sprintf(__('%1$s from %2$s','tmsm-frontend-optimizations'), ( function_exists( 'pll__' )
+									<span class="'.$shipping_icon.'"></span> '.sprintf(__('%1$s from %2$s','tmsm-frontend-optimizations'), ( function_exists( 'pll__' )
 											? pll__( $shipping_method->get_title() ) : $shipping_method->get_title() ), strip_tags(wc_price($shipping_method->get_option('min_amount'), ['decimals'=> false]))).'</p>';
 								}
 
 								// Requires nothing
 								if($shipping_method->get_option('requires') === '' && method_exists($shipping_method, 'get_title')){
 									echo '<p class="product_meta_freeshipping">
-									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.( function_exists( 'pll__' )
+									<span class="'.$shipping_icon.'"></span> '.( function_exists( 'pll__' )
 											? pll__( $shipping_method->get_title() ) : $shipping_method->get_title() ).'</p>';
 								}
 
@@ -807,7 +828,7 @@ class Tmsm_Frontend_Optimizations_Public {
 									}
 								}
 								echo '<p class="product_meta_flatrateshipping">
-									<span class="glyphicon glyphicon-gift fa fa-truck"></span> '.( function_exists( 'pll__' )
+									<span class="'.$shipping_icon.'"></span> '.( function_exists( 'pll__' )
 										? pll__( $shipping_method->get_title() ) : $shipping_method->get_title() ).' '.($cost !== null ? ($cost == 0 ? __('(free)','tmsm-frontend-optimizations') : sprintf(__('(%s)','tmsm-frontend-optimizations'), strip_tags(wc_price($cost, ['decimals'=> false])))) : '').'</p>';
 
 							}
@@ -818,7 +839,7 @@ class Tmsm_Frontend_Optimizations_Public {
 							if(!empty($shipping_method->id) && $shipping_method->id === 'local_pickup'){
 								if( method_exists($shipping_method, 'get_title') ){
 									echo '<p class="product_meta_localpickup">
-									<span class="glyphicon glyphicon-forward fa fa-map-marker"></span> '.( function_exists( 'pll__' )
+									<span class="'.$localpickup_icon.'"></span> '.( function_exists( 'pll__' )
 											? pll__( $shipping_method->get_title() ) : $shipping_method->get_title() ).'</p>';
 								}
 							}
@@ -828,7 +849,7 @@ class Tmsm_Frontend_Optimizations_Public {
 			}
 
 			// Secure payment
-			echo '<p class="product_meta_securepayment"><span class="glyphicon glyphicon-credit-card fa fa-credit-card"></span> '.__('Secure payments','tmsm-frontend-optimizations').'</p>';
+			echo '<p class="product_meta_securepayment"><span class="'.$payment_icon.'"></span> '.__('Secure payments','tmsm-frontend-optimizations').'</p>';
 		}
 	}
 
