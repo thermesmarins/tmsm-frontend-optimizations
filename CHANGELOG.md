@@ -1,3 +1,4 @@
+### 1.3.5: July 5th, 2021
 * Check theme or fontawesome for displaying product meta icons
 
 ### 1.3.4: June 30th, 2021
