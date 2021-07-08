@@ -1,3 +1,4 @@
+### 1.3.6: July 8th, 2021
 * Gravity Forms 2.5 compatibility
 
 ### 1.3.5: July 5th, 2021
