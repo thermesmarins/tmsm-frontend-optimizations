@@ -1,13 +1,14 @@
-* Gravity Forms: autocomplete off for numbers
+### 1.3.7: July 9th, 2021
+* **New** - Gravity Forms: autocomplete off for numbers
 
 ### 1.3.6: July 8th, 2021
-* Gravity Forms 2.5 compatibility
+* **Fix** - Gravity Forms 2.5 compatibility
 
 ### 1.3.5: July 5th, 2021
-* Check theme or fontawesome for displaying product meta icons
+* **Fix** - Check theme or fontawesome for displaying product meta icons
 
 ### 1.3.4: June 30th, 2021
-* Fix voucher help link styling in mobile
+* **Fix** - Voucher help link styling in mobile
 
 ### 1.3.3: June 25th, 2021
 * **New** - Remove hidden styles for free shipping, local pickup: stable features to be deployed in production
@@ -17,7 +18,7 @@
 * **New** - Gravity Forms phone number validation
 
 ### 1.3.1: May 24th, 2021
-* Compatibility with Gravity Forms 2.5
+* **Fix** - Compatibility with Gravity Forms 2.5
 
 ### 1.3.0: May 17th, 2021
 * **New** - Elementor: Filter products in search if Elementor form has "woocommerce-searchform" in CSS classes
