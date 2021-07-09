@@ -1,3 +1,5 @@
+* Gravity Forms: autocomplete off for numbers
+
 ### 1.3.6: July 8th, 2021
 * Gravity Forms 2.5 compatibility
 

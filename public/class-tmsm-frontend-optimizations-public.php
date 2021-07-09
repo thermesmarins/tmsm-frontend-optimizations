@@ -509,6 +509,24 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * Gravity Forms: Filters the field content.
+	 *
+	 * @param string $content    The field content.
+	 * @param array  $field      The Field Object.
+	 * @param string $value      The field value.
+	 * @param int    $lead_id The entry ID.
+	 * @param int    $form_id The form ID.
+	 */
+	public function gravityforms_field_content_autocompleteoff($content, $field, $value, $lead_id, $form_id){
+
+		if ($field['type'] == 'number') {
+			$content = str_replace('<input', '<input autocomplete="off"', $content);
+		}
+
+		return $content;
+	}
+
+	/**
 	 * Checks if a user has a role.
 	 *
 	 * @param int|WP_User $user The user.
