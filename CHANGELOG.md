@@ -1,3 +1,4 @@
+### 1.3.8: July 13th, 2021
 * **New** - Gravity Forms phone number validation for international numbers
 * **New** - Gravity Forms phone format added to phone fields
 * **New** - Gravity Forms: Mask for phone field
