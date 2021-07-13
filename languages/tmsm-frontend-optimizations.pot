@@ -2,7 +2,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TMSM Frontend Optimizations\n"
-"POT-Creation-Date: 2021-06-14 17:26+0200\n"
+"POT-Creation-Date: 2021-07-13 13:47+0200\n"
 "PO-Revision-Date: 2014-10-24 21:08+0100\n"
 "Last-Translator: Nicolas Mollet <nico.mollet@gmail.com>\n"
 "Language-Team: https://github.com/thermesmarins/\n"
@@ -18,48 +18,53 @@ msgstr ""
 "X-Poedit-SearchPath-0: .\n"
 "X-Poedit-SearchPath-1: ..\n"
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:409
+#: ../public/class-tmsm-frontend-optimizations-public.php:413
 msgid "France"
 msgstr ""
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:412
+#: ../public/class-tmsm-frontend-optimizations-public.php:416
+#: ../public/class-tmsm-frontend-optimizations-public.php:423
 msgid "Invalid phone number format"
 msgstr ""
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:591
+#: ../public/class-tmsm-frontend-optimizations-public.php:420
+msgid "International with Validation"
+msgstr ""
+
+#: ../public/class-tmsm-frontend-optimizations-public.php:697
 msgid "Payment Failed"
 msgstr ""
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:620
+#: ../public/class-tmsm-frontend-optimizations-public.php:726
 msgid ""
 "The password must be at least twelve characters long. Use at "
 "least one upper case letter, one lower case letter, one number, "
 "and one symbol like ! ? $ % ^ &amp; )."
 msgstr ""
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:649
+#: ../public/class-tmsm-frontend-optimizations-public.php:755
 msgid "Cash on Delivery"
 msgstr ""
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:726
+#: ../public/class-tmsm-frontend-optimizations-public.php:851
 #, php-format
 msgid "%1$s from %2$s"
 msgstr ""
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:752
+#: ../public/class-tmsm-frontend-optimizations-public.php:877
 msgid "(free)"
 msgstr ""
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:752
+#: ../public/class-tmsm-frontend-optimizations-public.php:877
 #, php-format
 msgid "(%s)"
 msgstr ""
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:772
+#: ../public/class-tmsm-frontend-optimizations-public.php:897
 msgid "Secure payments"
 msgstr ""
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:793
-#: ../public/class-tmsm-frontend-optimizations-public.php:804
+#: ../public/class-tmsm-frontend-optimizations-public.php:918
+#: ../public/class-tmsm-frontend-optimizations-public.php:929
 msgid "Choose an option"
 msgstr ""
