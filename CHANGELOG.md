@@ -1,3 +1,5 @@
+* **New** - Gravity Forms phone number validation for international numbers
+
 ### 1.3.7: July 9th, 2021
 * **New** - Gravity Forms: autocomplete off for numbers
 
@@ -15,7 +17,7 @@
 * **New** - Gravity Forms merge tags only filled with role customer: {user_email}, {user_firstname}, {user_lastname}, {user_billingphone}
 
 ### 1.3.2: June 15th, 2021
-* **New** - Gravity Forms phone number validation
+* **New** - Gravity Forms phone number validation for France numbers
 
 ### 1.3.1: May 24th, 2021
 * **Fix** - Compatibility with Gravity Forms 2.5

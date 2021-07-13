@@ -414,6 +414,13 @@ class Tmsm_Frontend_Optimizations_Public {
 			'instruction' => __( 'Invalid phone number format', 'tmsm-frontend-optimizations' ),
 		);
 
+		$phone_formats['internationalvalidation'] = array(
+			'label'       => __( 'International with Validation', 'tmsm-frontend-optimizations' ),
+			'mask'        => false,
+			'regex'       => '/^((\+)?)[0-9]{6,14}$/',
+			'instruction' => __( 'Invalid phone number format', 'tmsm-frontend-optimizations' ),
+		);
+
 		return $phone_formats;
 	}
 
