@@ -240,6 +240,7 @@ class Tmsm_Frontend_Optimizations {
 			$this->loader->add_action( 'gform_ip_address', $plugin_public, 'gravityforms_donotcollect_ipaddress', 10 );
 			$this->loader->add_action( 'gform_pre_submission', $plugin_public, 'gravityforms_personal_data', 10, 1 );
 			$this->loader->add_filter( 'gform_field_content', $plugin_public, 'gravityforms_field_content_autocompleteoff', 10, 5 );
+			$this->loader->add_filter( 'gform_field_content', $plugin_public, 'gravityforms_field_content_phoneformat', 10, 5 );
 		}
 
 		// Jetpack
