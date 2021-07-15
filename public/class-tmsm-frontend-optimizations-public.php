@@ -814,7 +814,7 @@ class Tmsm_Frontend_Optimizations_Public {
 		$localpickup_icon = null;
 
 		if ( self::has_parent_theme( 'StormBringer' ) ) {
-			$gift_icon        = 'glyphicon glyphicon-gif';
+			$gift_icon        = 'glyphicon glyphicon-gift';
 			$shipping_icon    = '';
 			$payment_icon     = 'glyphicon glyphicon-credit-card';
 			$localpickup_icon = 'glyphicon glyphicon-map-marker';
