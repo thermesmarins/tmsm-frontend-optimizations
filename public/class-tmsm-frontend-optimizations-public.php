@@ -1055,7 +1055,7 @@ class Tmsm_Frontend_Optimizations_Public {
 			return $tag;
 		}
 
-		if ( ! class_exists('\Elementor\Plugin') || ( class_exists('\Elementor\Plugin') && (! Plugin::$instance->preview->is_preview_mode() && ! Plugin::$instance->editor->is_edit_mode())) ) {
+		if ( ! class_exists('\Elementor\Plugin') || ( class_exists('\Elementor\Plugin') && ( Plugin::$instance->preview && ! Plugin::$instance->preview->is_preview_mode() && Plugin::$instance->editor && ! Plugin::$instance->editor->is_edit_mode())) ) {
 			//$tag = '<script id="js-'.$handle.'" data-name="'.$handle.'" src="' . esc_url( $src ) . '"></script>';
 			$tag = str_replace( '<script type=\'text/javascript\' src', '<script id="js-'.$handle.'" data-name="'.$handle.'" type=\'text/javascript\' src', $tag );
 		}
