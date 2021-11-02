@@ -1,3 +1,4 @@
+### 1.3.9: November 2nd, 2021
 * Checks object exists
 * Gravity Forms: change postal code and city order in address field
 
