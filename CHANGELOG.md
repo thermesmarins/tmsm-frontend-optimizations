@@ -1,4 +1,5 @@
 * Checks object exists
+* Gravity Forms: change postal code and city order in address field
 
 ### 1.3.8: July 13th, 2021
 * **New** - Gravity Forms phone number validation for international numbers

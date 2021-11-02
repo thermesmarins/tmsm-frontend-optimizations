@@ -178,47 +178,32 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_styles' );
 		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'enqueue_scripts' );
 
-		$this->loader->add_action( 'get_the_archive_title', $plugin_public, 'get_the_archive_title_category', 10 ); // Remove "Category:" in titles
+		$this->loader->add_action( 'get_the_archive_title', $plugin_public, 'wp_get_the_archive_title_category', 10 ); // Remove "Category:" in titles
+		$this->loader->add_filter( 'script_loader_tag', $plugin_public, 'wp_script_loader_tag', 10, 3 );
 
-		// Scripts to footer
-		$this->loader->add_filter( 'init', $plugin_public, 'gtm4wp_scriptsfooter', 10 ); // Google Tag Manager for WordPress
 		$this->loader->add_action( 'init', $plugin_public, 'assetoptimizer' ); // Asset Optimizer
-
-		// Remove styles
-		$this->loader->add_filter( 'use_default_gallery_style', $plugin_public, 'use_default_gallery_style', 10 ); //Default gallery
+		$this->loader->add_filter( 'use_default_gallery_style', $plugin_public, 'wp_use_default_gallery_style', 10 ); //Default gallery
 		remove_action( 'wp_print_styles', 'print_emoji_styles' ); // Emoji
-
-		// Remove scripts
+		$this->loader->add_action( 'wp_head', $plugin_public, 'wp_staging_noindex', 10 );
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 ); //Emoji
-		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'jetpack_dequeue_scripts', 10 ); //Jetpack
-
-		// Development
-		$this->loader->add_action( 'wp_head', $plugin_public, 'staging_noindex', 10 );
-
-		// Embed
-		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'embed_wrap', 10, 4 );
-		$this->loader->add_filter( 'embed_googlevideo', $plugin_public, 'embed_wrap', 10, 4 );
-
-		// Head
+		$this->loader->add_filter( 'user_request_confirmed_email_to', $plugin_public, 'wp_user_request_confirmed_email_to_dpo', 10, 2 );
+		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'wp_oembed_result_modest', 100, 4 );
+		$this->loader->add_filter( 'oembed_result', $plugin_public, 'wp_oembed_result_nosnippet', 100, 3 );
+		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'wp_embed_wrap', 10, 4 );
+		$this->loader->add_filter( 'embed_googlevideo', $plugin_public, 'wp_embed_wrap', 10, 4 );
 		remove_action('wp_head', 'wlwmanifest_link');
 		remove_action('wp_head', 'rsd_link');
 		remove_action('wp_head', 'wp_generator');
 		remove_action('wp_head', 'wp_shortlink_wp_head');
-
-		// Cookies
 		remove_action('set_comment_cookies', 'wp_set_comment_cookies');
+
+		// Google Tag Manager
+		$this->loader->add_filter( 'init', $plugin_public, 'gtm4wp_scriptsfooter', 10 ); // Google Tag Manager for WordPress
+		$this->loader->add_action( 'ocean_before_outer_wrap', $plugin_public, 'googletagmanager_after_body', 10 ); // For OceanWP theme
+		$this->loader->add_filter( 'gtm4wp_get_the_gtm_tag', $plugin_public, 'googletagmanager_getthetag', 10, 1 );
 
 		// Storefront Theme
 		remove_action( 'storefront_footer', 'storefront_credit', 20 );
-
-		// WPML
-		/*if ( function_exists( 'icl_get_languages' ) ) {
-			add_shortcode( 'language_switcher', array($plugin_public, 'wpml_language_switcher'));
-			define('ICL_DONT_LOAD_LANGUAGE_SELECTOR_CSS',true);
-			define('ICL_DONT_LOAD_NAVIGATION_CSS',true);
-			define('ICL_DONT_LOAD_LANGUAGES_JS',true);
-			$this->loader->add_filter( 'body_class', $plugin_public, 'wpml_body_class', 10 );
-		}*/
 
 		// Polylang
 		if ( function_exists('is_plugin_active') && (is_plugin_active( 'polylang/polylang.php' ) || is_plugin_active( 'polylang-pro/polylang.php' ))) {
@@ -241,17 +226,15 @@ class Tmsm_Frontend_Optimizations {
 			$this->loader->add_action( 'gform_pre_submission', $plugin_public, 'gravityforms_personal_data', 10, 1 );
 			$this->loader->add_filter( 'gform_field_content', $plugin_public, 'gravityforms_field_content_autocompleteoff', 10, 5 );
 			$this->loader->add_filter( 'gform_field_content', $plugin_public, 'gravityforms_field_content_phoneformat', 10, 5 );
+			$this->loader->add_filter( 'gform_address_display_format', $plugin_public, 'gravityforms_address_zipbeforecity', 10, 2 );
 		}
 
 		// Jetpack
 		$this->loader->add_action( 'loop_start', $plugin_public, 'jetpack_remove_share', 10 );
+		$this->loader->add_action( 'wp_enqueue_scripts', $plugin_public, 'jetpack_dequeue_scripts', 10 ); //Jetpack
 		add_filter( 'jetpack_tools_to_include', function( $tools ) {
 			return array_diff( $tools, array( 'geo-location.php' ) );
 		} );
-
-		// Google Tag Manager
-		$this->loader->add_action( 'ocean_before_outer_wrap', $plugin_public, 'googletagmanager_after_body', 10 ); // For OceanWP theme
-		$this->loader->add_filter( 'gtm4wp_get_the_gtm_tag', $plugin_public, 'googletagmanager_getthetag', 10, 1 );
 
 		// Yoast SEO
 		$this->loader->add_filter( 'wpseo_breadcrumb_output_wrapper', $plugin_public, 'wpseo_breadcrumb_output_wrapper', 10 );
@@ -260,9 +243,6 @@ class Tmsm_Frontend_Optimizations {
 
 		// WP Rocket
 		$this->loader->add_filter( 'rocket_lazyload_excluded_attributes', $plugin_public, 'rocket_lazyload_excluded_attributes_elementor', 10 );
-
-		// Personal Data Request Recipient
-		$this->loader->add_filter( 'user_request_confirmed_email_to', $plugin_public, 'user_request_confirmed_email_to_dpo', 10, 2 );
 
 		// WooCommerce
 		$this->loader->add_action( 'woocommerce_endpoint_order-received_title', $plugin_public, 'woocommerce_endpoint_order_received_title', 200 );
@@ -274,21 +254,14 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_action( 'woocommerce_product_meta_end', $plugin_public, 'woocommerce_product_meta_end_freeshippingpocalpickup', 50 );
 		$this->loader->add_action( 'woocommerce_dropdown_variation_attribute_options_html', $plugin_public, 'woocommerce_dropdown_variation_attribute_options_html_radio', 50, 2 );
 
-		// TAO Schedule Update
-		$this->loader->add_action( 'tao_publish_post', $plugin_public, 'tao_publish_post_emptycache', 200 );
-
-		// Script loader tag
-		$this->loader->add_filter( 'script_loader_tag', $plugin_public, 'script_loader_tag', 10, 3 );
-
 		// Paypal Checkout
 		$this->loader->add_filter( 'woocommerce_paypal_express_checkout_address_not_required', $plugin_public, 'woocommerce_paypal_checkout_address_not_required', 10, 1 );
 
+		// TAO Schedule Update
+		$this->loader->add_action( 'tao_publish_post', $plugin_public, 'tao_publish_post_emptycache', 200 );
+
 		// WooCommerce Advanced messages
 		$this->loader->add_filter( 'wcam_locations', $plugin_public, 'wcam_locations', 10, 1 );
-
-		// Oembed content
-		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'oembed_result_modest', 100, 4 );
-		$this->loader->add_filter( 'oembed_result', $plugin_public, 'oembed_result_nosnippet', 100, 3 );
 
 		// Elementor
 		$this->loader->add_filter( 'elementor_pro/search_form/after_input', $plugin_public, 'elementor_search_form_after_input', 100, 1 );

@@ -86,15 +86,98 @@ class Tmsm_Frontend_Optimizations_Public {
 		}
 	}
 
+
+	/**
+	 * Checks if a user has a role.
+	 *
+	 * @param int|WP_User $user The user.
+	 * @param string      $role The role.
+	 * @return bool
+	 */
+	function user_has_role( $user, $role ) {
+		if ( ! is_object( $user ) ) {
+			$user = get_userdata( $user );
+		}
+
+		if ( ! $user || ! $user->exists() ) {
+			return false;
+		}
+
+		return in_array( $role, $user->roles, true );
+	}
+
+
+	/**
+	 * Theme has parent theme
+	 *
+	 * @param $theme_name
+	 *
+	 * @return bool
+	 */
+	function has_parent_theme( $theme_name ) {
+		$current_theme = wp_get_theme();
+		$parent_theme  = $current_theme->parent();
+
+		return ! empty( $parent_theme ) && ! empty( $parent_theme->name ) && $parent_theme->name === $theme_name;
+	}
+
 	/**
 	 * Staging: noindex,nofollow,noarchive,nosnippet
 	 */
-	public function staging_noindex() {
+	public function wp_staging_noindex() {
 		if ( get_option( 'blog_public' ) === '0' ) {
 			echo '<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">', "\n";
 		}
 	}
 
+
+	/**
+	 * Filters the HTML script tag of an enqueued script.
+	 *
+	 * @since 4.1.0
+	 *
+	 * @param string $tag    The `<script>` tag for the enqueued script.
+	 * @param string $handle The script's registered handle.
+	 * @param string $src    The script's source URL.
+	 *
+	 * @return string
+	 */
+	function wp_script_loader_tag( $tag, $handle, $src )
+	{
+
+		if ( is_admin()){
+			return $tag;
+		}
+
+		if ( ! class_exists('\Elementor\Plugin') || ( class_exists('\Elementor\Plugin') && ( Plugin::$instance->preview && ! Plugin::$instance->preview->is_preview_mode() && Plugin::$instance->editor && ! Plugin::$instance->editor->is_edit_mode())) ) {
+			//$tag = '<script id="js-'.$handle.'" data-name="'.$handle.'" src="' . esc_url( $src ) . '"></script>';
+			$tag = str_replace( '<script type=\'text/javascript\' src', '<script id="js-'.$handle.'" data-name="'.$handle.'" type=\'text/javascript\' src', $tag );
+		}
+
+		return $tag;
+	}
+
+	/**
+	 * Recipient of the data request confirmation notification
+	 *
+	 * In a Multisite environment, this will default to the email address of the
+	 * network admin because, by default, single site admins do not have the
+	 * capabilities required to process requests. Some networks may wish to
+	 * delegate those capabilities to a single-site admin, or a dedicated person
+	 * responsible for managing privacy requests.
+	 *
+	 * @since 1.0.6
+	 *
+	 * @param string          $email        The email address of the notification recipient.
+	 * @param WP_User_Request $request_data The request that is initiating the notification.
+	 *
+	 * @return string
+	 */
+	function wp_user_request_confirmed_email_to_dpo( $email, $request_data ) {
+		$email = 'dpo@thalasso-saintmalo.com';
+
+		return $email;
+	}
 
 	/**
 	 * Embed wrap
@@ -106,8 +189,38 @@ class Tmsm_Frontend_Optimizations_Public {
 	 *
 	 * @return string
 	 */
-	function embed_wrap( $cache, $url, $attr = '', $post_ID = '' ) {
+	function wp_embed_wrap( $cache, $url, $attr = '', $post_ID = '' ) {
 		return '<div class="embed">' . $cache . '</div>';
+	}
+
+	/**
+	 * Remove YouTube related content and have modestbranding always on
+	 *
+	 * @param $html
+	 * @param $url
+	 * @param $attr
+	 * @param $post_ID
+	 *
+	 * @return mixed
+	 */
+	function wp_oembed_result_modest( $html, $url, $attr, $post_ID ) {
+		return str_replace( 'feature=oembed', 'feature=oembed&modestbranding=1&showinfo=0&rel=0', $html );
+	}
+
+	/**
+	 * Filters the HTML returned by the oEmbed provider.
+	 *
+	 * @param string|false $data The returned oEmbed HTML (false if unsafe).
+	 * @param string       $url  URL of the content to be embedded.
+	 * @param array        $args Optional arguments, usually passed from a shortcode.
+	 *
+	 * @return string
+	 */
+	function wp_oembed_result_nosnippet( string $data, string $url, array $args ) {
+
+		$data = '<div data-nosnippet="true">' . $data . '</div>';
+
+		return $data;
 	}
 
 	/**
@@ -117,7 +230,7 @@ class Tmsm_Frontend_Optimizations_Public {
 	 *
 	 * @return string
 	 */
-	public function get_the_archive_title_category($title){
+	public function wp_get_the_archive_title_category($title){
 		if ( is_category() ) {
 			$title = single_cat_title( '', false );
 		} elseif ( is_tag() ) {
@@ -126,6 +239,13 @@ class Tmsm_Frontend_Optimizations_Public {
 			$title = '<span class="vcard">' . get_the_author() . '</span>' ;
 		}
 		return $title;
+	}
+
+	/**
+	 * Disable default gallery style
+	 */
+	function wp_use_default_gallery_style(){
+		return false;
 	}
 
 	// Jetpack: Remove Sharing Filters
@@ -166,6 +286,48 @@ class Tmsm_Frontend_Optimizations_Public {
 
 	}
 
+	/**
+	 * Google Tag Manager: inject tag after body in OceanWP theme
+	 */
+	public function googletagmanager_after_body(){
+		if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); }
+	}
+
+	/**
+	 * Google Tag Manager: Exclude orders with status failed (only paid statuses)
+	 *
+	 * @param $tag
+	 *
+	 * @return string
+	 */
+	public function googletagmanager_getthetag( $tag ) {
+		global $wp;
+
+		if ( function_exists('is_order_received_page') && is_order_received_page() ) {
+			if ( ! empty( $wp->query_vars['order-received'] ) ) {
+
+				$order = wc_get_order( absint( $wp->query_vars['order-received'] ) );
+
+				// Check if paid date is in the past 24 hours
+				if ( ! empty( $order ) && ! empty( $order->get_date_paid() ) ) {
+					$paid_time = $order->get_date_paid()->getTimestamp();
+					$time = time();
+					$difference = $time - $paid_time;
+					if($difference > 24 * 3600){ // order paid for more than 24 hours, remove the tag
+						$tag = '<!-- order is 24 hours old -->';
+					}
+				}
+
+				// Order is not paid, remove the tag
+				if ( ! empty( $order ) && ! $order->is_paid() ) {
+					$tag = '<!-- order not paid -->';
+				}
+
+			}
+		}
+
+		return $tag;
+	}
 
 	/**
 	 * Asset Optimizer
@@ -200,13 +362,6 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
-	 * Disable default gallery style
-	 */
-	function use_default_gallery_style(){
-		return false;
-	}
-
-	/**
 	 * Jetpack: remove scripts
 	 */
 	function jetpack_dequeue_scripts() {
@@ -236,51 +391,6 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
-	 * WPML: Body Class Language
-	 *
-	 * @param  array $classes An array of body classes.
-	 * @return array
-	 */
-	public function wpml_body_class($classes = []) {
-		if (defined('ICL_LANGUAGE_CODE')) $classes[] = "lang-" . ICL_LANGUAGE_CODE;
-		return $classes;
-	}
-
-	/**
-	 * WPML: Language Switcher Function
-	 *
-	 * @return string
-	 */
-	private function wpml_language_switcher(){
-		$languages = icl_get_languages('skip_missing=0&orderby=code');
-		$inactives='';
-		$actives='';
-		$output = '';
-		if(!empty($languages)){
-			$output.= '<div class="language-switcher language-switcher-wpml"><div class="btn-group">';
-			foreach($languages as $l) :
-				if($l['active'])
-					$actives='
-              <button data-toggle="dropdown" class="btn dropdown-toggle">
-              '.$l['language_code'].' <span class="caret"></span>
-              </button>
-              <ul class="dropdown-menu">
-            ';
-				else
-					$inactives.= '
-              <li>
-                <a href="'.$l['url'].'" data-lang="'.$l['language_code'].'">'.$l['language_code'].'</a>
-              </li>
-            ';
-			endforeach;
-
-			$output.= $actives.$inactives;
-			$output.= '</ul></div></div>';
-		}
-		return $output;
-	}
-
-	/**
 	 * Polylang: Body Class Lang
 	 *
 	 * @param  array $classes An array of body classes.
@@ -294,20 +404,6 @@ class Tmsm_Frontend_Optimizations_Public {
 			$classes[] = 'lang-' . pll_current_language();
 		}
 		return $classes;
-	}
-
-	/**
-	 * Theme has parent theme
-	 *
-	 * @param $theme_name
-	 *
-	 * @return bool
-	 */
-	function has_parent_theme( $theme_name ) {
-		$current_theme = wp_get_theme();
-		$parent_theme  = $current_theme->parent();
-
-		return ! empty( $parent_theme ) && ! empty( $parent_theme->name ) && $parent_theme->name === $theme_name;
 	}
 
 	/**
@@ -554,66 +650,17 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
-	 * Checks if a user has a role.
+	 * Gravity Forms: address field, change order of city and postal code fields.
 	 *
-	 * @param int|WP_User $user The user.
-	 * @param string      $role The role.
-	 * @return bool
-	 */
-	function user_has_role( $user, $role ) {
-		if ( ! is_object( $user ) ) {
-			$user = get_userdata( $user );
-		}
-
-		if ( ! $user || ! $user->exists() ) {
-			return false;
-		}
-
-		return in_array( $role, $user->roles, true );
-	}
-
-	/**
-	 * Google Tag Manager: inject tag after body in OceanWP theme
-	 */
-	public function googletagmanager_after_body(){
-		if ( function_exists( 'gtm4wp_the_gtm_tag' ) ) { gtm4wp_the_gtm_tag(); }
-	}
-
-	/**
-	 * Google Tag Manager: Exclude orders with status failed (only paid statuses)
-	 *
-	 * @param $tag
+	 * @param string           $format
+	 * @param GF_Field_Address $field
 	 *
 	 * @return string
 	 */
-	public function googletagmanager_getthetag( $tag ) {
-		global $wp;
-
-		if ( function_exists('is_order_received_page') && is_order_received_page() ) {
-			if ( ! empty( $wp->query_vars['order-received'] ) ) {
-
-				$order = wc_get_order( absint( $wp->query_vars['order-received'] ) );
-
-				// Check if paid date is in the past 24 hours
-				if ( ! empty( $order ) && ! empty( $order->get_date_paid() ) ) {
-					$paid_time = $order->get_date_paid()->getTimestamp();
-					$time = time();
-					$difference = $time - $paid_time;
-					if($difference > 24 * 3600){ // order paid for more than 24 hours, remove the tag
-						$tag = '<!-- order is 24 hours old -->';
-					}
-				}
-
-				// Order is not paid, remove the tag
-				if ( ! empty( $order ) && ! $order->is_paid() ) {
-					$tag = '<!-- order not paid -->';
-				}
-
-			}
-		}
-
-		return $tag;
+	public function gravityforms_address_zipbeforecity(string $format, GF_Field_Address $field): string {
+		return 'zip_before_city';
 	}
+
 
 	/**
 	 * WPSEO Breadcrumb wrapper
@@ -658,27 +705,6 @@ class Tmsm_Frontend_Optimizations_Public {
 		return $attributes;
 	}
 
-	/**
-	 * Recipient of the data request confirmation notification
-	 *
-	 * In a Multisite environment, this will default to the email address of the
-	 * network admin because, by default, single site admins do not have the
-	 * capabilities required to process requests. Some networks may wish to
-	 * delegate those capabilities to a single-site admin, or a dedicated person
-	 * responsible for managing privacy requests.
-	 *
-	 * @since 1.0.6
-	 *
-	 * @param string          $email        The email address of the notification recipient.
-	 * @param WP_User_Request $request_data The request that is initiating the notification.
-	 *
-	 * @return string
-	 */
-	function user_request_confirmed_email_to_dpo( $email, $request_data ) {
-		$email = 'dpo@thalasso-saintmalo.com';
-
-		return $email;
-	}
 
 	/**
 	 * WooCommerce customize the "order received" page title when payment failed
@@ -1025,6 +1051,18 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
 	/**
+	 * Paypal Checkout: Make Billing Address not Required
+	 *
+	 * @param bool $address_not_required
+	 *
+	 * @return bool
+	 */
+	function woocommerce_paypal_checkout_address_not_required($address_not_required){
+		$address_not_required = false;
+		return $address_not_required;
+	}
+
+	/**
 	 * Empty cache when TAO Schedule Update is fired
 	 *
 	 * @since 1.1.3
@@ -1037,44 +1075,7 @@ class Tmsm_Frontend_Optimizations_Public {
 		}
 	}
 
-	/**
-	 * Filters the HTML script tag of an enqueued script.
-	 *
-	 * @since 4.1.0
-	 *
-	 * @param string $tag    The `<script>` tag for the enqueued script.
-	 * @param string $handle The script's registered handle.
-	 * @param string $src    The script's source URL.
-	 *
-	 * @return string
-	 */
-	function script_loader_tag( $tag, $handle, $src )
-	{
 
-		if ( is_admin()){
-			return $tag;
-		}
-
-		if ( ! class_exists('\Elementor\Plugin') || ( class_exists('\Elementor\Plugin') && ( Plugin::$instance->preview && ! Plugin::$instance->preview->is_preview_mode() && Plugin::$instance->editor && ! Plugin::$instance->editor->is_edit_mode())) ) {
-			//$tag = '<script id="js-'.$handle.'" data-name="'.$handle.'" src="' . esc_url( $src ) . '"></script>';
-			$tag = str_replace( '<script type=\'text/javascript\' src', '<script id="js-'.$handle.'" data-name="'.$handle.'" type=\'text/javascript\' src', $tag );
-		}
-
-		return $tag;
-	}
-
-
-	/**
-	 * Paypal Checkout: Make Billing Address not Required
-	 *
-	 * @param bool $address_not_required
-	 *
-	 * @return bool
-	 */
-	function woocommerce_paypal_checkout_address_not_required($address_not_required){
-		$address_not_required = false;
-		return $address_not_required;
-	}
 
 
 	/**
@@ -1103,35 +1104,6 @@ class Tmsm_Frontend_Optimizations_Public {
 		return $locations;
 	}
 
-	/**
-	 * Remove YouTube related content and have modestbranding always on
-	 *
-	 * @param $html
-	 * @param $url
-	 * @param $attr
-	 * @param $post_ID
-	 *
-	 * @return mixed
-	 */
-	function oembed_result_modest( $html, $url, $attr, $post_ID ) {
-		return str_replace( 'feature=oembed', 'feature=oembed&modestbranding=1&showinfo=0&rel=0', $html );
-	}
-
-	/**
-	 * Filters the HTML returned by the oEmbed provider.
-	 *
-	 * @param string|false $data The returned oEmbed HTML (false if unsafe).
-	 * @param string       $url  URL of the content to be embedded.
-	 * @param array        $args Optional arguments, usually passed from a shortcode.
-	 *
-	 * @return string
-	 */
-	function oembed_result_nosnippet( string $data, string $url, array $args ) {
-
-		$data = '<div data-nosnippet="true">' . $data . '</div>';
-
-		return $data;
-	}
 
 	/**
 	 * Elementor Search Form After Input
