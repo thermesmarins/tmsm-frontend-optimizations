@@ -245,6 +245,9 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_filter( 'rocket_lazyload_excluded_attributes', $plugin_public, 'rocket_lazyload_excluded_attributes_elementor', 10 );
 
 		// WooCommerce
+		if ( class_exists('BanHammer') ) {
+			$this->loader->add_filter( 'woocommerce_registration_errors', $plugin_public, 'woocommerce_banhammer_validation', 10, 3 );
+		}
 		$this->loader->add_action( 'woocommerce_endpoint_order-received_title', $plugin_public, 'woocommerce_endpoint_order_received_title', 200 );
 		$this->loader->add_action( 'woocommerce_scheduled_sales', $plugin_public, 'woocommerce_scheduled_sales_empty_cache', 200 );
 		$this->loader->add_filter( 'password_hint', $plugin_public, 'password_hint', 10, 1 );
