@@ -1022,14 +1022,15 @@ class Tmsm_Frontend_Optimizations_Public {
 	}
 
     /**
-     * WooCommerce Advanced billing-email verification.
+     * WooCommerce: Description: Prevent people from registering with any email in our none authorized array.
      *
-     * Description: Prevent people from registering with any email in your Blacklist.
+     * @param array          $errors
+     * @param string         $username
+     * @param string         $email
      *
+     * @return array
      */
-
-
-    function woocommerce_check_Domain_before_validation($errors, $username, $email)
+    function woocommerce_check_domain_before_validation(Array $errors, string $username, string $email): array
     {
         $email_parts = explode('@', $email);
         $email_domain_user = $email_parts[1];
@@ -1043,8 +1044,7 @@ class Tmsm_Frontend_Optimizations_Public {
                 'freee.fr',
                 'wanado.fr',
                 'wandoo.fr'))) {
-            //je dois vérifier 'user_login'
-            $errors->add('user_login', __('<strong>Error</strong>: This e-mail is invalid because it uses blacklisted domain. Please enter a valid email.'));
+            $errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid'));
         }
         return $errors;
     }
