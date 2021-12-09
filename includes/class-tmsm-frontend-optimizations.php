@@ -27,6 +27,7 @@
  * @subpackage Tmsm_Frontend_Optimizations/includes
  * @author     Nicolas Mollet <nico.mollet@gmail.com>
  */
+
 class Tmsm_Frontend_Optimizations {
 
 	/**
