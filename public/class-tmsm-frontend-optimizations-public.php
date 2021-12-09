@@ -1024,13 +1024,13 @@ class Tmsm_Frontend_Optimizations_Public {
     /**
      * WooCommerce: Description: Prevent people from registering with any email in our none authorized array.
      *
-     * @param mixed|void          $errors
+     * @param wp_error          $errors
      * @param string              $username
      * @param string              $email
      *
-     * @return array
+     * @return wp_error
      */
-    function woocommerce_check_domain_before_validation(Array $errors, string $username, string $email): array
+    function woocommerce_check_domain_before_validation(wp_error $errors, string $username, string $email): wp_error
     {
         $email_parts = explode('@', $email);
         $email_domain_user = $email_parts[1];
