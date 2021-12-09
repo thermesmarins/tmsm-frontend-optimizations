@@ -1024,9 +1024,9 @@ class Tmsm_Frontend_Optimizations_Public {
     /**
      * WooCommerce: Description: Prevent people from registering with any email in our none authorized array.
      *
-     * @param WP_Error         $errors
-     * @param string              $username
-     * @param string              $email
+     * @param WP_Error $errors
+     * @param string $username
+     * @param string $email
      *
      * @return WP_Error
      */
