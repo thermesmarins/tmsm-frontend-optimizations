@@ -1021,6 +1021,35 @@ class Tmsm_Frontend_Optimizations_Public {
 		echo $html; // WPCS: XSS ok.
 	}
 
+    /**
+     * WooCommerce Advanced billing-email verification.
+     *
+     * Description: Prevent people from registering with any email in your Blacklist.
+     *
+     */
+
+
+    function woocommerce_check_Domain_before_validation($errors, $username, $email)
+    {
+        $email_parts = explode('@', $email);
+        $email_domain_user = $email_parts[1];
+        if (in_array(
+            $email_domain_user,
+            array(
+                'gmail.fr',
+                'gamil.com',
+                'hotmal.fr',
+                'orage.fr',
+                'freee.fr',
+                'wanado.fr',
+                'wandoo.fr'))) {
+            //je dois vérifier 'user_login'
+            $errors->add('user_login', __('<strong>Error</strong>: This e-mail is invalid because it uses blacklisted domain. Please enter a valid email.'));
+        }
+        return $errors;
+    }
+
+
 	/**
 	 * WooCommerce: Hides local_pickup shipping method if no_local_pickup shipping class is found in cart
 	 *
