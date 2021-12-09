@@ -705,11 +705,11 @@ class Tmsm_Frontend_Optimizations_Public {
 		return $attributes;
 	}
 
-	function woocommerce_banhammer_validation( $validation_errors, $username, $email ) {
-		if( (new BanHammer)->banhammer_drop( $username, $email, $validation_errors ) )
-			return new WP_Error( 'billing_email', (new BanHammer)->options['message'] );
-		return $validation_errors;
-	}
+//	function woocommerce_banhammer_validation( $validation_errors, $username, $email ) {
+//		if( (new BanHammer)->banhammer_drop( $username, $email, $validation_errors ) )
+//			return new WP_Error( 'billing_email', (new BanHammer)->options['message'] );
+//		return $validation_errors;
+//	}
 
 	/**
 	 * WooCommerce customize the "order received" page title when payment failed
