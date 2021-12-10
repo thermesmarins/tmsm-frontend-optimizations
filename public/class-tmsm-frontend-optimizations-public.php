@@ -1047,20 +1047,33 @@ class Tmsm_Frontend_Optimizations_Public {
      *
      * @return WP_Error
      */
+//    function woocommerce_check_domain_before_validation(wp_error $errors, string $username, string $email): WP_Error
+//    {
+//        $email_parts = explode('@', $email);
+//        $email_domain_user = $email_parts[1];
+//        $unauthorised_domains = $this->unauthorised_domains;
+//        if (in_array(
+//            $email_domain_user, $unauthorised_domains)
+//            ) {
+//            $errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid'));
+//        }
+//
+//        return $errors;
+//    }
+
     function woocommerce_check_domain_before_validation(wp_error $errors, string $username, string $email): WP_Error
     {
         $email_parts = explode('@', $email);
         $email_domain_user = $email_parts[1];
         $unauthorised_domains = $this->unauthorised_domains;
         if (in_array(
-            $email_domain_user, $unauthorised_domains)
-            ) {
+            strtolower($email_domain_user), $unauthorised_domains)
+        ) {
             $errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid'));
         }
 
         return $errors;
     }
-
 
 	/**
 	 * WooCommerce: Hides local_pickup shipping method if no_local_pickup shipping class is found in cart
