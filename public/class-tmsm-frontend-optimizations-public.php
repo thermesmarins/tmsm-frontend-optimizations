@@ -24,6 +24,7 @@ use Elementor\Plugin;
  */
 class Tmsm_Frontend_Optimizations_Public {
 
+
 	/**
 	 * The ID of this plugin.
 	 *
@@ -49,7 +50,23 @@ class Tmsm_Frontend_Optimizations_Public {
 	 * @param      string    $plugin_name       The name of the plugin.
 	 * @param      string    $version    The version of this plugin.
 	 */
-	public function __construct( $plugin_name, $version ) {
+
+    /**
+     * Variable which contains unauthorized domain names
+     *
+     * @access   private
+     */
+    private $unauthorised_domains = array(
+        'gmail.fr',
+        'gamil.com',
+        'hotmal.fr',
+        'orage.fr',
+        'freee.fr',
+        'wanado.fr',
+        'wandoo.fr');
+
+
+    public function __construct( $plugin_name, $version ) {
 
 		$this->plugin_name = $plugin_name;
 		$this->version = $version;
@@ -1034,18 +1051,13 @@ class Tmsm_Frontend_Optimizations_Public {
     {
         $email_parts = explode('@', $email);
         $email_domain_user = $email_parts[1];
+        $unauthorised_domains = $this->unauthorised_domains;
         if (in_array(
-            $email_domain_user,
-            array(
-                'gmail.fr',
-                'gamil.com',
-                'hotmal.fr',
-                'orage.fr',
-                'freee.fr',
-                'wanado.fr',
-                'wandoo.fr'))) {
+            $email_domain_user, $unauthorised_domains)
+            ) {
             $errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid'));
         }
+
         return $errors;
     }
 
