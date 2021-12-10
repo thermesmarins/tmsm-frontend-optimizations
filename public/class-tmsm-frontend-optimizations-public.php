@@ -678,6 +678,65 @@ class Tmsm_Frontend_Optimizations_Public {
 		return 'zip_before_city';
 	}
 
+    /**
+     * Gravity Forms: Description: Prevent people from registering with any email in our none authorized array.
+     *
+     * @param $result
+     * @param $value
+     * @param $form
+     * @param $field
+     *
+     * @return $form
+     */
+    function gravity_form_check_Domain_before_validation($result, $value, $field)
+    {
+        if ($field->type == 'email') {
+            $email = $value;
+            $email_parts = explode('@', $email);
+            $email_domain_user = $email_parts[1];
+            $unauthorised_domains = $this->unauthorised_domains;
+            if (in_array($email, unauthorised_domains)) {
+                $result['is_valid'] = false;
+                if (!empty($field["block_email_domains_validation"])) {
+                    $error_message = $field["block_email_domains_validation"];
+                } else {
+                    $error_message = 'Sorry, ' . $email_parts . '<strong>Error</strong>: The domain of the email is invalid';
+                }
+                $result['message'] = empty($field->errorMessage) ? __($error_message, 'gravityforms') : $field->errorMessage;
+            }
+        }
+        return $result;
+    }
+
+
+
+//        $email = $_POST['input_2'];
+//        $email_parts = explode('@', $email);
+//        $email_domain_user = $email_parts[1];
+//        $unauthorised_domains = $this->unauthorised_domains;
+//        $form['errors'] = new WP_Error();
+//        if (in_array(
+//            strtolower($email_domain_user), $unauthorised_domains)
+//        ) {
+//            $form = gf_user_registration()->add_validation_error( 2, $form, '<strong>Error</strong>: The domain of the email is invalid' );
+//        }
+//        return $form;
+
+
+
+//    function woocommerce_check_domain_before_validation(wp_error $errors, string $username, string $email): WP_Error
+//    {
+//        $email_parts = explode('@', $email);
+//        $email_domain_user = $email_parts[1];
+//        $unauthorised_domains = $this->unauthorised_domains;
+//        if (in_array(
+//            strtolower($email_domain_user), $unauthorised_domains)
+//        ) {
+//            $errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid'));
+//        }
+//
+//        return $errors;
+//    }
 
 	/**
 	 * WPSEO Breadcrumb wrapper
@@ -1047,20 +1106,6 @@ class Tmsm_Frontend_Optimizations_Public {
      *
      * @return WP_Error
      */
-//    function woocommerce_check_domain_before_validation(wp_error $errors, string $username, string $email): WP_Error
-//    {
-//        $email_parts = explode('@', $email);
-//        $email_domain_user = $email_parts[1];
-//        $unauthorised_domains = $this->unauthorised_domains;
-//        if (in_array(
-//            $email_domain_user, $unauthorised_domains)
-//            ) {
-//            $errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid'));
-//        }
-//
-//        return $errors;
-//    }
-
     function woocommerce_check_domain_before_validation(wp_error $errors, string $username, string $email): WP_Error
     {
         $email_parts = explode('@', $email);

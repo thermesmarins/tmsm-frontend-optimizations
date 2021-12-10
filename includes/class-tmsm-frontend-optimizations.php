@@ -233,7 +233,8 @@ class Tmsm_Frontend_Optimizations {
 			$this->loader->add_filter( 'gform_field_content', $plugin_public, 'gravityforms_field_content_autocompleteoff', 10, 5 );
 			$this->loader->add_filter( 'gform_field_content', $plugin_public, 'gravityforms_field_content_phoneformat', 10, 5 );
 			$this->loader->add_filter( 'gform_address_display_format', $plugin_public, 'gravityforms_address_zipbeforecity', 10, 2 );
-            $this->loader->add_filter( 'gform_user_registration_validation',$plugin_public, 'gravity_form_check_Domain_before_validation', 10, 3 );
+//            $this->loader->add_filter( 'gform_user_registration_validation',$plugin_public, 'gravity_form_check_Domain_before_validation', 10, 3 );
+            $this->loader->add_filter( 'gform_field_validation',$plugin_public,'gravity_form_check_Domain_before_validation', 10, 3 );
 		}
 
 		// Jetpack
