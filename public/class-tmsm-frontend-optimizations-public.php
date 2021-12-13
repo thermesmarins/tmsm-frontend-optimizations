@@ -25,7 +25,6 @@ use Elementor\Plugin;
 class Tmsm_Frontend_Optimizations_Public
 {
 
-
     /**
      * The ID of this plugin.
      *
@@ -33,40 +32,42 @@ class Tmsm_Frontend_Optimizations_Public
      * @access   private
      * @var      string $plugin_name The ID of this plugin.
      */
-    private $plugin_name;
+    private string $plugin_name;
 
-    /**
-     * The version of this plugin.
-     *
-     * @since    1.0.0
-     * @access   private
-     * @var      string $version The current version of this plugin.
-     */
-    private $version;
+	/**
+	 * The version of this plugin.
+	 *
+	 * @since    1.0.0
+	 * @access   private
+	 * @var      string $version The current version of this plugin.
+	 */
+	private string $version;
 
-    /**
-     * Initialize the class and set its properties.
-     *
-     * @param string $plugin_name The name of the plugin.
-     * @param string $version The version of this plugin.
-     * @since    1.0.0
-     */
-
-    /**
-     * Variable which contains unauthorized domain names
-     *
-     * @access   private
-     */
-    private $unauthorised_domains = array(
+	/**
+	 * Variable which contains unauthorized domain names
+	 *
+	 * @access private
+	 * @var array $unauthorised_domains
+	 */
+    private array $unauthorised_domains = array(
         'gmail.fr',
         'gamil.com',
         'hotmal.fr',
         'orage.fr',
         'freee.fr',
         'wanado.fr',
-        'wandoo.fr');
+        'wandoo.fr'
+    );
 
-    public function __construct($plugin_name, $version)
+	/**
+	 * Initialize the class and set its properties.
+	 *
+	 * @param string $plugin_name The name of the plugin.
+	 * @param string $version The version of this plugin.
+	 * @since    1.0.0
+	 */
+
+	public function __construct($plugin_name, $version)
     {
 
         $this->plugin_name = $plugin_name;
@@ -104,7 +105,28 @@ class Tmsm_Frontend_Optimizations_Public
             wp_register_script('wc-add-to-cart-variation', plugin_dir_url(__FILE__) . 'js/radioattribute.js', array('jquery', 'wp-util'),
                 $this->version, true);
         }
+
     }
+
+	/**
+	 * Checks if a user has a role.
+	 *
+	 * @param int|WP_User $user The user.
+	 * @param string $role The role.
+	 * @return bool
+	 */
+	function user_has_role($user, $role)
+	{
+		if (!is_object($user)) {
+			$user = get_userdata($user);
+		}
+
+		if (!$user || !$user->exists()) {
+			return false;
+		}
+
+		return in_array($role, $user->roles, true);
+	}
 
     /**
      * Staging: noindex,nofollow,noarchive,nosnippet
@@ -636,25 +658,7 @@ class Tmsm_Frontend_Optimizations_Public
         return $text;
     }
 
-    /**
-     * Checks if a user has a role.
-     *
-     * @param int|WP_User $user The user.
-     * @param string $role The role.
-     * @return bool
-     */
-    function user_has_role($user, $role)
-    {
-        if (!is_object($user)) {
-            $user = get_userdata($user);
-        }
 
-        if (!$user || !$user->exists()) {
-            return false;
-        }
-
-        return in_array($role, $user->roles, true);
-    }
 
     /**
      * Gravity Forms: Add autocomplete off to number field type.
@@ -707,34 +711,27 @@ class Tmsm_Frontend_Optimizations_Public
         return 'zip_before_city';
     }
 
-    /**
-     * Gravity Forms: Description: Prevent people from registering with any email in our none authorized array.
-     *
-     * @param array $result
-     * @param string|array $value
-     * @param mixed $form (contains all properties of a particular form)
-     * @param mixed $field (The Field object contains all settings for a particular field)
-     *
-     * @return $result
-     */
-    function gravityforms_check_domain_before_validation($result, $value, $form, $field)
+	/**
+	 * Gravity Forms: Description: Prevent people from registering with any email in our none authorized array.
+	 *
+	 * @param array        $result
+	 * @param string|array $value
+	 * @param mixed        $form  (contains all properties of a particular form)
+	 * @param mixed        $field (The Field object contains all settings for a particular field)
+	 *
+	 * @return array|void $result
+	 */
+    function gravityforms_check_domain_before_validation(array $result, $value, $form, $field)
     {
-        foreach ($form['fields'] as $field) {
-            if ($field->type == 'email') {
-                if (is_array($value)) {
-                    $email = $value[0];
-                } else
-                    $email = $value;
-                $email_parts = explode('@', $email);
-                $email_domain_user = $email_parts[1];
-                $unauthorised_domains = $this->unauthorised_domains;
-                if ($result['is_valid'] && (in_array($email_domain_user, $unauthorised_domains))) {
-                    $result['is_valid'] = false;
-                    $result['message'] = 'Sorry, <strong>Error</strong>: The domain of the email is invalid';
-                }
-                return $result;
-            }
-        }
+	    if ( $field->get_input_type() === 'email' && $result['is_valid'] ) {
+		    $email_parts          = explode( '@', $value );
+		    $email_domain_user    = $email_parts[1];
+		    if ( in_array( $email_domain_user, $this->unauthorised_domains ) ) {
+			    $result['is_valid'] = false;
+			    $result['message']  = __( 'The domain of the email is invalid', 'tmsm-frontend-optimizations' );
+		    }
+	    }
+	    return $result;
     }
 
     /**
@@ -784,6 +781,27 @@ class Tmsm_Frontend_Optimizations_Public
         return $attributes;
     }
 
+	/**
+	 * WooCommerce: Description: Prevent people from registering with any email in our none authorized array.
+	 *
+	 * @param WP_Error $errors
+	 * @param string $username
+	 * @param string $email
+	 *
+	 * @return WP_Error
+	 */
+	function woocommerce_check_email_domain(wp_error $errors, string $username, string $email): WP_Error
+	{
+		$email_parts = explode('@', $email);
+		$email_domain_user = $email_parts[1];
+		if (in_array(
+			strtolower($email_domain_user), $this->unauthorised_domains)
+		) {
+			$errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid', 'tmsm-frontend-optimizations'));
+		}
+		return $errors;
+	}
+
     /**
      * WooCommerce customize the "order received" page title when payment failed
      *
@@ -827,7 +845,7 @@ class Tmsm_Frontend_Optimizations_Public
      * @since 4.1.0
      *
      */
-    function password_hint($hint)
+	function woocommerce_password_hint( $hint )
     {
 
         $hint = __('The password must be at least twelve characters long. Use at least one upper case letter, one lower case letter, one number, and one symbol like ! ? $ % ^ &amp; ).', 'tmsm-frontend-optimizations');
@@ -1094,28 +1112,6 @@ class Tmsm_Frontend_Optimizations_Public
         }
 
         echo $html; // WPCS: XSS ok.
-    }
-
-    /**
-     * WooCommerce: Description: Prevent people from registering with any email in our none authorized array.
-     *
-     * @param WP_Error $errors
-     * @param string $username
-     * @param string $email
-     *
-     * @return WP_Error
-     */
-    function woocommerce_check_domain_before_validation(wp_error $errors, string $username, string $email): WP_Error
-    {
-        $email_parts = explode('@', $email);
-        $email_domain_user = $email_parts[1];
-        $unauthorised_domains = $this->unauthorised_domains;
-        if (in_array(
-            strtolower($email_domain_user), $unauthorised_domains)
-        ) {
-            $errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid'));
-        }
-        return $errors;
     }
 
     /**
