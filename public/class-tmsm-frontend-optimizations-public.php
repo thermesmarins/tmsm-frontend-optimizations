@@ -681,99 +681,32 @@ class Tmsm_Frontend_Optimizations_Public {
     /**
      * Gravity Forms: Description: Prevent people from registering with any email in our none authorized array.
      *
-     * @param $result
-     * @param $value
-     * @param $form
-     * @param $field
+     * @param array $result
+     * @param string|array $value
+     * @param mixed $form (contains all properties of a particular form)
+     * @param mixed $field (The Field object contains all settings for a particular field)
      *
-     * @return $form
+     * @return $result
      */
-    function gravity_form_check_Domain_before_validation( $result, $value, $form, $field )
+    function gravityforms_check_domain_before_validation($result, $value, $form, $field)
     {
-//        $email = $value;
-//        var_dump($value);
-        if (is_array($value)){
-            $email = $value[0];
-        }
-        else
-            $email = $value;
-            $email_parts = explode('@', $email);
-            $email_domain_user = $email_parts[1];
-            $unauthorised_domains = $this->unauthorised_domains;
-            if ( $result['is_valid'] && (in_array($email_domain_user, $unauthorised_domains))) {
-                $result['is_valid'] = false;
-                $result['message'] = 'Sorry, <strong>Error</strong>: The domain of the email is invalid';
+        foreach ($form['fields'] as $field) {
+            if ($field->type == 'email') {
+                if (is_array($value)) {
+                    $email = $value[0];
+                } else
+                    $email = $value;
+                $email_parts = explode('@', $email);
+                $email_domain_user = $email_parts[1];
+                $unauthorised_domains = $this->unauthorised_domains;
+                if ($result['is_valid'] && (in_array($email_domain_user, $unauthorised_domains))) {
+                    $result['is_valid'] = false;
+                    $result['message'] = 'Sorry, <strong>Error</strong>: The domain of the email is invalid';
+                }
+                return $result;
             }
-        return $result;
+        }
     }
-
-
-
-
-
-
-
-//        $email = $value
-//        $value = $_GET['input_2']; null
-
-//        var_dump($field);
-
-//        var_dump($value);
-//        echo '<p>/</p>';
-//        var_dump($value["3"]);
-//       $email = implode(" ",$value);
-//       var_dump($email);
-//       echo "foo is $value";
-//
-//        return $result;
-//    }
-
-//        if ( $result['is_valid'] && $field->type === 'email') {
-//            // Inpput values
-//
-//
-
-
-//        return $result;
-//        if ($field->type == 'email') {
-//            $email = $value;
-//            $email_parts = explode('@', $email);
-//            $email_domain_user = $email_parts[1];
-//            $unauthorised_domains = $this->unauthorised_domains;
-
-//        }
-//        return $result;
-
-
-
-
-//        $email = $_POST['input_2'];
-//        $email_parts = explode('@', $email);
-//        $email_domain_user = $email_parts[1];
-//        $unauthorised_domains = $this->unauthorised_domains;
-//        $form['errors'] = new WP_Error();
-//        if (in_array(
-//            strtolower($email_domain_user), $unauthorised_domains)
-//        ) {
-//            $form = gf_user_registration()->add_validation_error( 2, $form, '<strong>Error</strong>: The domain of the email is invalid' );
-//        }
-//        return $form;
-
-
-
-//    function woocommerce_check_domain_before_validation(wp_error $errors, string $username, string $email): WP_Error
-//    {
-//        $email_parts = explode('@', $email);
-//        $email_domain_user = $email_parts[1];
-//        $unauthorised_domains = $this->unauthorised_domains;
-//        if (in_array(
-//            strtolower($email_domain_user), $unauthorised_domains)
-//        ) {
-//            $errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid'));
-//        }
-//
-//        return $errors;
-//    }
 
 	/**
 	 * WPSEO Breadcrumb wrapper
@@ -817,12 +750,6 @@ class Tmsm_Frontend_Optimizations_Public {
 
 		return $attributes;
 	}
-
-//	function woocommerce_banhammer_validation( $validation_errors, $username, $email ) {
-//		if( (new BanHammer)->banhammer_drop( $username, $email, $validation_errors ) )
-//			return new WP_Error( 'billing_email', (new BanHammer)->options['message'] );
-//		return $validation_errors;
-//	}
 
 	/**
 	 * WooCommerce customize the "order received" page title when payment failed
