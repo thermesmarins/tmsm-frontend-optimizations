@@ -52,19 +52,19 @@ class Tmsm_Frontend_Optimizations_Public
      * @since    1.0.0
      */
 
-    /**
-     * Variable which contains unauthorized domain names
-     *
-     * @access   private
-     */
-    private $unauthorised_domains = array(
-        'gmail.fr',
-        'gamil.com',
-        'hotmal.fr',
-        'orage.fr',
-        'freee.fr',
-        'wanado.fr',
-        'wandoo.fr');
+        /**
+        * Variable which contains unauthorized domain names
+        *
+        * @access   private
+        */
+        private $unauthorised_domains = array(
+            'gmail.fr',
+            'gamil.com',
+            'hotmal.fr',
+            'orage.fr',
+            'freee.fr',
+            'wanado.fr',
+            'wandoo.fr');
 
 
     public function __construct($plugin_name, $version)
@@ -708,35 +708,35 @@ class Tmsm_Frontend_Optimizations_Public
         return 'zip_before_city';
     }
 
-    /**
-     * Gravity Forms: Description: Prevent people from registering with any email in our none authorized array.
-     *
-     * @param array $result
-     * @param string|array $value
-     * @param mixed $form (contains all properties of a particular form)
-     * @param mixed $field (The Field object contains all settings for a particular field)
-     *
-     * @return $result
-     */
-    function gravityforms_check_domain_before_validation($result, $value, $form, $field)
-    {
-        foreach ($form['fields'] as $field) {
-            if ($field->type == 'email') {
-                if (is_array($value)) {
-                    $email = $value[0];
-                } else
-                    $email = $value;
-                $email_parts = explode('@', $email);
-                $email_domain_user = $email_parts[1];
-                $unauthorised_domains = $this->unauthorised_domains;
-                if ($result['is_valid'] && (in_array($email_domain_user, $unauthorised_domains))) {
-                    $result['is_valid'] = false;
-                    $result['message'] = 'Sorry, <strong>Error</strong>: The domain of the email is invalid';
+        /**
+        * Gravity Forms: Description: Prevent people from registering with any email in our none authorized array.
+        *
+        * @param array $result
+        * @param string|array $value
+        * @param mixed $form (contains all properties of a particular form)
+        * @param mixed $field (The Field object contains all settings for a particular field)
+        *
+        * @return $result
+        */
+        function gravityforms_check_domain_before_validation($result, $value, $form, $field)
+        {
+            foreach ($form['fields'] as $field) {
+                if ($field->type == 'email') {
+                    if (is_array($value)) {
+                        $email = $value[0];
+                    } else
+                        $email = $value;
+                        $email_parts = explode('@', $email);
+                        $email_domain_user = $email_parts[1];
+                        $unauthorised_domains = $this->unauthorised_domains;
+                    if ($result['is_valid'] && (in_array($email_domain_user, $unauthorised_domains))) {
+                        $result['is_valid'] = false;
+                        $result['message'] = 'Sorry, <strong>Error</strong>: The domain of the email is invalid';
+                    }
+                    return $result;
                 }
-                return $result;
             }
         }
-    }
 
     /**
      * WPSEO Breadcrumb wrapper
@@ -1097,28 +1097,27 @@ class Tmsm_Frontend_Optimizations_Public
         echo $html; // WPCS: XSS ok.
     }
 
-    /**
-     * WooCommerce: Description: Prevent people from registering with any email in our none authorized array.
-     *
-     * @param WP_Error $errors
-     * @param string $username
-     * @param string $email
-     *
-     * @return WP_Error
-     */
-    function woocommerce_check_domain_before_validation(wp_error $errors, string $username, string $email): WP_Error
-    {
-        $email_parts = explode('@', $email);
-        $email_domain_user = $email_parts[1];
-        $unauthorised_domains = $this->unauthorised_domains;
-        if (in_array(
-            strtolower($email_domain_user), $unauthorised_domains)
-        ) {
-            $errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid'));
+        /**
+        * WooCommerce: Description: Prevent people from registering with any email in our none authorized array.
+        *
+        * @param WP_Error $errors
+        * @param string $username
+        * @param string $email
+        *
+        * @return WP_Error
+        */
+        function woocommerce_check_domain_before_validation(wp_error $errors, string $username, string $email): WP_Error
+        {
+            $email_parts = explode('@', $email);
+            $email_domain_user = $email_parts[1];
+            $unauthorised_domains = $this->unauthorised_domains;
+            if (in_array(
+                strtolower($email_domain_user), $unauthorised_domains)
+            ) {
+                $errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid'));
+            }
+            return $errors;
         }
-
-        return $errors;
-    }
 
     /**
      * WooCommerce: Hides local_pickup shipping method if no_local_pickup shipping class is found in cart
