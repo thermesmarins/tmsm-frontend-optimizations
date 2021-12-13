@@ -688,25 +688,62 @@ class Tmsm_Frontend_Optimizations_Public {
      *
      * @return $form
      */
-    function gravity_form_check_Domain_before_validation($result, $value, $field)
+    function gravity_form_check_Domain_before_validation( $result, $value, $form, $field )
     {
-        if ($field->type == 'email') {
+//        $email = $value;
+//        var_dump($value);
+        if (is_array($value)){
+            $email = $value[0];
+        }
+        else
             $email = $value;
             $email_parts = explode('@', $email);
             $email_domain_user = $email_parts[1];
             $unauthorised_domains = $this->unauthorised_domains;
-            if (in_array($email, unauthorised_domains)) {
+            if ( $result['is_valid'] && (in_array($email_domain_user, $unauthorised_domains))) {
                 $result['is_valid'] = false;
-                if (!empty($field["block_email_domains_validation"])) {
-                    $error_message = $field["block_email_domains_validation"];
-                } else {
-                    $error_message = 'Sorry, ' . $email_parts . '<strong>Error</strong>: The domain of the email is invalid';
-                }
-                $result['message'] = empty($field->errorMessage) ? __($error_message, 'gravityforms') : $field->errorMessage;
+                $result['message'] = 'Sorry, <strong>Error</strong>: The domain of the email is invalid';
             }
-        }
         return $result;
     }
+
+
+
+
+
+
+
+//        $email = $value
+//        $value = $_GET['input_2']; null
+
+//        var_dump($field);
+
+//        var_dump($value);
+//        echo '<p>/</p>';
+//        var_dump($value["3"]);
+//       $email = implode(" ",$value);
+//       var_dump($email);
+//       echo "foo is $value";
+//
+//        return $result;
+//    }
+
+//        if ( $result['is_valid'] && $field->type === 'email') {
+//            // Inpput values
+//
+//
+
+
+//        return $result;
+//        if ($field->type == 'email') {
+//            $email = $value;
+//            $email_parts = explode('@', $email);
+//            $email_domain_user = $email_parts[1];
+//            $unauthorised_domains = $this->unauthorised_domains;
+
+//        }
+//        return $result;
+
 
 
 
