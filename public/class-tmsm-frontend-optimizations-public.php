@@ -66,7 +66,6 @@ class Tmsm_Frontend_Optimizations_Public
 	 * @param string $version The version of this plugin.
 	 * @since    1.0.0
 	 */
-
 	public function __construct($plugin_name, $version)
     {
 
