@@ -1,3 +1,5 @@
+* Update FR localization
+
 ### 1.4.0: December 14th, 2021
 * **New** - Gravity Forms and WooCommerce: exclude unauthorized domains
 * **Tweak** - Remove admin folder
