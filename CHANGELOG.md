@@ -1,6 +1,10 @@
+### 1.4.0: December 14th, 2021
+* **New** - Gravity Forms and WooCommerce: exclude unauthorized domains
+* **Tweak** - Remove admin folder
+
 ### 1.3.9: November 2nd, 2021
-* Checks object exists
-* Gravity Forms: change postal code and city order in address field
+* **Tweak** - Checks object exists
+* **Tweak** - Gravity Forms: change postal code and city order in address field
 
 ### 1.3.8: July 13th, 2021
 * **New** - Gravity Forms phone number validation for international numbers
