@@ -1,8 +1,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: TMSM Frontend Optimizations\n"
-"POT-Creation-Date: 2021-12-14 15:24+0100\n"
-"PO-Revision-Date: 2021-12-14 15:25+0100\n"
+"POT-Creation-Date: 2022-01-11 10:50+0100\n"
+"PO-Revision-Date: 2022-01-11 10:51+0100\n"
 "Last-Translator: Nicolas Mollet <nico.mollet@gmail.com>\n"
 "Language-Team: https://github.com/thermesmarins/\n"
 "Language: fr\n"
@@ -38,11 +38,11 @@ msgstr "Le domaine n’est pas valide"
 msgid "<strong>Error</strong>: The domain of the email is invalid"
 msgstr "<strong>Erreurr</strong>: le domaine n’est pas valide"
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:809
+#: ../public/class-tmsm-frontend-optimizations-public.php:810
 msgid "Payment Failed"
 msgstr "Paiement échoué"
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:840
+#: ../public/class-tmsm-frontend-optimizations-public.php:841
 msgid ""
 "The password must be at least twelve characters long. Use at least one upper "
 "case letter, one lower case letter, one number, and one symbol like ! ? $ % "
@@ -52,29 +52,29 @@ msgstr ""
 "lettre majuscule, une lettre minuscule, un nombre et un symbole comme ! ? $ "
 "% ^ &amp; )."
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:871
+#: ../public/class-tmsm-frontend-optimizations-public.php:872
 msgid "Cash on Delivery"
 msgstr "Paiement à la livraison"
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:964
+#: ../public/class-tmsm-frontend-optimizations-public.php:965
 #, php-format
 msgid "%1$s from %2$s"
 msgstr "%1$s à partir de %2$s"
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:990
+#: ../public/class-tmsm-frontend-optimizations-public.php:991
 msgid "(free)"
 msgstr "(gratuit)"
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:990
+#: ../public/class-tmsm-frontend-optimizations-public.php:991
 #, php-format
 msgid "(%s)"
 msgstr "(%s)"
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:1010
+#: ../public/class-tmsm-frontend-optimizations-public.php:1011
 msgid "Secure payments"
 msgstr "Paiement sécurisé"
 
-#: ../public/class-tmsm-frontend-optimizations-public.php:1032
-#: ../public/class-tmsm-frontend-optimizations-public.php:1043
+#: ../public/class-tmsm-frontend-optimizations-public.php:1033
+#: ../public/class-tmsm-frontend-optimizations-public.php:1044
 msgid "Choose an option"
 msgstr "Choisir une option"

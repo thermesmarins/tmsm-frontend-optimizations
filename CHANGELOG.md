@@ -1,4 +1,5 @@
 * Update FR localization
+* Code refactoring
 
 ### 1.4.0: December 14th, 2021
 * **New** - Gravity Forms and WooCommerce: exclude unauthorized domains
