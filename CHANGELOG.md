@@ -1,3 +1,4 @@
+### 1.4.1: January 11th, 2022
 * Update FR localization
 * Code refactoring
 
