@@ -34,7 +34,7 @@ class Tmsm_Frontend_Optimizations_Public
 	private string $version;
 
 	/**
-	 * Variable which contains unauthorized domain names
+	 * Unauthorized domains
 	 *
 	 * @access private
 	 * @var array $unauthorised_domains
@@ -701,25 +701,26 @@ class Tmsm_Frontend_Optimizations_Public
     }
 
 	/**
-	 * Gravity Forms: Description: Prevent people from registering with any email in our none authorized array.
+	 * Gravity Forms: Prevent users from submitting an email of the "not authorized domains" list.
 	 *
 	 * @param array        $result
 	 * @param string|array $value
 	 * @param mixed        $form  (contains all properties of a particular form)
 	 * @param mixed        $field (The Field object contains all settings for a particular field)
 	 *
-	 * @return array|void $result
+	 * @return array $result
 	 */
-    function gravityforms_check_domain_before_validation(array $result, $value, $form, $field)
+    function gravityforms_check_email_domain(array $result, $value, $form, $field)
     {
 	    if ( $field->get_input_type() === 'email' && $result['is_valid'] ) {
-		    $email_parts          = explode( '@', $value );
-		    $email_domain_user    = $email_parts[1];
+		    $email_parts       = explode( '@', $value );
+		    $email_domain_user = $email_parts[1];
 		    if ( in_array( $email_domain_user, $this->unauthorised_domains ) ) {
 			    $result['is_valid'] = false;
 			    $result['message']  = __( 'The domain of the email is invalid', 'tmsm-frontend-optimizations' );
 		    }
 	    }
+
 	    return $result;
     }
 
@@ -771,34 +772,34 @@ class Tmsm_Frontend_Optimizations_Public
     }
 
 	/**
-	 * WooCommerce: Description: Prevent people from registering with any email in our none authorized array.
+	 * WooCommerce: prevent users from registering with an email with from the "not authorized" list.
 	 *
 	 * @param WP_Error $errors
-	 * @param string $username
-	 * @param string $email
+	 * @param string   $username
+	 * @param string   $email
 	 *
 	 * @return WP_Error
 	 */
-	function woocommerce_check_email_domain(wp_error $errors, string $username, string $email): WP_Error
-	{
-		$email_parts = explode('@', $email);
+	function woocommerce_check_email_domain( WP_Error $errors, string $username, string $email ): WP_Error {
+		$email_parts       = explode( '@', $email );
 		$email_domain_user = $email_parts[1];
-		if (in_array(
-			strtolower($email_domain_user), $this->unauthorised_domains)
+		if ( in_array(
+			strtolower( $email_domain_user ), $this->unauthorised_domains )
 		) {
-			$errors->add('billing_email', __('<strong>Error</strong>: The domain of the email is invalid', 'tmsm-frontend-optimizations'));
+			$errors->add( 'billing_email', __( '<strong>Error</strong>: The domain of the email is invalid', 'tmsm-frontend-optimizations' ) );
 		}
+
 		return $errors;
 	}
 
-    /**
-     * WooCommerce customize the "order received" page title when payment failed
-     *
-     * @param string $title
-     *
-     * @return string
-     * @since 1.2.2
-     */
+	/**
+	 * WooCommerce: customize the "order received" page title when payment failed
+	 *
+	 * @param string $title
+	 *
+	 * @return string
+	 * @since 1.2.2
+	 */
     function woocommerce_endpoint_order_received_title(string $title)
     {
         global $wp;
