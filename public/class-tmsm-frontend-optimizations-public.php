@@ -701,7 +701,7 @@ class Tmsm_Frontend_Optimizations_Public
     }
 
 	/**
-	 * Gravity Forms: Prevent users from submitting an email of the "not authorized domains" list.
+	 * Gravity Forms: Prevent users from submitting an email domain from the "not authorized domains" list.
 	 *
 	 * @param array        $result
 	 * @param string|array $value
@@ -712,7 +712,7 @@ class Tmsm_Frontend_Optimizations_Public
 	 */
     function gravityforms_check_email_domain(array $result, $value, $form, $field)
     {
-	    if ( $field->get_input_type() === 'email' && $result['is_valid'] ) {
+	    if ( $field->get_input_type() === 'email' && $result['is_valid'] && ! empty( $value ) && strpos( $value, '@' ) !== false ) {
 		    $email_parts       = explode( '@', $value );
 		    $email_domain_user = $email_parts[1];
 		    if ( in_array( $email_domain_user, $this->unauthorised_domains ) ) {
@@ -772,7 +772,7 @@ class Tmsm_Frontend_Optimizations_Public
     }
 
 	/**
-	 * WooCommerce: prevent users from registering with an email with from the "not authorized" list.
+	 * WooCommerce: prevent users from registering with an email domain from the "not authorized" list.
 	 *
 	 * @param WP_Error $errors
 	 * @param string   $username
@@ -781,12 +781,17 @@ class Tmsm_Frontend_Optimizations_Public
 	 * @return WP_Error
 	 */
 	function woocommerce_check_email_domain( WP_Error $errors, string $username, string $email ): WP_Error {
-		$email_parts       = explode( '@', $email );
-		$email_domain_user = $email_parts[1];
-		if ( in_array(
-			strtolower( $email_domain_user ), $this->unauthorised_domains )
-		) {
-			$errors->add( 'billing_email', __( '<strong>Error</strong>: The domain of the email is invalid', 'tmsm-frontend-optimizations' ) );
+
+		if( ! empty( $email ) && strpos( $email, '@' ) !== false ){
+
+			$email_parts       = explode( '@', $email );
+			$email_domain_user = $email_parts[1];
+			if ( in_array(
+				strtolower( $email_domain_user ), $this->unauthorised_domains )
+			) {
+				$errors->add( 'billing_email', __( '<strong>Error</strong>: The domain of the email is invalid', 'tmsm-frontend-optimizations' ) );
+			}
+
 		}
 
 		return $errors;
