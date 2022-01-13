@@ -1,3 +1,4 @@
+### 1.4.2: January 13th, 2022
 * **Fix** - Exclude unauthorized domains: additionnal checks
 
 ### 1.4.1: January 11th, 2022

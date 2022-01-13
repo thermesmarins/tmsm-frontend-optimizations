@@ -712,10 +712,11 @@ class Tmsm_Frontend_Optimizations_Public
 	 */
     function gravityforms_check_email_domain(array $result, $value, $form, $field)
     {
-	    if ( $field->get_input_type() === 'email' && $result['is_valid'] && ! empty( $value ) && strpos( $value, '@' ) !== false ) {
-		    $email_parts       = explode( '@', $value );
-		    $email_domain_user = $email_parts[1];
-		    if ( in_array( $email_domain_user, $this->unauthorised_domains ) ) {
+	    if ( $field->get_input_type() === 'email' && $result['is_valid'] && ! empty( $value ) ) {
+		    $email             = ( is_array( $value ) ? $value[0] : $value );
+		    $email_parts       = explode( '@', $email );
+		    $email_domain = $email_parts[1];
+		    if ( in_array( $email_domain, $this->unauthorised_domains ) ) {
 			    $result['is_valid'] = false;
 			    $result['message']  = __( 'The domain of the email is invalid', 'tmsm-frontend-optimizations' );
 		    }
@@ -782,12 +783,12 @@ class Tmsm_Frontend_Optimizations_Public
 	 */
 	function woocommerce_check_email_domain( WP_Error $errors, string $username, string $email ): WP_Error {
 
-		if( ! empty( $email ) && strpos( $email, '@' ) !== false ){
-
+		if( ! empty( $email ) ){
+			$email             = ( is_array( $email ) ? $email[0] : $email );
 			$email_parts       = explode( '@', $email );
-			$email_domain_user = $email_parts[1];
+			$email_domain = $email_parts[1];
 			if ( in_array(
-				strtolower( $email_domain_user ), $this->unauthorised_domains )
+				strtolower( $email_domain ), $this->unauthorised_domains )
 			) {
 				$errors->add( 'billing_email', __( '<strong>Error</strong>: The domain of the email is invalid', 'tmsm-frontend-optimizations' ) );
 			}
