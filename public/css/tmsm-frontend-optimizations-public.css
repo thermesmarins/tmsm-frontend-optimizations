@@ -22,8 +22,10 @@ body.login-action-confirmaction h1 {
 .woocommerce div.product form.cart.variations_form.cart {
   border-width: 2px 0;
 }
-.woocommerce div.product form.cart.variations_form .voucher-help-link {
-  display: block;
+@media (min-width: 992px) {
+  .woocommerce div.product form.cart.variations_form .voucher-help-link {
+    display: block;
+  }
 }
 .woocommerce div.product form.cart.variations_form .voucher-help-link .glyphicon {
   margin-right: 5px;

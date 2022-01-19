@@ -1,3 +1,5 @@
+* **Tweak** - Better voucher link alignment on desktop (inline block)
+
 ### 1.4.2: January 13th, 2022
 * **Fix** - Exclude unauthorized domains: additionnal checks
 
