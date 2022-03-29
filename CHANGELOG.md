@@ -1,4 +1,6 @@
+### 1.4.3: March 29th, 2022
 * **Tweak** - Better voucher link alignment on desktop (inline block)
+* **New** - Dialog Insight: remove email address containing @guest.booking.com or @email-inconnu.tm
 
 ### 1.4.2: January 13th, 2022
 * **Fix** - Exclude unauthorized domains: additionnal checks

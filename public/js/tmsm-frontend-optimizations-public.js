@@ -42,4 +42,29 @@
     GravityFormsPhoneMask();
   });
 
+  /*
+   * Dialog Insight: Edit email address containing @guest.booking.com or email-inconnu.tm
+   */
+  function applyWhenElementExists(selector, myFunction, intervalTime) {
+    var interval = setInterval(function() {
+      if ($(selector).length > 0) {
+        myFunction();
+        clearInterval(interval);
+      }
+    }, intervalTime);
+  }
+
+  applyWhenElementExists(".DialogInsightFormDiv", function(){
+    $('.DialogInsightFormDiv .DialogInsightFormInput').each(function(){
+      if($(this).val().includes('@guest.booking.com')){
+        $(this).val('');
+      }
+      if($(this).val().includes('@email-inconnu.tm')){
+        $(this).val('');
+      }
+
+    });
+  }, 200);
+
+
 })( jQuery );
