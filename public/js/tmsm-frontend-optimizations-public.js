@@ -56,7 +56,7 @@
 
   $(document).on('ready', function () {
     applyWhenElementExists(".DialogInsightFormDiv", function () {
-      $('.DialogInsightFormDiv .DialogInsightFormInput').each(function () {
+      $('.DialogInsightFormDiv input').each(function () {
         if ($(this).val().includes('@guest.booking.com')) {
           $(this).val('');
         }

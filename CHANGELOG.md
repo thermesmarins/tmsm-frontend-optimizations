@@ -1,5 +1,7 @@
+* **Tweak** - Dialog Insight: remove email address containing @guest.booking.com or @email-inconnu.tm (for every input of form)
+
 ### 1.4.4: March 29th, 2022
-* **Tweak** - On Ready, Dialog Insight: remove email address containing @guest.booking.com or @email-inconnu.tm
+* **Tweak** - Dialog Insight: remove email address containing @guest.booking.com or @email-inconnu.tm (on ready loading)
 
 ### 1.4.3: March 29th, 2022
 * **Tweak** - Better voucher link alignment on desktop (inline block)
