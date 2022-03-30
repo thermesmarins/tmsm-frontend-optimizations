@@ -1,3 +1,4 @@
+### 1.4.5: March 29th, 2022
 * **Tweak** - Dialog Insight: remove email address containing @guest.booking.com or @email-inconnu.tm (for every input of form)
 
 ### 1.4.4: March 29th, 2022
