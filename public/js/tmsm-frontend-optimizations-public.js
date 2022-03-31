@@ -69,11 +69,11 @@
     }, 200);
   };
 
-  $(document).on('ready', function () {
+  $('.DialogInsightFormDiv input[type=email]').on('textInput paste change', function () {
     dialogInsightRemoveUnwantedEmails();
   });
 
-  $('.DialogInsightFormDiv input[type=email]').on('textInput paste change', function () {
+  document.addEventListener('readystatechange', () => {
     dialogInsightRemoveUnwantedEmails();
   });
 
