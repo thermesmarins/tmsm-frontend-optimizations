@@ -44,8 +44,9 @@
 
   /*
    * Dialog Insight: Edit email address containing @guest.booking.com or email-inconnu.tm
-  */
-  function applyWhenElementExists(selector, myFunction, intervalTime) {
+   */
+
+  const applyWhenElementExists = function(selector, myFunction, intervalTime) {
     var interval = setInterval(function () {
       if ($(selector).length > 0) {
         myFunction();
@@ -54,7 +55,7 @@
     }, intervalTime);
   }
 
-  $(document).on('ready', function () {
+  const dialogInsightRemoveUnwantedEmails = function () {
     applyWhenElementExists(".DialogInsightFormDiv", function () {
       $('.DialogInsightFormDiv input').each(function () {
         if ($(this).val().includes('@guest.booking.com')) {
@@ -66,6 +67,14 @@
 
       });
     }, 200);
+  };
+
+  $(document).on('ready', function () {
+    dialogInsightRemoveUnwantedEmails();
+  });
+
+  $('.DialogInsightFormDiv input[type=email]').on('textInput paste change', function () {
+    dialogInsightRemoveUnwantedEmails();
   });
 
 
