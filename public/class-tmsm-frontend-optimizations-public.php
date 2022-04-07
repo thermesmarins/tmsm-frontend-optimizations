@@ -41,8 +41,11 @@ class Tmsm_Frontend_Optimizations_Public
 	 */
     private array $unauthorised_domains = array(
         'gmail.fr',
+        'gnail.com',
+        'glail.com',
         'gamil.com',
         'hotmal.fr',
+        'hotmail.fr',
         'orage.fr',
         'freee.fr',
         'wanado.fr',

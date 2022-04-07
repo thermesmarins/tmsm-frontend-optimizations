@@ -1,3 +1,5 @@
+* **Tweak** - Gravity Forms and WooCommerce: update unauthorized domains list
+
 ### 1.4.7: March 31st, 2022
 * **Tweak** - Dialog Insight: remove email address containing @guest.booking.com or @email-inconnu.tm (detect dom readystate)
 
