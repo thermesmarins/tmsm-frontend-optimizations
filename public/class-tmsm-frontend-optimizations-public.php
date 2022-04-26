@@ -1197,29 +1197,33 @@ class Tmsm_Frontend_Optimizations_Public
             'name' => 'After product summary (with standard theme)',
         );
 
-        return $locations;
+	    return $locations;
     }
+
 
 	/**
 	 * Display attribute name and value in WooCommerce
 	 *
 	 * Show the attribute name beside the attribute value in WooCommerce (in Cart, Checkout and order emails).
 	 *
-	 * @param $should_include_attributes
+	 * @param bool $should_include_attributes
 	 * @param WC_Product $product Product object.
 	 * @return false
 	 *
 	 */
-	function woocommerce_dcwd_product_variation_title_include_attributes( $should_include_attributes, $product ) {
+	function woocommerce_product_variation_title_include_attributes(bool $should_include_attributes, WC_Product $product): bool
+	{
 		// Returning false messes up My Account/Downloads page - thanks for Leandro for reporting.
-		if ( is_account_page() ) { return $should_include_attributes; }
+		if (is_account_page()) {
+			return $should_include_attributes;
+		}
 		return false;
 	}
 
 
-    /**
-     * Elementor Search Form After Input
-     *
+	/**
+	 * Elementor Search Form After Input
+	 *
      * @param mixed $form
      */
     function elementor_search_form_after_input($form)

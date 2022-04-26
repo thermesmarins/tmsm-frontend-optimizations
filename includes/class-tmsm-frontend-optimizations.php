@@ -217,9 +217,9 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_filter( 'woocommerce_min_password_strength', $plugin_public, 'woocommerce_min_password_strength', 10, 0 );
 		$this->loader->add_filter( 'woocommerce_cod_icon', $plugin_public, 'woocommerce_cod_icon_travel', 10 );
 		$this->loader->add_filter( 'woocommerce_package_rates', $plugin_public, 'woocommerce_package_rates_hide_shipping_on_local_pickup_required', 10, 2 );
-		$this->loader->add_action( 'woocommerce_product_meta_end', $plugin_public, 'woocommerce_product_meta_end_freeshippingpocalpickup', 50 );
-		$this->loader->add_action( 'woocommerce_dropdown_variation_attribute_options_html', $plugin_public, 'woocommerce_dropdown_variation_attribute_options_html_radio', 50, 2 );
-		$this->loader->add_filter( 'woocommerce_product_variation_title_include_attributes',$plugin_public, 'woocommerce_dcwd_product_variation_title_include_attributes', 10, 2 );
+		$this->loader->add_action( 'woocommerce_product_meta_end', $plugin_public, 'woocommerce_product_meta_end_freeshippingpocalpickup', 50);
+		$this->loader->add_action( 'woocommerce_dropdown_variation_attribute_options_html', $plugin_public, 'woocommerce_dropdown_variation_attribute_options_html_radio', 50, 2);
+		$this->loader->add_filter( 'woocommerce_product_variation_title_include_attributes', $plugin_public, 'woocommerce_product_variation_title_include_attributes', 10, 2);
 
 		// Paypal Checkout
 		$this->loader->add_filter( 'woocommerce_paypal_express_checkout_address_not_required', $plugin_public, 'woocommerce_paypal_checkout_address_not_required', 10, 1 );
