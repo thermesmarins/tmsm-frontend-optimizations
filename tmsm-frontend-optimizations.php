@@ -16,7 +16,7 @@
  * Plugin Name:       TMSM Frontend Optimizations
  * Plugin URI:        https://github.com/thermesmarins/tmsm-frontend-optimizations
  * Description:       Frontend Optimizations for Thermes Marins de Saint-Malo
- * Version:           1.4.7
+ * Version:           1.4.8
  * Author:            Nicolas Mollet
  * Author URI:        https://github.com/nicomollet
  * License:           GPL-3.0+
