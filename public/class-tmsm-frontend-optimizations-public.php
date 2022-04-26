@@ -1212,7 +1212,6 @@ class Tmsm_Frontend_Optimizations_Public
 	 */
 	function woocommerce_dcwd_product_variation_title_include_attributes( $should_include_attributes, $product ) {
 		// Returning false messes up My Account/Downloads page - thanks for Leandro for reporting.
-		var_dump($should_include_attributes);
 		if ( is_account_page() ) { return $should_include_attributes; }
 		return false;
 	}
