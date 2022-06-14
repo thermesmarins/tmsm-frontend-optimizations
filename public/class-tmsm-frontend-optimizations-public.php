@@ -56,10 +56,11 @@ class Tmsm_Frontend_Optimizations_Public
 	 * Initialize the class and set its properties.
 	 *
 	 * @param string $plugin_name The name of the plugin.
-	 * @param string $version The version of this plugin.
+	 * @param string $version     The version of this plugin.
+	 *
 	 * @since    1.0.0
 	 */
-	public function __construct($plugin_name, $version)
+	public function __construct( string $plugin_name, string $version)
     {
 
         $this->plugin_name = $plugin_name;
@@ -104,11 +105,11 @@ class Tmsm_Frontend_Optimizations_Public
 	 * Checks if a user has a role.
 	 *
 	 * @param int|WP_User $user The user.
-	 * @param string $role The role.
+	 * @param string      $role The role.
+	 *
 	 * @return bool
 	 */
-	function user_has_role($user, $role)
-	{
+	function user_has_role($user, string $role): bool {
 		if (!is_object($user)) {
 			$user = get_userdata($user);
 		}
@@ -120,29 +121,27 @@ class Tmsm_Frontend_Optimizations_Public
 		return in_array($role, $user->roles, true);
 	}
 
-    /**
-     * Staging: noindex,nofollow,noarchive,nosnippet
-     */
-    public function wp_staging_noindex()
-    {
-        if (get_option('blog_public') === '0') {
-            echo '<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">', "\n";
-        }
-    }
+	/**
+	 * Staging: noindex,nofollow,noarchive,nosnippet
+	 */
+	public function wp_staging_noindex() {
+		if ( get_option( 'blog_public' ) === '0' ) {
+			echo '<meta name="robots" content="noindex,nofollow,noarchive,nosnippet">', "\n";
+		}
+	}
 
     /**
      * Filters the HTML script tag of an enqueued script.
      *
-     * @param string $tag The `<script>` tag for the enqueued script.
+     * @param string $tag    The `<script>` tag for the enqueued script.
      * @param string $handle The script's registered handle.
-     * @param string $src The script's source URL.
+     * @param string $src    The script's source URL.
      *
      * @return string
      * @since 4.1.0
      *
      */
-    function wp_script_loader_tag($tag, $handle, $src)
-    {
+    function wp_script_loader_tag( string $tag, string $handle, string $src): string {
 
         if (is_admin()) {
             return $tag;
@@ -165,49 +164,46 @@ class Tmsm_Frontend_Optimizations_Public
      * delegate those capabilities to a single-site admin, or a dedicated person
      * responsible for managing privacy requests.
      *
-     * @param string $email The email address of the notification recipient.
+     * @param string          $email        The email address of the notification recipient.
      * @param WP_User_Request $request_data The request that is initiating the notification.
      *
      * @return string
      * @since 1.0.6
      *
      */
-    function wp_user_request_confirmed_email_to_dpo($email, $request_data)
-    {
+    function wp_user_request_confirmed_email_to_dpo( string $email, WP_User_Request $request_data): string {
         $email = 'dpo@thalasso-saintmalo.com';
 
         return $email;
     }
 
-    /**
-     * Embed wrap
-     *
-     * @param        $cache
-     * @param        $url
-     * @param string $attr
-     * @param string $post_ID
-     *
-     * @return string
-     */
-    function wp_embed_wrap($cache, $url, $attr = '', $post_ID = '')
-    {
-        return '<div class="embed">' . $cache . '</div>';
-    }
+	/**
+	 * Embed wrap
+	 *
+	 * @param        $cache
+	 * @param        $url
+	 * @param string $attr
+	 * @param int    $post_ID
+	 *
+	 * @return string
+	 */
+	function wp_embed_wrap( $cache, $url, string $attr = '', int $post_ID = 0 ): string {
+		return '<div class="embed">' . $cache . '</div>';
+	}
 
-    /**
-     * Remove YouTube related content and have modestbranding always on
-     *
-     * @param $html
-     * @param $url
-     * @param $attr
-     * @param $post_ID
-     *
-     * @return mixed
-     */
-    function wp_oembed_result_modest($html, $url, $attr, $post_ID)
-    {
-        return str_replace('feature=oembed', 'feature=oembed&modestbranding=1&showinfo=0&rel=0', $html);
-    }
+	/**
+	 * Remove YouTube related content and have modestbranding always on
+	 *
+	 * @param $html
+	 * @param $url
+	 * @param $attr
+	 * @param $post_ID
+	 *
+	 * @return string
+	 */
+	function wp_oembed_result_modest( string $html, string $url, $attr, $post_ID ): string {
+		return str_replace( 'feature=oembed', 'feature=oembed&modestbranding=1&showinfo=0&rel=0', $html );
+	}
 
     /**
      * Filters the HTML returned by the oEmbed provider.
@@ -218,8 +214,7 @@ class Tmsm_Frontend_Optimizations_Public
      *
      * @return string
      */
-    function wp_oembed_result_nosnippet(string $data, string $url, array $args)
-    {
+    function wp_oembed_result_nosnippet(string $data, string $url, array $args): string {
 
         $data = '<div data-nosnippet="true">' . $data . '</div>';
 
@@ -248,8 +243,7 @@ class Tmsm_Frontend_Optimizations_Public
     /**
      * Disable default gallery style
      */
-    function wp_use_default_gallery_style()
-    {
+    function wp_use_default_gallery_style(): bool {
         return false;
     }
 
@@ -408,10 +402,10 @@ class Tmsm_Frontend_Optimizations_Public
      * Polylang: Body Class Lang
      *
      * @param array $classes An array of body classes.
+     *
      * @return array
      */
-    function polylang_body_class($classes)
-    {
+    function polylang_body_class(array $classes): array {
         if (function_exists('PLL') && $language = PLL()->model->get_language(get_locale())) {
             $classes[] = 'pll-' . str_replace('_', '-', sanitize_title_with_dashes($language->get_locale('raw')));
             $classes[] = 'lang-' . pll_current_language();
@@ -492,8 +486,7 @@ class Tmsm_Frontend_Optimizations_Public
      *
      * @return string
      */
-    function gravityforms_wrap_gform_cdata_open($content = '')
-    {
+    function gravityforms_wrap_gform_cdata_open( string $content = ''): string {
         $content = 'document.addEventListener( "DOMContentLoaded", function() { ';
 
         return $content;
@@ -622,8 +615,7 @@ class Tmsm_Frontend_Optimizations_Public
      *
      * @return string
      */
-    public function gravityforms_mergetags($text, $form, $entry, $url_encode, $esc_html, $nl2br, $format)
-    {
+    public function gravityforms_mergetags($text, $form, $entry, $url_encode, $esc_html, $nl2br, $format): string {
 
         $current_user = wp_get_current_user();
 
@@ -690,18 +682,17 @@ class Tmsm_Frontend_Optimizations_Public
         return $content;
     }
 
-    /**
-     * Gravity Forms: address field, change order of city and postal code fields.
-     *
-     * @param string $format
-     * @param GF_Field_Address $field
-     *
-     * @return string
-     */
-    public function gravityforms_address_zipbeforecity(string $format, GF_Field_Address $field): string
-    {
-        return 'zip_before_city';
-    }
+	/**
+	 * Gravity Forms: address field, change order of city and postal code fields.
+	 *
+	 * @param string           $format
+	 * @param GF_Field_Address $field
+	 *
+	 * @return string
+	 */
+	public function gravityforms_address_zipbeforecity( string $format, GF_Field_Address $field ): string {
+		return 'zip_before_city';
+	}
 
 	/**
 	 * Gravity Forms: Prevent users from submitting an email domain from the "not authorized domains" list.
@@ -733,47 +724,44 @@ class Tmsm_Frontend_Optimizations_Public
      *
      * @return string
      */
-    public function wpseo_breadcrumb_output_wrapper()
-    {
-        return 'p';
-    }
+	public function wpseo_breadcrumb_output_wrapper() {
+		return 'p';
+	}
 
-    /**
-     * WPSEO Breadcrumb wrapper class
-     *
-     * @return string
-     */
-    public function wpseo_breadcrumb_output_class()
-    {
-        return 'breadcrumb';
-    }
+	/**
+	 * WPSEO Breadcrumb wrapper class
+	 *
+	 * @return string
+	 */
+	public function wpseo_breadcrumb_output_class() {
+		return 'breadcrumb';
+	}
 
-    /**
-     * WPSEO Breadcrumb next rel link, disable on home
-     *
-     * @return string
-     */
-    public function wpseo_disable_rel_next_home($link)
-    {
-        if (is_home()) {
-            return false;
-        }
-        return $link;
-    }
+	/**
+	 * WPSEO Breadcrumb next rel link, disable on home
+	 *
+	 * @return string
+	 */
+	public function wpseo_disable_rel_next_home( $link ) {
+		if ( is_home() ) {
+			return false;
+		}
 
-    /**
-     * WP Rocket: Lazyload, Exclude attributes from Elementor
-     *
-     * @param $attributes
-     *
-     * @return array
-     */
-    function rocket_lazyload_excluded_attributes_elementor($attributes)
-    {
-        $attributes[] = 'class="slick-slide-image"';
+		return $link;
+	}
 
-        return $attributes;
-    }
+	/**
+	 * WP Rocket: Lazyload, Exclude attributes from Elementor
+	 *
+	 * @param $attributes
+	 *
+	 * @return array
+	 */
+	function rocket_lazyload_excluded_attributes_elementor( $attributes ) {
+		$attributes[] = 'class="slick-slide-image"';
+
+		return $attributes;
+	}
 
 	/**
 	 * WooCommerce: prevent users from registering with an email domain from the "not authorized" list.
@@ -786,9 +774,9 @@ class Tmsm_Frontend_Optimizations_Public
 	 */
 	function woocommerce_check_email_domain( WP_Error $errors, string $username, string $email ): WP_Error {
 
-		if( ! empty( $email ) ){
-			$email             = ( is_array( $email ) ? $email[0] : $email );
-			$email_parts       = explode( '@', $email );
+		if ( ! empty( $email ) ) {
+			$email        = ( is_array( $email ) ? $email[0] : $email );
+			$email_parts  = explode( '@', $email );
 			$email_domain = $email_parts[1];
 			if ( in_array(
 				strtolower( $email_domain ), $this->unauthorised_domains )
@@ -809,41 +797,39 @@ class Tmsm_Frontend_Optimizations_Public
 	 * @return string
 	 * @since 1.2.2
 	 */
-    function woocommerce_endpoint_order_received_title(string $title)
-    {
-        global $wp;
-        $order_id = isset($wp->query_vars['order-received']) ? absint($wp->query_vars['order-received']) : 0;
-        $order = wc_get_order($order_id);
+	function woocommerce_endpoint_order_received_title( string $title ) {
+		global $wp;
+		$order_id = isset( $wp->query_vars['order-received'] ) ? absint( $wp->query_vars['order-received'] ) : 0;
+		$order    = wc_get_order( $order_id );
 
-        if ($order && $order->has_status('failed')) {
-            return __('Payment Failed', 'tmsm-frontend-optimizations');
-        }
+		if ( $order && $order->has_status( 'failed' ) ) {
+			return __( 'Payment Failed', 'tmsm-frontend-optimizations' );
+		}
 
-        return $title;
-    }
+		return $title;
+	}
 
-    /**
-     * WooCommerce Scheduled Sales: everyday, sales start, cache should be emptied (WP Rocket)
-     *
-     * @since 1.0.9
-     */
-    function woocommerce_scheduled_sales_empty_cache()
-    {
-        // Clear WP Rocket Cache (whole site)
-        if (function_exists('rocket_clean_domain')) {
-            rocket_clean_domain();
-        }
-    }
+	/**
+	 * WooCommerce Scheduled Sales: everyday, sales start, cache should be emptied (WP Rocket)
+	 *
+	 * @since 1.0.9
+	 */
+	function woocommerce_scheduled_sales_empty_cache() {
+		// Clear WP Rocket Cache (whole site)
+		if ( function_exists( 'rocket_clean_domain' ) ) {
+			rocket_clean_domain();
+		}
+	}
 
-    /**
-     * Filters the text describing the site's password complexity policy.
-     *
-     * @param string $hint The password hint text.
-     *
-     * @return string
-     * @since 4.1.0
-     *
-     */
+	/**
+	 * Filters the text describing the site's password complexity policy.
+	 *
+	 * @param string $hint The password hint text.
+	 *
+	 * @return string
+	 * @since 4.1.0
+	 *
+	 */
 	function woocommerce_password_hint( $hint )
     {
 
@@ -851,76 +837,73 @@ class Tmsm_Frontend_Optimizations_Public
         return $hint;
     }
 
-    /**
-     * WooCommerce Lower Password Strength: 0 - Anything, 1 - Weakest, 2 - Weak, 3 - Medium (Default), 4 - Strong
-     *
-     * @return int
-     * @since 1.1.8
-     *
-     */
-    function woocommerce_min_password_strength()
-    {
-        $strength = 2;
+	/**
+	 * WooCommerce Lower Password Strength: 0 - Anything, 1 - Weakest, 2 - Weak, 3 - Medium (Default), 4 - Strong
+	 *
+	 * @return int
+	 * @since 1.1.8
+	 *
+	 */
+	function woocommerce_min_password_strength() {
+		$strength = 2;
 
-        return intval($strength);
-    }
+		return intval( $strength );
+	}
 
-    /**
-     * WooCommerce Gateway Icon for COD
-     *
-     * @param string $icon The icon html markup
-     *
-     * @return string
-     * @since 1.2.3
-     *
-     */
-    public function woocommerce_cod_icon_travel($icon)
-    {
+	/**
+	 * WooCommerce Gateway Icon for COD
+	 *
+	 * @param string $icon The icon html markup
+	 *
+	 * @return string
+	 * @since 1.2.3
+	 *
+	 */
+	public function woocommerce_cod_icon_travel( $icon ) {
 
-        $icon = '<img src="' . WC_HTTPS::force_https_url(TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL . '/public/img/cod-payment-icon.png') .
-            '" alt="' . esc_attr(__('Cash on Delivery', 'tmsm-frontend-optimizations')) . '" />';
+		$icon = '<img src="' . WC_HTTPS::force_https_url( TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL . '/public/img/cod-payment-icon.png' ) .
+		        '" alt="' . esc_attr( __( 'Cash on Delivery', 'tmsm-frontend-optimizations' ) ) . '" />';
 
-        $icon = WC_HTTPS::force_https_url(TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL . '/public/img/cod-payment-icon.png');
-        return $icon;
-    }
+		$icon = WC_HTTPS::force_https_url( TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL . '/public/img/cod-payment-icon.png' );
 
-    /**
-     * WooCommerce: hide shipping when products marked as "local pickup only" are in the cart
-     *
-     * The shipping class "local-pickup-only" needs to be created first.
-     * Then assign the products that are have "local pickup only" to this class
-     *
-     * @param array $rates
-     * @param array $package
-     *
-     * @return array
-     * @since 1.2.3
-     *
-     */
-    public function woocommerce_package_rates_hide_shipping_on_local_pickup_required($rates, $package)
-    {
-        $shipping_class_local_pickup_only = 'local_pickup_only';
+		return $icon;
+	}
 
-        $local = [];
+	/**
+	 * WooCommerce: hide shipping when products marked as "local pickup only" are in the cart
+	 *
+	 * The shipping class "local-pickup-only" needs to be created first.
+	 * Then assign the products that are have "local pickup only" to this class
+	 *
+	 * @param array $rates
+	 * @param array $package
+	 *
+	 * @return array
+	 * @since 1.2.3
+	 *
+	 */
+	public function woocommerce_package_rates_hide_shipping_on_local_pickup_required( $rates, $package ) {
+		$shipping_class_local_pickup_only = 'local_pickup_only';
 
-        foreach ($package['contents'] as $item) {
-            $product = $item['data'];
-            $shipping_class = $product->get_shipping_class();
+		$local = [];
 
-            if ($shipping_class == $shipping_class_local_pickup_only) {
-                foreach ($rates as $rate_id => $rate) {
-                    if (in_array($rate->method_id, array('local_pickup', 'legacy_local_pickup'))) {
-                        //echo '*** il y a le local pickup';
-                        $local[$rate_id] = $rate;
-                        break;
-                    }
-                }
-            }
-        }
+		foreach ( $package['contents'] as $item ) {
+			$product        = $item['data'];
+			$shipping_class = $product->get_shipping_class();
 
-        return !empty($local) ? $local : $rates;
-    }
+			if ( $shipping_class == $shipping_class_local_pickup_only ) {
+				foreach ( $rates as $rate_id => $rate ) {
+					if ( in_array( $rate->method_id, array( 'local_pickup', 'legacy_local_pickup' ) ) ) {
+						//echo '*** il y a le local pickup';
+						$local[ $rate_id ] = $rate;
+						break;
+					}
+				}
+			}
+		}
 
+		return ! empty( $local ) ? $local : $rates;
+	}
 
     /**
      * Display shipping options in product meta
@@ -1021,132 +1004,138 @@ class Tmsm_Frontend_Optimizations_Public
         }
     }
 
-    /**
-     * WooCommerce attributes <select> dropdown as <input> type radio
-     *
-     * @param $html
-     * @param $args
-     */
-    public function woocommerce_dropdown_variation_attribute_options_html_radio($html, $args)
-    {
-        $old_html = $html;
+	/**
+	 * WooCommerce attributes <select> dropdown as <input> type radio
+	 *
+	 * @param $html
+	 * @param $args
+	 */
+	public function woocommerce_dropdown_variation_attribute_options_html_radio( $html, $args ) {
+		$old_html = $html;
 
-        $args = wp_parse_args(apply_filters('woocommerce_dropdown_variation_attribute_options_html_radio_args', $args), array(
-            'options' => false,
-            'attribute' => false,
-            'product' => false,
-            'selected' => false,
-            'name' => '',
-            'id' => '',
-            'class' => '',
-            'show_option_none' => __('Choose an option', 'tmsm-frontend-optimizations'),
-        ));
+		$args = wp_parse_args( apply_filters( 'woocommerce_dropdown_variation_attribute_options_html_radio_args', $args ), array(
+			'options'          => false,
+			'attribute'        => false,
+			'product'          => false,
+			'selected'         => false,
+			'name'             => '',
+			'id'               => '',
+			'class'            => '',
+			'show_option_none' => __( 'Choose an option', 'tmsm-frontend-optimizations' ),
+		) );
 
-        $options = $args['options'];
-        $product = $args['product'];
-        $attribute = $args['attribute'];
-        $name = $args['name'] ? $args['name'] : sanitize_title($attribute);
-        $sanitized_name = sanitize_title($name);
-        $id = $args['id'] ? $args['id'] : sanitize_title($attribute);
-        $class = $args['class'];
-        $show_option_none = $args['show_option_none'] ? true : false;
-        $show_option_none_text = $args['show_option_none'] ? $args['show_option_none'] : __('Choose an option', 'tmsm-frontend-optimizations'); // We'll do our best to hide the placeholder, but we'll need to show something when resetting options.
+		$options               = $args['options'];
+		$product               = $args['product'];
+		$attribute             = $args['attribute'];
+		$name                  = $args['name'] ? $args['name'] : sanitize_title( $attribute );
+		$sanitized_name        = sanitize_title( $name );
+		$id                    = $args['id'] ? $args['id'] : sanitize_title( $attribute );
+		$class                 = $args['class'];
+		$show_option_none      = $args['show_option_none'] ? true : false;
+		$show_option_none_text = $args['show_option_none']
+			? $args['show_option_none']
+			: __( 'Choose an option',
+				'tmsm-frontend-optimizations' ); // We'll do our best to hide the placeholder, but we'll need to show something when resetting options.
 
-        if (empty($options) && !empty($product) && !empty($attribute)) {
-            $selected_attributes = $product->get_default_attributes();
-            $attributes = $product->get_variation_attributes();
-            $options = $attributes[$attribute];
-        } else {
-            $selected_attributes = [];
-        }
+		if ( empty( $options ) && ! empty( $product ) && ! empty( $attribute ) ) {
+			$attributes          = $product->get_variation_attributes();
+			$options             = $attributes[ $attribute ];
+		} else {
+			$selected_attributes = [];
+		}
+		$selected_attributes = $product->get_default_attributes();
 
-        if (isset($_REQUEST['attribute_' . $sanitized_name])) {
-            $checked_value = $_REQUEST['attribute_' . $sanitized_name];
-        } elseif (isset($selected_attributes[$sanitized_name])) {
-            $checked_value = $selected_attributes[$sanitized_name];
-        } else {
-            $checked_value = '';
-        }
+		if ( isset( $_REQUEST[ 'attribute_' . $sanitized_name ] ) ) {
+			$checked_value = $_REQUEST[ 'attribute_' . $sanitized_name ];
+		} elseif ( isset( $selected_attributes[ $sanitized_name ] ) ) {
+			$checked_value = $selected_attributes[ $sanitized_name ];
+		} else {
+			$checked_value = '';
+		}
 
-        $html = '';
+		$html = '';
 
-        if (!empty($options)) {
-            if ($product && taxonomy_exists($attribute)) {
-                // Get terms if this is a taxonomy - ordered. We need the names too.
-                $terms = wc_get_product_terms($product->get_id(), $attribute, array('fields' => 'all'));
+		if ( ! empty( $options ) ) {
+			if ( $product && taxonomy_exists( $attribute ) ) {
+				// Get terms if this is a taxonomy - ordered. We need the names too.
+				$terms = wc_get_product_terms( $product->get_id(), $attribute, array( 'fields' => 'all' ) );
 
-                foreach ($terms as $term) {
-                    if (in_array($term->slug, $options)) {
+				foreach ( $terms as $term ) {
+					if ( in_array( $term->slug, $options ) ) {
 
-                        $value = $term->slug;
-                        $label = $term->name;
-                        $sanitized_name = $name;
-                        $description = $term->description;
+						$value          = $term->slug;
+						$label          = $term->name;
+						$sanitized_name = $name;
+						$description    = $term->description;
 
-                        $checked = sanitize_title($checked_value) === $checked_value ? checked($checked_value, sanitize_title($value), false) : checked($checked_value, $value, false);
+						$checked = sanitize_title( $checked_value ) === $checked_value ? checked( $checked_value, sanitize_title( $value ), false )
+							: checked( $checked_value, $value, false );
 
-                        if (!empty($description)) {
-                            $description = ' (' . $description . ')';
-                        }
-                        $input_name = 'attribute_' . esc_attr($name);
-                        $esc_value = esc_attr($value);
-                        $id = esc_attr($name . '_v_' . $value);
-                        $filtered_label = apply_filters('woocommerce_variation_option_name', $label);
-                        printf('<div class="radio"><input type="radio" name="%1$s" value="%2$s" id="%3$s" %4$s><label for="%3$s">%5$s%6$s</label></div>', $input_name, $esc_value, $id, $checked, $filtered_label, $description);
-                    }
-                }
-            } else {
-                foreach ($options as $option) {
-                    // This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
-                    $selected = sanitize_title($args['selected']) === $args['selected'] ? checked($args['selected'], sanitize_title($option), false) : checked($args['selected'], $option, false);
-                    $input_name = 'attribute_' . esc_attr($name);
-                    $esc_value = esc_attr($option);
-                    $id = esc_attr($name . '_v_' . $option . $product->get_id()); //added product ID at the end of the name to target single products
-                    $checked = checked($args['selected'], $option, false);
-                    $filtered_label = esc_html(apply_filters('woocommerce_variation_option_name', $option));
-                    $html .= sprintf('<div class="radio"><input type="radio" name="%1$s" value="%2$s" id="%3$s" %4$s><label for="%3$s">%5$s</label></div>', $input_name, $esc_value, $id, $checked, $filtered_label);
+						if ( ! empty( $description ) ) {
+							$description = ' (' . $description . ')';
+						}
+						$input_name     = 'attribute_' . esc_attr( $name );
+						$esc_value      = esc_attr( $value );
+						$id             = esc_attr( $name . '_v_' . $value );
+						$filtered_label = apply_filters( 'woocommerce_variation_option_name', $label );
+						printf( '<div class="radio"><input type="radio" name="%1$s" value="%2$s" id="%3$s" %4$s><label for="%3$s">%5$s%6$s</label></div>',
+							$input_name, $esc_value, $id, $checked, $filtered_label, $description );
+					}
+				}
+			} else {
+				foreach ( $options as $option ) {
+					// This handles < 2.4.0 bw compatibility where text attributes were not sanitized.
+					$selected       = sanitize_title( $args['selected'] ) === $args['selected'] ? checked( $args['selected'],
+						sanitize_title( $option ), false ) : checked( $args['selected'], $option, false );
+					$input_name     = 'attribute_' . esc_attr( $name );
+					$esc_value      = esc_attr( $option );
+					$id             = esc_attr( $name . '_v_' . $option
+					                            . $product->get_id() ); //added product ID at the end of the name to target single products
+					$checked        = checked( $args['selected'], $option, false );
+					$filtered_label = esc_html( apply_filters( 'woocommerce_variation_option_name', $option ) );
+					$html           .= sprintf( '<div class="radio"><input type="radio" name="%1$s" value="%2$s" id="%3$s" %4$s><label for="%3$s">%5$s</label></div>',
+						$input_name, $esc_value, $id, $checked, $filtered_label );
 
-                }
-            }
-        }
+				}
+			}
+		}
 
-        echo $html; // WPCS: XSS ok.
-    }
+		echo $html; // WPCS: XSS ok.
+	}
 
-    /**
-     * WooCommerce: Hides local_pickup shipping method if no_local_pickup shipping class is found in cart
-     *
-     * @param $available_shipping_methods
-     * @param $package
-     *
-     * @return mixed
-     * @since 1.2.3
-     *
-     */
-    function woocommerce_package_rates_hide_local_pickup($available_shipping_methods, $package)
-    {
+	/**
+	 * WooCommerce: Hides local_pickup shipping method if no_local_pickup shipping class is found in cart
+	 *
+	 * @param $available_shipping_methods
+	 * @param $package
+	 *
+	 * @return mixed
+	 * @since 1.2.3
+	 *
+	 */
+	function woocommerce_package_rates_hide_local_pickup( $available_shipping_methods, $package ) {
 
-        $shipping_class_to_exclude = 'no_local_pickup';
-        $shipping_method_to_exclude = 'local_pickup';
+		$shipping_class_to_exclude  = 'no_local_pickup';
+		$shipping_method_to_exclude = 'local_pickup';
 
-        $shipping_class_to_exclude_exists = false;
-        foreach (WC()->cart->cart_contents as $key => $values) {
-            if ($values['data']->get_shipping_class() == $shipping_class_to_exclude) {
-                $shipping_class_to_exclude_exists = true;
-                break;
-            }
-        }
+		$shipping_class_to_exclude_exists = false;
+		foreach ( WC()->cart->cart_contents as $key => $values ) {
+			if ( $values['data']->get_shipping_class() == $shipping_class_to_exclude ) {
+				$shipping_class_to_exclude_exists = true;
+				break;
+			}
+		}
 
-        if ($shipping_class_to_exclude_exists) {
-            foreach ($available_shipping_methods as $rate_id => $rate) {
-                if ($rate->method_id == $shipping_method_to_exclude) {
-                    unset($available_shipping_methods[$rate_id]);
-                }
-            }
-        }
+		if ( $shipping_class_to_exclude_exists ) {
+			foreach ( $available_shipping_methods as $rate_id => $rate ) {
+				if ( $rate->method_id == $shipping_method_to_exclude ) {
+					unset( $available_shipping_methods[ $rate_id ] );
+				}
+			}
+		}
 
-        return $available_shipping_methods;
-    }
+		return $available_shipping_methods;
+	}
 
     /**
      * Paypal Checkout: Make Billing Address not Required
@@ -1175,65 +1164,77 @@ class Tmsm_Frontend_Optimizations_Public
         }
     }
 
+	/**
+	 * WooCommerce Advanced Messages: Get locations.
+	 *
+	 * Get all the location groups, names containing hook, priority, type and name.
+	 * Used (but not only) for the 'location' setting.
+	 *
+	 * @return array List of location groups containing location_name + data.
+	 * @since 1.1.8
+	 *
+	 */
+	function wcam_locations( $locations ) {
 
-    /**
-     * WooCommerce Advanced Messages: Get locations.
-     *
-     * Get all the location groups, names containing hook, priority, type and name.
-     * Used (but not only) for the 'location' setting.
-     *
-     * @return array List of location groups containing location_name + data.
-     * @since 1.1.8
-     *
-     */
-    function wcam_locations($locations)
-    {
+		$locations['Product']['woocommerce_single_product_summary_excerpt_ocean'] = array(
+			'action_hook' => 'ocean_after_single_product_excerpt',
+			'priority'    => 15,
+			'name'        => 'After product summary (with Ocean theme)',
+		);
+		$locations['Product']['woocommerce_single_product_summary_excerpt']       = array(
+			'action_hook' => 'woocommerce_single_product_summary',
+			'priority'    => 30,
+			'name'        => 'After product summary (with standard theme)',
+		);
 
-        $locations['Product']['woocommerce_single_product_summary_excerpt_ocean'] = array(
-            'action_hook' => 'ocean_after_single_product_excerpt',
-            'priority' => 15,
-            'name' => 'After product summary (with Ocean theme)',
-        );
-        $locations['Product']['woocommerce_single_product_summary_excerpt'] = array(
-            'action_hook' => 'woocommerce_single_product_summary',
-            'priority' => 30,
-            'name' => 'After product summary (with standard theme)',
-        );
-
-        return $locations;
-    }
+		return $locations;
+	}
 
 	/**
 	 * Display attribute name and value in WooCommerce
 	 *
 	 * Show the attribute name beside the attribute value in WooCommerce (in Cart, Checkout and order emails).
 	 *
-	 * @param $should_include_attributes
+	 * @param bool       $should_include_attributes
 	 * @param WC_Product $product Product object.
+	 *
 	 * @return false
 	 *
 	 */
-	function woocommerce_dcwd_product_variation_title_include_attributes( $should_include_attributes, $product ) {
+	function woocommerce_product_variation_title_include_attributes( bool $should_include_attributes, WC_Product $product ) {
 		// Returning false messes up My Account/Downloads page - thanks for Leandro for reporting.
-		if ( is_account_page() ) { return $should_include_attributes; }
+		if ( is_account_page() ) {
+			return $should_include_attributes;
+		}
+
 		return false;
 	}
 
 
-    /**
-     * Elementor Search Form After Input
-     *
-     * @param mixed $form
-     */
-    function elementor_search_form_after_input($form)
-    {
+	/**
+	 * Elementor Search Form After Input
+	 *
+	 * @param mixed $form
+	 */
+	function elementor_search_form_after_input( $form ) {
 
-        $settings = $form->get_data('settings');
+		$settings = $form->get_data( 'settings' );
 
-        // If search form has "woocommerce-search" in CSS class, then search only in WooCommerce products
-        if (isset($settings['_css_classes']) && strpos('woocommerce-searchform', $settings['_css_classes']) !== false) {
-            echo '<input type="hidden" name="post_type" value="product" />';
-        }
+		// If search form has "woocommerce-search" in CSS class, then search only in WooCommerce products
+		if ( isset( $settings['_css_classes'] ) && strpos( 'woocommerce-searchform', $settings['_css_classes'] ) !== false ) {
+			echo '<input type="hidden" name="post_type" value="product" />';
+		}
 
-    }
+	}
+
+	/**
+	 * Post-Expirator: clear WP-Rocket cache after expiration
+	 */
+	function postexpirator_expireclearcache()
+	{
+		// Clear the cache.
+		if (function_exists('rocket_clean_domain')) {
+			rocket_clean_domain();
+		}
+	}
 }

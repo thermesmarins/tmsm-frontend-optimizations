@@ -1,3 +1,8 @@
+### 1.4.9: June 14th, 2022
+* **New** - PublishPress Future: Clear cache when post expires
+* **Fix** - Bug with variations attributes as radio buttons: when only one variation, and a default one, it was not selected
+
+### 1.4.8: April 26th, 2022
 * **Tweak** - Gravity Forms and WooCommerce: update unauthorized domains list
 
 ### 1.4.7: March 31st, 2022
