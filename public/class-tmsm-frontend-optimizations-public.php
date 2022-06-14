@@ -1239,17 +1239,19 @@ class Tmsm_Frontend_Optimizations_Public
     }
 
 	/**
-	 * Post-Expirator clear WP-Rocket cache after post expiration
+	 * Post-Expirator clear WP-Rocket cache after expiration
 	 *
 	 */
 	function postexpirator_expireclearcache()
 	{
 		if (defined('WP_DEBUG') && WP_DEBUG) {
+			error_log("ça marche!");
 		}
 		// Clear the cache.
 		if (function_exists('rocket_clean_domain')) {
 			rocket_clean_domain();
 			if (defined('WP_DEBUG') && WP_DEBUG) {
+				error_log("Cache clean!");
 			}
 		}
 	}
