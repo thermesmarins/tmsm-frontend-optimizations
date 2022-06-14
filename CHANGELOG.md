@@ -1,3 +1,6 @@
+### 1.4.9
+* **New** - PublishPress Future: Clear cache when post expires
+
 ### 1.4.8: April 26th, 2022
 * **Tweak** - WooCommerce: Show the attribute name beside the attribute value in WooCommerce (in Cart, Checkout and order emails)
 

@@ -233,8 +233,8 @@ class Tmsm_Frontend_Optimizations {
 		// Elementor
 		$this->loader->add_filter( 'elementor_pro/search_form/after_input', $plugin_public, 'elementor_search_form_after_input', 100, 1 );
 
-		// Post-Expirator
-		$this->loader->add_action('postExpiratorExpire',$plugin_public, 'testCacheClear');
+		// PublishPress Future
+		$this->loader->add_action('postExpiratorExpire',$plugin_public, 'postexpirator_expireclearcache');
 	}
 
 	/**
