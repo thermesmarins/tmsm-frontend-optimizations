@@ -1,3 +1,5 @@
+* **Fix** - Bug with embed_oembed_html filter
+
 ### 1.4.9: June 14th, 2022
 * **New** - PublishPress Future: Clear cache when post expires
 * **Fix** - Bug with variations attributes as radio buttons: when only one variation, and a default one, it was not selected

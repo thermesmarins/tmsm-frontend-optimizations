@@ -180,14 +180,14 @@ class Tmsm_Frontend_Optimizations_Public
 	/**
 	 * Embed wrap
 	 *
-	 * @param        $cache
-	 * @param        $url
-	 * @param string $attr
-	 * @param int    $post_ID
+	 * @param string|false $cache
+	 * @param string       $url
+	 * @param array        $attr
+	 * @param int          $post_ID
 	 *
 	 * @return string
 	 */
-	function wp_embed_wrap( $cache, $url, string $attr = '', int $post_ID = 0 ): string {
+	function wp_embed_wrap( $cache, string $url, array $attr, int $post_ID ): string {
 		return '<div class="embed">' . $cache . '</div>';
 	}
 
