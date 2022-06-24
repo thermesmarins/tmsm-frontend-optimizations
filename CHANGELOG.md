@@ -1,3 +1,4 @@
+### 1.5.0: June 24th, 2022
 * **Fix** - Bug with embed_oembed_html filter
 
 ### 1.4.9: June 14th, 2022
