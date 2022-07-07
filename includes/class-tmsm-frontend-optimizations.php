@@ -152,8 +152,7 @@ class Tmsm_Frontend_Optimizations {
 		remove_action( 'wp_head', 'print_emoji_detection_script', 7 ); //Emoji
 		$this->loader->add_filter( 'user_request_confirmed_email_to', $plugin_public, 'wp_user_request_confirmed_email_to_dpo', 10, 2 );
 		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'wp_oembed_result_modest', 100, 4 );
-		$this->loader->add_filter( 'oembed_result', $plugin_public, 'wp_oembed_result_nosnippet', 100, 3 );
-		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'wp_embed_wrap', 10, 4 );
+		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'wp_embed_wrap', 100, 4 );
 		$this->loader->add_filter( 'embed_googlevideo', $plugin_public, 'wp_embed_wrap', 10, 4 );
 		remove_action('wp_head', 'wlwmanifest_link');
 		remove_action('wp_head', 'rsd_link');

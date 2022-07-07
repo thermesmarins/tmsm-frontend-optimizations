@@ -188,7 +188,7 @@ class Tmsm_Frontend_Optimizations_Public
 	 * @return string
 	 */
 	function wp_embed_wrap( $cache, string $url, array $attr, int $post_ID ): string {
-		return '<div class="embed">' . $cache . '</div>';
+		return '<div class="embed" data-nosnippet="true">' . $cache . '</div>';
 	}
 
 	/**
@@ -204,22 +204,6 @@ class Tmsm_Frontend_Optimizations_Public
 	function wp_oembed_result_modest( string $html, string $url, $attr, $post_ID ): string {
 		return str_replace( 'feature=oembed', 'feature=oembed&modestbranding=1&showinfo=0&rel=0', $html );
 	}
-
-    /**
-     * Filters the HTML returned by the oEmbed provider.
-     *
-     * @param string|false $data The returned oEmbed HTML (false if unsafe).
-     * @param string $url URL of the content to be embedded.
-     * @param array $args Optional arguments, usually passed from a shortcode.
-     *
-     * @return string
-     */
-    function wp_oembed_result_nosnippet(string $data, string $url, array $args): string {
-
-        $data = '<div data-nosnippet="true">' . $data . '</div>';
-
-        return $data;
-    }
 
     /**
      * Remove "Category:" in titles
