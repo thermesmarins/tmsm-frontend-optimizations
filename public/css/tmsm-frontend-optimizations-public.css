@@ -23,9 +23,6 @@ body.login-action-confirmaction h1 {
   border-width: 2px 0;
 }
 @media (min-width: 992px) {
-  .woocommerce div.product form.cart.variations_form .voucher-help-link {
-    display: block;
-  }
 }
 .woocommerce div.product form.cart.variations_form .voucher-help-link .glyphicon {
   margin-right: 5px;
@@ -55,6 +52,7 @@ body.login-action-confirmaction h1 {
   border-color: transparent;
   width: 100%;
   padding: 0;
+  white-space: inherit;
 }
 .woocommerce div.product form.cart.variations_form .variations .radio label {
   font-weight: normal;

@@ -1,3 +1,5 @@
+* **Tweak** - CSS for voucher link
+
 ### 1.5.1: July 7th, 2022
 * **Fix** - Conflict with Ocean theme when displaying embed videos
 
