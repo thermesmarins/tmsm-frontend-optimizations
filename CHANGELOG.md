@@ -1,5 +1,7 @@
+### 1.5.2: August 8th, 2022
 * **Tweak** - CSS for voucher link
 * **Fix** - Email hotmail.fr is real
+* Requires PHP 7.4
 
 ### 1.5.1: July 7th, 2022
 * **Fix** - Conflict with Ocean theme when displaying embed videos
