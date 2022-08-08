@@ -45,7 +45,6 @@ class Tmsm_Frontend_Optimizations_Public
         'glail.com',
         'gamil.com',
         'hotmal.fr',
-        'hotmail.fr',
         'orage.fr',
         'freee.fr',
         'wanado.fr',
