@@ -25,7 +25,7 @@
  * Domain Path:       /languages
  * Github Plugin URI: https://github.com/thermesmarins/tmsm-frontend-optimizations
  * Github Branch:     master
- * Requires PHP:      7.4
+ * Requires PHP:      8.0
  */
 
 // If this file is called directly, abort.

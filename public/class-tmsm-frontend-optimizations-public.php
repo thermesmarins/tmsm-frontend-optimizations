@@ -182,11 +182,11 @@ class Tmsm_Frontend_Optimizations_Public
 	 * @param string|false $cache
 	 * @param string       $url
 	 * @param array        $attr
-	 * @param int          $post_ID
+	 * @param int|null     $post_ID
 	 *
 	 * @return string
 	 */
-	function wp_embed_wrap( $cache, string $url, array $attr, int $post_ID ): string {
+	function wp_embed_wrap( $cache, string $url, array $attr, int|null $post_ID ): string {
 		return '<div class="embed" data-nosnippet="true">' . $cache . '</div>';
 	}
 

@@ -1,3 +1,6 @@
+* **Fix** - Embed functions doc
+* **Tweak** - Requires PHP 8.0
+
 ### 1.5.2: August 8th, 2022
 * **Tweak** - CSS for voucher link
 * **Fix** - Email hotmail.fr is real
