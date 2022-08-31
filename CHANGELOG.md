@@ -1,3 +1,4 @@
+### 1.5.3: August 31st, 2022
 * **Fix** - Embed functions doc
 * **Tweak** - Requires PHP 8.0
 * * **Tweak** - Gravity Forms: disable legend
