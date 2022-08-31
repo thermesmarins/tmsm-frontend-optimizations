@@ -1,4 +1,6 @@
-<?php
+<?php /** @noinspection SpellCheckingInspection */
+/** @noinspection PhpIncludeInspection */
+
 /**
  * The core plugin class.
  *
@@ -23,7 +25,7 @@ class Tmsm_Frontend_Optimizations {
 	 * @access   protected
 	 * @var      Tmsm_Frontend_Optimizations_Loader    $loader    Maintains and registers all hooks for the plugin.
 	 */
-	protected $loader;
+	protected Tmsm_Frontend_Optimizations_Loader $loader;
 
 	/**
 	 * The unique identifier of this plugin.
@@ -32,7 +34,7 @@ class Tmsm_Frontend_Optimizations {
 	 * @access   protected
 	 * @var      string    $plugin_name    The string used to uniquely identify this plugin.
 	 */
-	protected $plugin_name;
+	protected string $plugin_name;
 
 	/**
 	 * The current version of the plugin.
@@ -41,7 +43,7 @@ class Tmsm_Frontend_Optimizations {
 	 * @access   protected
 	 * @var      string    $version    The current version of the plugin.
 	 */
-	protected $version;
+	protected string $version;
 
 	/**
 	 * Define the core functionality of the plugin.
@@ -191,6 +193,7 @@ class Tmsm_Frontend_Optimizations {
 			$this->loader->add_filter( 'gform_field_content', $plugin_public, 'gravityforms_field_content_phoneformat', 10, 5 );
 			$this->loader->add_filter( 'gform_address_display_format', $plugin_public, 'gravityforms_address_zipbeforecity', 10, 2 );
             $this->loader->add_filter( 'gform_field_validation',$plugin_public,'gravityforms_check_email_domain', 10, 4 );
+            $this->loader->add_filter( 'gform_required_legend',$plugin_public,'__return_empty_string' );
 		}
 
 		// Jetpack

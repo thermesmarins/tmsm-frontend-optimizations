@@ -1,5 +1,6 @@
 * **Fix** - Embed functions doc
 * **Tweak** - Requires PHP 8.0
+* * **Tweak** - Gravity Forms: disable legend
 
 ### 1.5.2: August 8th, 2022
 * **Tweak** - CSS for voucher link
