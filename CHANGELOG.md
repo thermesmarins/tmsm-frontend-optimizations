@@ -1,3 +1,4 @@
+### 1.5.4: September 1st, 2022
 * **Fix** - Gravity Forms: disable legend
 
 ### 1.5.3: August 31st, 2022
