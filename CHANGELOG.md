@@ -1,3 +1,5 @@
+* **Fix** - WooCommerce: free shipping meta texte considers if the product (or variations) have at least one physical variation
+
 ### 1.5.4: September 1st, 2022
 * **Fix** - Gravity Forms: disable legend
 

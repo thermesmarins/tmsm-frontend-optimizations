@@ -893,99 +893,118 @@ class Tmsm_Frontend_Optimizations_Public
      *
      * @since 1.2.5
      */
-    public function woocommerce_product_meta_end_freeshippingpocalpickup()
-    {
-        global $product;
+	public function woocommerce_product_meta_end_freeshippingpocalpickup()
+	{
+		global $product;
 
-        $gift_icon = null;
-        $shipping_icon = null;
-        $payment_icon = null;
-        $localpickup_icon = null;
+		$gift_icon = null;
+		$shipping_icon = null;
+		$payment_icon = null;
+		$localpickup_icon = null;
 
-        if (self::has_parent_theme('StormBringer')) {
-            $gift_icon = 'glyphicon glyphicon-gift';
-            $shipping_icon = '';
-            $payment_icon = 'glyphicon glyphicon-credit-card';
-            $localpickup_icon = 'glyphicon glyphicon-map-marker';
-        }
-        if (self::has_parent_theme('OceanWP') || wp_style_is('font-awesome', 'registered')) {
-            $gift_icon = 'fa fa-gift';
-            $shipping_icon = 'fa fa-truck';
-            $payment_icon = 'fa fa-credit-card';
-            $localpickup_icon = 'fa fa-map-marker';
-        }
+		if (self::has_parent_theme('StormBringer')) {
+			$gift_icon = 'glyphicon glyphicon-gift';
+			$shipping_icon = '';
+			$payment_icon = 'glyphicon glyphicon-credit-card';
+			$localpickup_icon = 'glyphicon glyphicon-map-marker';
+		}
+		if (self::has_parent_theme('OceanWP') || wp_style_is('font-awesome', 'registered')) {
+			$gift_icon = 'fa fa-gift';
+			$shipping_icon = 'fa fa-truck';
+			$payment_icon = 'fa fa-credit-card';
+			$localpickup_icon = 'fa fa-map-marker';
+		}
 
-        if (!empty($product)) {
-            if (!empty(WC()) && !empty(WC()->shipping())) {
 
-                $package = array();
-                $package['destination']['country'] = get_option('woocommerce_default_country');
-                $package['destination']['state'] = '';
-                $package['destination']['postcode'] = '';
-                $shipping_methods = WC()->shipping()->load_shipping_methods($package);
+		// Check if product or variation has a physical option
+		$has_physical_option = false;
+		if (!empty($product)){
+			if($product->get_type() === 'simple'){
+				$has_physical_option = ! $product->is_virtual();
+			}
+			if($product->get_type() === 'variable'){
+				foreach($product->get_available_variations('objects') as $variation){
+					//$variation_id     = $available_variations[ $i ]['variation_id'];
+					//$variable_product = new WC_Product_Variation( $variation_id );
+					if( ! $variation->is_virtual()){
+						$has_physical_option = true;
+					}
+				}
 
-                foreach ($shipping_methods as $shipping_method) {
+			}
+		}
 
-                    if ($shipping_method->is_enabled() && !empty($shipping_method->get_title())) {
+		if (!empty($product)) {
+			if (!empty(WC()) && !empty(WC()->shipping()) && $has_physical_option) {
 
-                        // Free Shipping: displayed for all shipping options except if "Local Pickup Only" has been selected
-                        if (!empty($product) && $product->get_type() !== 'external' && (empty($product->get_shipping_class_id()) || $product->get_shipping_class() !== 'local_pickup_only')) {
+				$package = array();
+				$package['destination']['country'] = get_option('woocommerce_default_country');
+				$package['destination']['state'] = '';
+				$package['destination']['postcode'] = '';
+				$shipping_methods = WC()->shipping()->load_shipping_methods($package);
 
-                            // Free shipping
-                            if (!empty($shipping_method->id) && $shipping_method->id === 'free_shipping') {
+				foreach ($shipping_methods as $shipping_method) {
 
-                                // Requires min amount
-                                if ($shipping_method->get_option('requires') === 'min_amount' && !empty($shipping_method->get_option('min_amount')) && method_exists($shipping_method, 'get_title')) {
-                                    echo '<p class="product_meta_freeshipping">
+					if ($shipping_method->is_enabled() && !empty($shipping_method->get_title())) {
+
+						// Free Shipping: displayed for all shipping options except if "Local Pickup Only" has been selected
+						if (!empty($product) && $product->get_type() !== 'external' && (empty($product->get_shipping_class_id()) || $product->get_shipping_class() !== 'local_pickup_only')) {
+
+							// Free shipping
+							if (!empty($shipping_method->id) && $shipping_method->id === 'free_shipping') {
+
+								// Requires min amount
+								if ($shipping_method->get_option('requires') === 'min_amount' && !empty($shipping_method->get_option('min_amount')) && method_exists($shipping_method, 'get_title')) {
+									echo '<p class="product_meta_freeshipping">
 									<span class="' . $shipping_icon . '"></span> ' . sprintf(__('%1$s from %2$s', 'tmsm-frontend-optimizations'), (function_exists('pll__')
-                                            ? pll__($shipping_method->get_title()) : $shipping_method->get_title()), strip_tags(wc_price($shipping_method->get_option('min_amount'), ['decimals' => false]))) . '</p>';
-                                }
+											? pll__($shipping_method->get_title()) : $shipping_method->get_title()), strip_tags(wc_price($shipping_method->get_option('min_amount'), ['decimals' => false]))) . '</p>';
+								}
 
-                                // Requires nothing
-                                if ($shipping_method->get_option('requires') === '' && method_exists($shipping_method, 'get_title')) {
-                                    echo '<p class="product_meta_freeshipping">
+								// Requires nothing
+								if ($shipping_method->get_option('requires') === '' && method_exists($shipping_method, 'get_title')) {
+									echo '<p class="product_meta_freeshipping">
 									<span class="' . $shipping_icon . '"></span> ' . (function_exists('pll__')
-                                            ? pll__($shipping_method->get_title()) : $shipping_method->get_title()) . '</p>';
-                                }
+											? pll__($shipping_method->get_title()) : $shipping_method->get_title()) . '</p>';
+								}
 
-                            }
+							}
 
-                            // Flat rate
-                            if (!empty($shipping_method->id) && $shipping_method->id === 'flat_rate') {
+							// Flat rate
+							if (!empty($shipping_method->id) && $shipping_method->id === 'flat_rate') {
 
-                                $cost = null;
-                                $settings = $shipping_method->instance_settings;
-                                if (!empty($settings)) {
-                                    $cost = $settings['cost'] ?? 0;
-                                    if (!empty($product->get_shipping_class_id()) && !empty($settings['class_cost_' . $product->get_shipping_class_id()])) {
-                                        $cost = $settings['class_cost_' . $product->get_shipping_class_id()];
-                                    }
-                                }
-                                echo '<p class="product_meta_flatrateshipping">
+								$cost = null;
+								$settings = $shipping_method->instance_settings;
+								if (!empty($settings)) {
+									$cost = $settings['cost'] ?? 0;
+									if (!empty($product->get_shipping_class_id()) && !empty($settings['class_cost_' . $product->get_shipping_class_id()])) {
+										$cost = $settings['class_cost_' . $product->get_shipping_class_id()];
+									}
+								}
+								echo '<p class="product_meta_flatrateshipping">
 									<span class="' . $shipping_icon . '"></span> ' . (function_exists('pll__')
-                                        ? pll__($shipping_method->get_title()) : $shipping_method->get_title()) . ' ' . ($cost !== null ? ($cost == 0 ? __('(free)', 'tmsm-frontend-optimizations') : sprintf(__('(%s)', 'tmsm-frontend-optimizations'), strip_tags(wc_price($cost, ['decimals' => false])))) : '') . '</p>';
+										? pll__($shipping_method->get_title()) : $shipping_method->get_title()) . ' ' . ($cost !== null ? ($cost == 0 ? __('(free)', 'tmsm-frontend-optimizations') : sprintf(__('(%s)', 'tmsm-frontend-optimizations'), strip_tags(wc_price($cost, ['decimals' => false])))) : '') . '</p>';
 
-                            }
-                        }
+							}
+						}
 
-                        // Local Pickup: displayed for all shipping options except if "No Local Pickup" has been selected
-                        if (!empty($product) && $product->get_type() !== 'external' && (empty($product->get_shipping_class_id()) || $product->get_shipping_class() !== 'no_local_pickup')) {
-                            if (!empty($shipping_method->id) && $shipping_method->id === 'local_pickup') {
-                                if (method_exists($shipping_method, 'get_title')) {
-                                    echo '<p class="product_meta_localpickup">
+						// Local Pickup: displayed for all shipping options except if "No Local Pickup" has been selected
+						if (!empty($product) && $product->get_type() !== 'external' && (empty($product->get_shipping_class_id()) || $product->get_shipping_class() !== 'no_local_pickup')) {
+							if (!empty($shipping_method->id) && $shipping_method->id === 'local_pickup') {
+								if (method_exists($shipping_method, 'get_title')) {
+									echo '<p class="product_meta_localpickup">
 									<span class="' . $localpickup_icon . '"></span> ' . (function_exists('pll__')
-                                            ? pll__($shipping_method->get_title()) : $shipping_method->get_title()) . '</p>';
-                                }
-                            }
-                        }
-                    }
-                }
-            }
+											? pll__($shipping_method->get_title()) : $shipping_method->get_title()) . '</p>';
+								}
+							}
+						}
+					}
+				}
+			}
 
-            // Secure payment
-            echo '<p class="product_meta_securepayment"><span class="' . $payment_icon . '"></span> ' . __('Secure payments', 'tmsm-frontend-optimizations') . '</p>';
-        }
-    }
+			// Secure payment
+			echo '<p class="product_meta_securepayment"><span class="' . $payment_icon . '"></span> ' . __('Secure payments', 'tmsm-frontend-optimizations') . '</p>';
+		}
+	}
 
 	/**
 	 * WooCommerce attributes <select> dropdown as <input> type radio
