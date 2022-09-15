@@ -1,3 +1,5 @@
+* **Tweak** - Gravity Forms & Elementor, when a form with conditional logic inside an Elementor modal, wasn't displayed: allow for multiple forms inside a modal
+
 ### 1.5.5: September 15th, 2022
 * **Fix** - Gravity Forms & Elementor, when a form with conditional logic inside an Elementor modal, wasn't displayed
 * **Fix** - WooCommerce: free shipping meta texte considers if the product (or variations) have at least one physical variation
