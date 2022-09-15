@@ -2,6 +2,21 @@
 	'use strict';
 
   /**
+   * Gravity Forms: Display form with conditional logic inside an Elementor modal
+   */
+  $(document).on('elementor/popup/show', function (event, popupId, popup) {
+    const gformWrapper = jQuery('.gform_wrapper', popup.$element);
+    if (!gformWrapper) {
+      return;
+    }
+    const gformId = gformWrapper.get(0).id.replace(/^gform_wrapper_/, '');
+    if (!gformId) {
+      return;
+    }
+    $(document).trigger('gform_post_render', [gformId, 1]);
+  });
+
+  /**
    * Gravity Forms: Phone Masks
    * @constructor
    */

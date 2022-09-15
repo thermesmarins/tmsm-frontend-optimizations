@@ -1,3 +1,4 @@
+* **Fix** - Gravity Forms & Elementor, when a form with conditional logic inside an Elementor modal, wasn't displayed
 * **Fix** - WooCommerce: free shipping meta texte considers if the product (or variations) have at least one physical variation
 
 ### 1.5.4: September 1st, 2022
