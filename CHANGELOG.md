@@ -1,3 +1,5 @@
+* **Tweak** - Remove some block styles
+
 ### 1.5.6: September 15th, 2022
 * **Tweak** - Gravity Forms & Elementor, when a form with conditional logic inside an Elementor modal, wasn't displayed: allow for multiple forms inside a modal
 

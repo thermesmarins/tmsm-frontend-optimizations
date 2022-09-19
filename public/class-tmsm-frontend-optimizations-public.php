@@ -191,6 +191,16 @@ class Tmsm_Frontend_Optimizations_Public
 	}
 
 	/**
+	 * Remove block styles
+	 *
+	 * @return void
+	 */
+	function wp_enqueue_block_assets(){
+		wp_dequeue_style( 'wc-blocks-style' );
+		wp_dequeue_style( 'wc-blocks-vendors-style' );
+	}
+
+	/**
 	 * Remove YouTube related content and have modestbranding always on
 	 *
 	 * @param $html
