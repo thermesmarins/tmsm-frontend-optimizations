@@ -1,3 +1,4 @@
+### 1.5.7: September 20th, 2022
 * **Tweak** - Remove some block styles
 
 ### 1.5.6: September 15th, 2022
