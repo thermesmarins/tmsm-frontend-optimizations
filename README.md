@@ -6,6 +6,9 @@ Frontend Optimizations for Thermes Marins de Saint-Malo
 Features
 -----------
 
+* Analytics decorate forms inputs and iframes with GA cookie, following rules:
+  * iframe.dedge-ratelist-iframe
+  * input[value=gravityforms_ga]
 * Remove CSS styles:
     * Default gallery
     * Emoji
