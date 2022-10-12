@@ -1,3 +1,5 @@
+* **New** - Analytics, decorate forms and iframes with GA cookie
+
 ### 1.5.7: September 20th, 2022
 * **Tweak** - Remove some block styles
 
