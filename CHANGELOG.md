@@ -1,3 +1,4 @@
+### 1.5.8: October 12th, 2022
 * **New** - Analytics, decorate forms and iframes with GA cookie
 
 ### 1.5.7: September 20th, 2022
