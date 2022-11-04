@@ -4,46 +4,51 @@
   /**
    * GTM decorate forms with input[value=gravityforms_ga] and iframe.dedge-ratelist-iframe with _ga cookie value
    */
-  dataLayer.gaCookieCallback = function () {
-    console.log('gaCookieCallback');
+  if (typeof dataLayer !== 'undefined'){
+    dataLayer.gaCookieCallback = function () {
+      console.log('gaCookieCallback');
 
-    if(dataLayer._ga){
-      console.log('dataLayer._ga defined');
-      try {
-        const inputs = document.querySelectorAll('input[value=gravityforms_ga]');
-        const iframes = document.querySelectorAll('iframe.dedge-ratelist-iframe');
+      if(dataLayer._ga){
+        console.log('dataLayer._ga defined');
+        try {
+          const inputs = document.querySelectorAll('input[value=gravityforms_ga]');
+          const iframes = document.querySelectorAll('iframe.dedge-ratelist-iframe');
 
-        // Handle inputs
-        inputs.forEach(function (input) {
-          console.log('input tag:');
-          console.log(input);
-          input.value = dataLayer._ga;
-        })
+          // Handle inputs
+          inputs.forEach(function (input) {
+            console.log('input tag:');
+            console.log(input);
+            input.value = dataLayer._ga;
+          })
 
-        // Handle iframes
-        iframes.forEach(function (iframe) {
-          console.log('iframe tag:');
-          console.log(iframe);
-          iframe.src = iframe.src + '&amp;_ga=' + dataLayer._ga;
-        })
+          // Handle iframes
+          iframes.forEach(function (iframe) {
+            console.log('iframe tag:');
+            console.log(iframe);
+            iframe.src = iframe.src + '&amp;_ga=' + dataLayer._ga;
+          })
 
+        }
+        catch
+          (e) {
+          console.error('gaCookieCallback error:');
+          console.error(e);
+        }
       }
-      catch
-        (e) {
-        console.error('gaCookieCallback error:');
-        console.error(e);
+      else{
+        console.log('dataLayer._ga not defined');
       }
-    }
-    else{
-      console.log('dataLayer._ga not defined');
     }
   }
+
 
   /**
    * Gravity Forms: Display form with conditional logic inside an Elementor modal
    */
   $(document).on('elementor/popup/show', function (event, popupId, popup) {
-    dataLayer.gaCookieCallback();
+    if (typeof dataLayer !== 'undefined'){
+      dataLayer.gaCookieCallback();
+    }
 
     $('.gform_wrapper', popup.$element).each(function(){
       const gformId = $(this).get(0).id.replace(/^gform_wrapper_/, '');
