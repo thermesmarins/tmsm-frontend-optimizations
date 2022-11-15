@@ -1,3 +1,4 @@
+### 1.6.0: November 15th, 2022
 * **Fix** - Check dataLayer.gaCookieCallback exists
 
 ### 1.5.9: November 15th, 2022
