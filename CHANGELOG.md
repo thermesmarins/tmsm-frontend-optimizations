@@ -1,3 +1,5 @@
+* **Fix** - Check dataLayer exists
+
 ### 1.5.8: October 12th, 2022
 * **New** - Analytics, decorate forms and iframes with GA cookie
 
