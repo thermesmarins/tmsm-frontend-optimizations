@@ -1,3 +1,4 @@
+### 1.5.9: November 15th, 2022
 * **Fix** - Check dataLayer exists
 
 ### 1.5.8: October 12th, 2022
