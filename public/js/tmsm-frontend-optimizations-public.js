@@ -4,7 +4,7 @@
   /**
    * GTM decorate forms with input[value=gravityforms_ga] and iframe.dedge-ratelist-iframe with _ga cookie value
    */
-  if (typeof dataLayer !== 'undefined'){
+  if (typeof dataLayer !== 'undefined' && (typeof dataLayer.gaCookieCallback === 'function' ) ){
     dataLayer.gaCookieCallback = function () {
       console.log('gaCookieCallback');
 
@@ -46,7 +46,7 @@
    * Gravity Forms: Display form with conditional logic inside an Elementor modal
    */
   $(document).on('elementor/popup/show', function (event, popupId, popup) {
-    if (typeof dataLayer !== 'undefined'){
+    if (typeof dataLayer !== 'undefined' && (typeof dataLayer.gaCookieCallback === 'function' ) ){
       dataLayer.gaCookieCallback();
     }
 
