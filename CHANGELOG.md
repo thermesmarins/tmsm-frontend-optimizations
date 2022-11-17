@@ -1,3 +1,5 @@
+* **New** - Gravity Forms form-action-replacement feature now works with select
+
 ### 1.6.1: November 17th, 2022
 * **New** - Gravity Forms field added: action (for external form processing) allowing Analytics Auto Form Decoration
 * **Fix** - WooCommerce product meta: check if cost is defined before showing shipping method Nico Mollet 2 minutes ago

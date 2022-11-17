@@ -5,7 +5,7 @@
    * Gravity Forms: replace form action when changing input field inside .form-action-replacement
    */
   var GravityFormsFormActionReplacement = function(){
-    Array.prototype.forEach.call(document.querySelectorAll('.form-action-replacement input[type=radio]'), function(input) {
+    Array.prototype.forEach.call(document.querySelectorAll('.form-action-replacement input[type=radio], .form-action-replacement select'), function(input) {
       input.addEventListener('change', function(e){
         input.closest('form').action = input.value;
       });
