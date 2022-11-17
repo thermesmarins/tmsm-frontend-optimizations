@@ -463,21 +463,65 @@ class Tmsm_Frontend_Optimizations_Public
     }
 
 	/**
+	 * Gravity Forms: customize form tag
+	 *
+	 * @param $form_tag
+	 * @param $form
+	 *
+	 * @return mixed
+	 */
+	public function gravityforms_form_tag( $form_tag, $form ){
+
+		if( ! empty( $form['action'] ) && wp_http_validate_url( $form['action'] )){
+			$form_tag = preg_replace( "|action='(.*?)'|", "action='".esc_url( $form['action'] )."' ", $form_tag );
+			$form_tag = preg_replace( "|method='(.*?)'|", "method='get' ", $form_tag );
+		}
+
+		return $form_tag;
+	}
+
+	/**
 	 * Gravity Forms: form settings fields
 	 */
 	public function gravityforms_form_settings_fields( array $fields, array $form ): array {
 
 		$fields['form_options']['fields'][] = array(
-			'type'  => 'text',
-			'name'  => 'action',
-			'label' => __( 'Action', 'tmsm-frontend-optimizations' ),
-			'description' => __( 'Replaces the form action attribute, preventing confirmations and notifications to be processed.', 'tmsm-frontend-optimizations' ),
+			'type'    => 'text',
+			'name'    => 'action',
+			'label'   => __( 'Action', 'tmsm-frontend-optimizations' ),
+			'tooltip' => __( 'Replaces the form action attribute, preventing confirmations and notifications to be processed.',
+				'tmsm-frontend-optimizations' ),
 		);
 
 		return $fields;
 	}
 
-    /**
+	/**
+	 * Gravity Forms: Add phone format to phone field type.
+	 *
+	 * @param string $content The field content.
+	 * @param $field
+	 * @param $value
+	 * @param int    $lead_id The entry ID.
+	 * @param int    $form_id The form ID.
+	 *
+	 * @return string
+	 */
+	public function gravityforms_field_content_name( string $content, $field, $value, $lead_id, int $form_id)
+	{
+
+		$form = GFAPI::get_form( $form_id );
+
+		// Replace input name with inputName var only if the form has a different action
+		if( ! empty( $field['inputName'] ) && ! empty( $form['action'] ) && wp_http_validate_url( $form['action'] )){
+
+			$content = preg_replace( "|name='(.*?)'|", "name='".esc_attr($field['inputName'])."' ", $content );
+		}
+
+		return $content;
+	}
+
+	/**
      * Gravity Forms: Non Blocking Render
      *
      * @return bool

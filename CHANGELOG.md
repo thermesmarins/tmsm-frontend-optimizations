@@ -1,3 +1,7 @@
+* **New** - Gravity Forms field added: action (for external form processing) allowing Analytics Auto Form Decoration
+* **Fix** - WooCommerce product meta: check if cost is defined before showing shipping method Nico Mollet 2 minutes ago
+* **Tweak** - Gravity Forms: Removed gaCookieCallback function since we now use Analytics Auto Form Decoration
+
 ### 1.6.0: November 15th, 2022
 * **Fix** - Check dataLayer.gaCookieCallback exists
 

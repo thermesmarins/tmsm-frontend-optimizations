@@ -185,6 +185,8 @@ class Tmsm_Frontend_Optimizations {
 			$this->loader->add_filter( 'gform_cdata_open', $plugin_public, 'gravityforms_wrap_gform_cdata_open', 10 );
 		}
 		if ( class_exists( 'GFForms' ) ) {
+			$this->loader->add_filter( 'gform_form_tag', $plugin_public, 'gravityforms_form_tag', 10, 2 );
+			$this->loader->add_filter( 'gform_field_content', $plugin_public, 'gravityforms_field_content_name', 10, 5 );
 			$this->loader->add_filter( 'gform_form_settings_fields', $plugin_public, 'gravityforms_form_settings_fields', 10, 2 );
 			$this->loader->add_filter( 'gform_phone_formats', $plugin_public, 'gravityforms_phone_formats', 10, 1 );
 			$this->loader->add_filter( 'gform_replace_merge_tags', $plugin_public, 'gravityforms_mergetags', 20, 7 );

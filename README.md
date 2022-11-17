@@ -6,33 +6,76 @@ Frontend Optimizations for Thermes Marins de Saint-Malo
 Features
 -----------
 
-* Analytics decorate forms inputs and iframes with GA cookie, following rules:
-  * iframe.dedge-ratelist-iframe
-  * input[value=gravityforms_ga]
-* Remove CSS styles:
-    * Default gallery
-    * Emoji
-* Remove JS scripts:
-    * Emoji
-* Scripts to footer:
-    * GTM4WP
-    * Gravity Forms: Force scripts to footer
-    * Use of Asset Optimizer to move scripts to footer    
-* Robots noindex,nofollow,noarchive,nosnippet when site not public
-* Head: remove shortlink, generator, rsd, manifest
-* Cookies: remove comments cookies
-* Shortcodes:
-    * [language_switcher] for language switcher (WPML or Polylang depending on which is loaded)
-* WPML:
-    * Body Class Lang
-    * Shortcode for language switcher
+* Gravity Forms:
+    * Action setting
+    * Action depending on radio input
+    * Phone format for France
+    * Phone format for international numbers
+    * New merge tags: {user_firstname}, {user_lastname}, {user_email} and {user_billingphone}
+    * Autocomplete off for numbers
+    * Block unauthorized domains for email fields
+* Google Tag Manager for WordPress:
+    * Inject Google Tag Manager after body in OceanWP Theme
+    * Exclude orders with status failed (only paid statuses)
+    * Exclude orders of tracking if they are 1 day old
+    * Javascripts in the footer
+* WooCommerce: everyday, sales start, cache should be emptied (WP Rocket), dynamic product meta (free shipping, local pickup)
+  * Block unauthorized domains for billing email
+  * Order received page have title "payment failed" if it has failed
+  * Empty cache when sale starts or ends
+  * Change password strength
+  * Hide shipping on local pickup required
+  * Variations selection are a radio button instead of select
+  * Product variation never include variation attributes in title except on account page
+  * PayPal Express Checkout address required
+  * Product meta:
+    * Cash on delivery custom icon
+    * "Free shipping" meta
+    * "Local Pickup" meta
+    * Flat Rate value meta
 * Polylang:
     * Body Class Lang
     * Shortcode for language switcher
     * Javascript variables
-* Google Tag Manager for WordPress:
-    * Inject Google Tag Manager after body in OceanWP Theme
-    * Exclude orders with status failed (only paid statuses)
-* Gravity Forms: Anonymize user IPs
-* WooCommerce: everyday, sales start, cache should be emptied (WP Rocket), dynamic product meta (free shipping, local pickup)
-* User Request: Recipient of the data request confirmation notification
+* Elementor:
+  * Search form only search for products if class name has "woocommerce-searchform" 
+* Post Expirator (PublishPress):
+  * Empty cache when a post expires 
+* WooCommerce Advanced Messages:
+  * Custom locations
+* User Requests: 
+  * Recipient of the data request confirmation notification
+* Robots:
+  * noindex,nofollow,noarchive,nosnippet when site not public
+  * Embed have "no-snippet" attribute
+* YouTube embeds:
+  * Have modestbranding=1 / showinfo=0 / rel=0
+* JetPack
+  * Remove automatic Share feature 
+  * Remove automatic Likes feature
+  * Dequeue various scripts
+* Scripts to footer:
+    * GTM4WP
+    * Gravity Forms: Force scripts to footer
+    * Use of Asset Optimizer to move scripts to footer
+    
+Gravity Forms Action Replacement How-To
+---
+If you want to change the action attribute of a GF form, fill the form setting "Action" with a valid URL.
+Next, for every input that needs a custom name, enable "Allow field to be populated dinamically" and give a "Parameter name"
+
+If the form needs an action depending on a radio button, add a value to each radio option. Each value needs to be a valid URL.
+With javascript the action will be changed depending on the radio checked.
+
+Gravity Forms User Requests custom form
+---
+Create a Gravity Forms for User Requests.
+For example create a radio field with CSS name "personal_data":
+1. Contact the DPO
+2. Edit Personal Data
+3. Export Personal Data (with value "export_personal_data" )
+4. Delete Personal Data (with value "remove_personal_data" )
+
+1 and 2 have regular GF confirmations/notifications.
+3 and 4 are hooked with "user requests" feature from WordPress
+The Gravity Forms pre_submission will check the value of this field and hook if necessary.

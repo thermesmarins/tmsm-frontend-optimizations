@@ -1,55 +1,24 @@
 (function( $ ) {
 	'use strict';
 
+  console.log(7);
+
   /**
-   * GTM decorate forms with input[value=gravityforms_ga] and iframe.dedge-ratelist-iframe with _ga cookie value
+   * Gravity Forms: replace form action when changing input field inside .form-action-replacement
    */
-  if (typeof dataLayer !== 'undefined' && (typeof dataLayer.gaCookieCallback === 'function' ) ){
-    dataLayer.gaCookieCallback = function () {
-      console.log('gaCookieCallback');
-
-      if(dataLayer._ga){
-        console.log('dataLayer._ga defined');
-        try {
-          const inputs = document.querySelectorAll('input[value=gravityforms_ga]');
-          const iframes = document.querySelectorAll('iframe.dedge-ratelist-iframe');
-
-          // Handle inputs
-          inputs.forEach(function (input) {
-            console.log('input tag:');
-            console.log(input);
-            input.value = dataLayer._ga;
-          })
-
-          // Handle iframes
-          iframes.forEach(function (iframe) {
-            console.log('iframe tag:');
-            console.log(iframe);
-            iframe.src = iframe.src + '&amp;_ga=' + dataLayer._ga;
-          })
-
-        }
-        catch
-          (e) {
-          console.error('gaCookieCallback error:');
-          console.error(e);
-        }
-      }
-      else{
-        console.log('dataLayer._ga not defined');
-      }
-    }
+  var GravityFormsFormActionReplacement = function(){
+    console.log('GravityFormsFormActionReplacement');
+    Array.prototype.forEach.call(document.querySelectorAll('.form-action-replacement input[type=radio]'), function(input) {
+      input.addEventListener('change', function(e){
+        input.closest('form').action = input.value;
+      });
+    });
   }
 
-
-  /**
+    /**
    * Gravity Forms: Display form with conditional logic inside an Elementor modal
    */
   $(document).on('elementor/popup/show', function (event, popupId, popup) {
-    if (typeof dataLayer !== 'undefined' && (typeof dataLayer.gaCookieCallback === 'function' ) ){
-      dataLayer.gaCookieCallback();
-    }
-
     $('.gform_wrapper', popup.$element).each(function(){
       const gformId = $(this).get(0).id.replace(/^gform_wrapper_/, '');
       if (!gformId) {
@@ -98,6 +67,7 @@
   $(document).on('gform_post_render', function(event, form_id, current_page){
     GravityFormsDateMask();
     GravityFormsPhoneMask();
+    GravityFormsFormActionReplacement();
   });
 
   /*
