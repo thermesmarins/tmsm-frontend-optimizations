@@ -1,3 +1,4 @@
+### 1.6.2: November 17th, 2022
 * **New** - Gravity Forms form-action-replacement feature now works with select
 
 ### 1.6.1: November 17th, 2022
