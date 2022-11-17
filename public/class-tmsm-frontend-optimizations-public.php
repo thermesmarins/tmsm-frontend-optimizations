@@ -1001,13 +1001,15 @@ class Tmsm_Frontend_Optimizations_Public
 								$settings = $shipping_method->instance_settings;
 								if (!empty($settings)) {
 									$cost = $settings['cost'] ?? 0;
-									if (!empty($product->get_shipping_class_id()) && !empty($settings['class_cost_' . $product->get_shipping_class_id()])) {
+									if (!empty($product->get_shipping_class_id()) && isset($settings['class_cost_' . $product->get_shipping_class_id()])) {
 										$cost = $settings['class_cost_' . $product->get_shipping_class_id()];
 									}
 								}
-								echo '<p class="product_meta_flatrateshipping">
+								if( $cost !== '' ){
+									echo '<p class="product_meta_flatrateshipping">
 									<span class="' . $shipping_icon . '"></span> ' . (function_exists('pll__')
-										? pll__($shipping_method->get_title()) : $shipping_method->get_title()) . ' ' . ($cost !== null ? ($cost == 0 ? __('(free)', 'tmsm-frontend-optimizations') : sprintf(__('(%s)', 'tmsm-frontend-optimizations'), strip_tags(wc_price($cost, ['decimals' => false])))) : '') . '</p>';
+											? pll__($shipping_method->get_title()) : $shipping_method->get_title()) . ' ' . ($cost !== null ? ($cost == 0 ? __('(free)', 'tmsm-frontend-optimizations') : sprintf(__('(%s)', 'tmsm-frontend-optimizations'), strip_tags(wc_price($cost, ['decimals' => false])))) : '') . '</p>';
+								}
 
 							}
 						}
