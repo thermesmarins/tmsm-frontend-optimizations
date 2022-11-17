@@ -1,13 +1,10 @@
 (function( $ ) {
 	'use strict';
 
-  console.log(7);
-
   /**
    * Gravity Forms: replace form action when changing input field inside .form-action-replacement
    */
   var GravityFormsFormActionReplacement = function(){
-    console.log('GravityFormsFormActionReplacement');
     Array.prototype.forEach.call(document.querySelectorAll('.form-action-replacement input[type=radio]'), function(input) {
       input.addEventListener('change', function(e){
         input.closest('form').action = input.value;
