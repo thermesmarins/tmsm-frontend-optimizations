@@ -64,7 +64,9 @@ Gravity Forms Action Replacement How-To
 If you want to change the action attribute of a GF form, fill the form setting "Action" with a valid URL.
 Next, for every input that needs a custom name, enable "Allow field to be populated dinamically" and give a "Parameter name"
 
-If the form needs an action depending on a radio button, add a value to each radio option. Each value needs to be a valid URL.
+If the form needs an action depending on a radio button, add a value to each radio option. 
+And add a CSS class "form-action-replacement" to the field.
+Each value needs to be a valid URL.
 With javascript the action will be changed depending on the radio checked.
 
 Gravity Forms User Requests custom form
