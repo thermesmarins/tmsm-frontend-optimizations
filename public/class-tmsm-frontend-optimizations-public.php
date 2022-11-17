@@ -203,10 +203,10 @@ class Tmsm_Frontend_Optimizations_Public
 	/**
 	 * Remove YouTube related content and have modestbranding always on
 	 *
-	 * @param $html
-	 * @param $url
-	 * @param $attr
-	 * @param $post_ID
+	 * @param string $html
+	 * @param string $url
+	 * @param        $attr
+	 * @param        $post_ID
 	 *
 	 * @return string
 	 */
@@ -461,6 +461,21 @@ class Tmsm_Frontend_Optimizations_Public
             'the_languages' => pll_the_languages(['raw' => 1]),
         ));
     }
+
+	/**
+	 * Gravity Forms: form settings fields
+	 */
+	public function gravityforms_form_settings_fields( array $fields, array $form ): array {
+
+		$fields['form_options']['fields'][] = array(
+			'type'  => 'text',
+			'name'  => 'action',
+			'label' => __( 'Action', 'tmsm-frontend-optimizations' ),
+			'description' => __( 'Replaces the form action attribute, preventing confirmations and notifications to be processed.', 'tmsm-frontend-optimizations' ),
+		);
+
+		return $fields;
+	}
 
     /**
      * Gravity Forms: Non Blocking Render
