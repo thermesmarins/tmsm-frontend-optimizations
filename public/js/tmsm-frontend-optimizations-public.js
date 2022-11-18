@@ -12,7 +12,7 @@
     });
   }
 
-    /**
+  /**
    * Gravity Forms: Display form with conditional logic inside an Elementor modal
    */
   $(document).on('elementor/popup/show', function (event, popupId, popup) {
