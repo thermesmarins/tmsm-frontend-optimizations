@@ -1,3 +1,5 @@
+* **New** - WooCommerce: woocommerce_scheduled_sales reset time at midnight
+
 ### 1.6.2: November 17th, 2022
 * **New** - Gravity Forms form-action-replacement feature now works with select
 

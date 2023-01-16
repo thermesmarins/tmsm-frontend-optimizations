@@ -871,6 +871,10 @@ class Tmsm_Frontend_Optimizations_Public
 		if ( function_exists( 'rocket_clean_domain' ) ) {
 			rocket_clean_domain();
 		}
+
+		// Reset woocommerce_scheduled_sales cron event in case it was set to 23PM
+		$ve = get_option( 'gmt_offset' ) > 0 ? '-' : '+';
+		wp_schedule_event( strtotime( '00:00 tomorrow ' . $ve . absint( get_option( 'gmt_offset' ) ) . ' HOURS' ), 'daily', 'woocommerce_scheduled_sales' );
 	}
 
 	/**
