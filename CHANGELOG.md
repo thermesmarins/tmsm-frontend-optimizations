@@ -1,3 +1,4 @@
+### 1.6.3: January 16th, 2023
 * **New** - WooCommerce: woocommerce_scheduled_sales reset time at midnight
 
 ### 1.6.2: November 17th, 2022
