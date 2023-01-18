@@ -87,9 +87,9 @@ class Tmsm_Frontend_Optimizations_Public
     public function enqueue_scripts()
     {
 
-        wp_enqueue_script('jquery-mask', plugin_dir_url(__FILE__) . 'js/jquery.mask.min.js', array('jquery'), null, false);
+        wp_enqueue_script('jquery-mask', plugin_dir_url(__FILE__) . 'js/jquery.mask.min.js', array('jquery'), null, true);
 
-        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/tmsm-frontend-optimizations-public.js', array('jquery'), $this->version, false);
+        wp_enqueue_script($this->plugin_name, plugin_dir_url(__FILE__) . 'js/tmsm-frontend-optimizations-public.js', array('jquery'), $this->version, true);
 
         // Don't load JS if current product type is bundle to prevent the page from not working
         if (function_exists('wc_get_product') && !(wc_get_product() && wc_get_product()->is_type('bundle'))) {

@@ -1,3 +1,5 @@
+* **Fix** - Revert regression of scripts loaded in the header; now in the footer
+
 ### 1.6.3: January 16th, 2023
 * **New** - WooCommerce: woocommerce_scheduled_sales reset time at midnight
 
