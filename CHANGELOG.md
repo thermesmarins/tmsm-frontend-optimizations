@@ -1,3 +1,4 @@
+### 1.6.4: January 18th, 2023
 * **Fix** - Revert regression of scripts loaded in the header; now in the footer
 
 ### 1.6.3: January 16th, 2023
