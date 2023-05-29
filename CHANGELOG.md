@@ -1,3 +1,6 @@
+### 1.6.5: May 29th, 2023
+* **Fix** - Rollback to try if the gform redirections will work better
+
 ### 1.6.4: January 18th, 2023
 * **Fix** - Revert regression of scripts loaded in the header; now in the footer
 
