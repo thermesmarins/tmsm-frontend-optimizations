@@ -1228,7 +1228,14 @@ class Tmsm_Frontend_Optimizations_Public
         $address_not_required = false;
         return $address_not_required;
     }
-
+	/**
+	 * Trim zeros in price decimals
+	 *
+	 * @return void
+	 */
+	function woocommerce_trim_zero(){
+		add_filter( 'woocommerce_price_trim_zeros', '__return_true' );
+	}
     /**
      * Empty cache when TAO Schedule Update is fired
      *
