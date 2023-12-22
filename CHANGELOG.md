@@ -1,3 +1,6 @@
+### 1.6.8: December 22nd, 2023
+* **Add** - New message for pickup at Aquatonic desk only for Aquatonic items.
+  
 ### 1.6.6: January 18th, 2023
 * **Fix** - Revert regression of scripts loaded in the header; now in the footer
 

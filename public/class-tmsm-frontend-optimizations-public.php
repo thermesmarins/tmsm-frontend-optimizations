@@ -1068,9 +1068,16 @@ class Tmsm_Frontend_Optimizations_Public
 						if (!empty($product) && $product->get_type() !== 'external' && (empty($product->get_shipping_class_id()) || $product->get_shipping_class() !== 'no_local_pickup')) {
 							if (!empty($shipping_method->id) && $shipping_method->id === 'local_pickup') {
 								if (method_exists($shipping_method, 'get_title')) {
-									echo '<p class="product_meta_localpickup">
+									// Just show aquatonic pickup for aquatonic tickets and products
+									if ($product->get_shipping_class() === 'aquatonic_pickup' && $shipping_method->get_instance_id() === 8) {
+										echo '<p class="product_meta_localpickup">
 									<span class="' . $localpickup_icon . '"></span> ' . (function_exists('pll__')
 											? pll__($shipping_method->get_title()) : $shipping_method->get_title()) . '</p>';
+									} else if ($product->get_shipping_class() != 'aquatonic_pickup' && $shipping_method->get_instance_id() === 2) {
+										echo '<p class="product_meta_localpickup">
+									<span class="' . $localpickup_icon . '"></span> ' . (function_exists('pll__')
+											? pll__($shipping_method->get_title()) : $shipping_method->get_title()) . '</p>';
+									}
 								}
 							}
 						}
