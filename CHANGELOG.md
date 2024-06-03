@@ -1,3 +1,6 @@
+### 1.6.10: June 3thr, 2024
+* Fix site comparaison url
+  
 ### 1.6.9: June 3thr, 2024
 * Remove vouchers for Rennes during renovations
 
