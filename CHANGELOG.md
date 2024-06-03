@@ -1,3 +1,6 @@
+### 1.6.9: June 3thr, 2024
+* Remove vouchers for Rennes during renovations
+
 ### 1.6.8: December 22nd, 2023
 * **Add** - New message for pickup at Aquatonic desk only for Aquatonic items.
   
