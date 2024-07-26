@@ -1,3 +1,6 @@
+### 1.6.10: july 26th, 2024
+* Get the vouchers back for Rennes 
+  
 ### 1.6.10: June 3thr, 2024
 * Fix site comparaison url
   

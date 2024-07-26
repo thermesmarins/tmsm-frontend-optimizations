@@ -1100,7 +1100,7 @@ class Tmsm_Frontend_Optimizations_Public
 		$old_html = $html;
 
 		// je récupère l'url du site pour la comparaison plus tard.
-		$url = get_site_url(); 
+		// $url = get_site_url(); 
 
 		$args = wp_parse_args( apply_filters( 'woocommerce_dropdown_variation_attribute_options_html_radio_args', $args ), array(
 			'options'          => false,
@@ -1169,18 +1169,18 @@ class Tmsm_Frontend_Optimizations_Public
 						$filtered_label = apply_filters( 'woocommerce_variation_option_name', $label );
 
 						// les lignes à ajouter !! Remplacer l'url de comparaison par l'url de l'Aquatonic Rennes
-						if ($url == 'https://www.aquatonic.fr/rennes' || $url == 'https://stg-aquatonic-staging.kinsta.cloud/rennes') {
-							if($term->slug != 'bon-cadeau') { 
-						printf( '<div class="radio"><input type="radio" name="%1$s" value="%2$s" id="%3$s" %4$s><label for="%3$s">%5$s%6$s</label></div>',
-							$input_name, $esc_value, $id, $checked, $filtered_label, $description );
-						}
-						} else {
-							printf( '<div class="radio"><input type="radio" name="%1$s" value="%2$s" id="%3$s" %4$s><label for="%3$s">%5$s%6$s</label></div>',
-							$input_name, $esc_value, $id, $checked, $filtered_label, $description );
-						}
-
+						// if ($url == 'https://www.aquatonic.fr/rennes' || $url == 'https://stg-aquatonic-staging.kinsta.cloud/rennes') {
+						// 	if($term->slug != 'bon-cadeau') { 
 						// printf( '<div class="radio"><input type="radio" name="%1$s" value="%2$s" id="%3$s" %4$s><label for="%3$s">%5$s%6$s</label></div>',
 						// 	$input_name, $esc_value, $id, $checked, $filtered_label, $description );
+						// }
+						// } else {
+						// 	printf( '<div class="radio"><input type="radio" name="%1$s" value="%2$s" id="%3$s" %4$s><label for="%3$s">%5$s%6$s</label></div>',
+						// 	$input_name, $esc_value, $id, $checked, $filtered_label, $description );
+						// }
+
+						printf( '<div class="radio"><input type="radio" name="%1$s" value="%2$s" id="%3$s" %4$s><label for="%3$s">%5$s%6$s</label></div>',
+							$input_name, $esc_value, $id, $checked, $filtered_label, $description );
 					}
 				}
 			} else {
