@@ -1394,7 +1394,7 @@ class Tmsm_Frontend_Optimizations_Public
 	function no_weak_password_header()
 	{
 		echo "<style>.pw-weak{display:none!important}</style>";
-		echo '<script>document.getElementById("pw-checkbox").disabled = true;</script>';
+		echo '<script>document.getElementById(\'pw-weak\').disabled=true;</script>';
 	}
 	// add_action('validate_password_reset', 'esp_validate_password_reset', 10, 2);
 	/**
