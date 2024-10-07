@@ -157,6 +157,9 @@ class Tmsm_Frontend_Optimizations {
 		$this->loader->add_filter( 'embed_oembed_html', $plugin_public, 'wp_embed_wrap', 100, 4 );
 		$this->loader->add_filter( 'embed_googlevideo', $plugin_public, 'wp_embed_wrap', 10, 4 );
 		$this->loader->add_action( 'enqueue_block_assets', $plugin_public, 'wp_enqueue_block_assets', 10 );
+		$this->loader->add_action('login_init', $plugin_public,'no_weak_password_header');
+		$this->loader->add_action('admin_head', $plugin_public,'no_weak_password_header');
+		$this->loader->add_action('validate_password_reset',$plugin_public, 'esp_validate_password_reset', 10, 2);
 		remove_action('wp_head', 'wlwmanifest_link');
 		remove_action('wp_head', 'rsd_link');
 		remove_action('wp_head', 'wp_generator');
