@@ -1,3 +1,6 @@
+### 1.7.1: November 13th, 2024
+* **Remove** - Tax shipping meta for prob2b site 
+
 ### 1.7.0: October 07th, 2024
 * **Add** - Password strenght, and no more 'confirm weak password' availability for backoffice user's
   
