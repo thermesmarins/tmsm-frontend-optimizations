@@ -1078,7 +1078,7 @@ class Tmsm_Frontend_Optimizations_Public
 										$cost = $settings['class_cost_' . $product->get_shipping_class_id()];
 									}
 								}
-								if ($cost !== '') {
+								if ($cost !== '' && get_site_url()  != "https://pro.thermes-marins.com" ) {
 									echo '<p class="product_meta_flatrateshipping">
 									<span class="' . $shipping_icon . '"></span> ' . (function_exists('pll__')
 										? pll__($shipping_method->get_title()) : $shipping_method->get_title()) . ' ' . ($cost !== null ? ($cost == 0 ? __('(free)', 'tmsm-frontend-optimizations') : sprintf(__('(%s)', 'tmsm-frontend-optimizations'), strip_tags(wc_price($cost, ['decimals' => false])))) : '') . '</p>';
