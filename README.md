@@ -58,7 +58,34 @@ Features
     * GTM4WP
     * Gravity Forms: Force scripts to footer
     * Use of Asset Optimizer to move scripts to footer
-    
+* Shortcode for rss feed:
+    Add to page shortcode [rss-with-image]
+    Attributes variables $atts by default to modify 
+    * 'rss'          => '', Feed URL
+		* 'show_author'  => 0,
+		* 'show_summary' => 0,
+		* 'show_date'    => 0,
+		* 'show_media'   => 0,
+		* 'show_price'   => 0,
+		* 'items'        => 0,
+		* 'columns'      => 3,
+		* 'button_show'  => true,
+		* 'description_length' => 0, Add a truncate description. 
+		* 'button_text'  => 'Voir la prestation',
+  * Add thumbnail for actuality events
+  * Need to add this code into the functions.php where the feed come's from
+  ```php
+    add_action('rss2_item', function() {
+    global $post;
+    if (has_post_thumbnail($post->ID)) {
+        $thumbnail_id = get_post_thumbnail_id($post->ID);
+        $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'full');
+        if ($thumbnail) {
+            echo '<enclosure url="' . esc_url($thumbnail[0]) . '" length="0" type="image/jpeg" />' . PHP_EOL;
+        }
+    }
+    });
+  ```
 Gravity Forms Action Replacement How-To
 ---
 If you want to change the action attribute of a GF form, fill the form setting "Action" with a valid URL.
