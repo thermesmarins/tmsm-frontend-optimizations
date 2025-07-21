@@ -79,7 +79,7 @@ Features
     global $post;
     if (has_post_thumbnail($post->ID)) {
         $thumbnail_id = get_post_thumbnail_id($post->ID);
-        $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'full');
+        $thumbnail = wp_get_attachment_image_src($thumbnail_id, 'thumbnail');
         if ($thumbnail) {
             echo '<enclosure url="' . esc_url($thumbnail[0]) . '" length="0" type="image/jpeg" />' . PHP_EOL;
         }
