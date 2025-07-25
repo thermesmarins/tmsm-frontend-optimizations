@@ -57,13 +57,8 @@
     color: #666;
 }
 
-.rss-activities-with-image .rss-item .rss-item-button {
-    margin: 15px 0 0 0;
-}
-
 .rss-activities-with-image .rss-item .rss-item-button a {
     display: inline-block;
-    padding: 10px 20px;
     text-decoration: none;
 }
 

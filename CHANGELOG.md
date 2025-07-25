@@ -1,3 +1,8 @@
+### 1.8.2: July 25th, 2025
+* **Fix** - Undefined array key "show_summary" error in RSS shortcodes
+* **Improve** - Changed button classes to use Elementor styling (elementor-button elementor-button-link)
+* **Fix** - RSS content display now properly handles complete content without truncation
+
 ### 1.8.1: July 25th, 2025
 * **Fix** - Delete button css color in the shortcode to keep the site (elementor) style
 

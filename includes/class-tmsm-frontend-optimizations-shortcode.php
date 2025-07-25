@@ -189,7 +189,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
         $rss->__destruct();
         unset($rss);
     }
-    
+
     /**
      * Enqueue CSS styles for RSS activities
      */
@@ -208,6 +208,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
         $atts = shortcode_atts(array(
             'rss'          => '',
             'show_author'  => 0,
+            'show_summary' => 0,
             'show_date'    => 0,
             'show_media'   => 0,
             'columns'      => 3, // 0 = auto, 1 = 1, 2 = 2, 3 = 3, 4 = 4, 5 = 5, 6 = 6, 7 = 7, 8 = 8, 9 = 9, 10 = 10
@@ -219,6 +220,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
         $default_args = array(
             'rss'          => '',
             'show_author'  => 0,
+            'show_summary' => 0,
             'show_date'    => 0,
             'items'        => 0,
             'show_media'   => 0,
@@ -248,6 +250,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
         $default_args = array(
             'show_author'  => 0,
             'show_date'    => 0,
+            'show_summary' => 0,
             'items'        => 0,
             'description_length' => 50,
             'button_show'  => true,
@@ -285,12 +288,18 @@ class Tmsm_Frontend_Optimizations_Shortcode
                 $title = __('Untitled');
             }
             $summary = '';
-            $desc = $item->get_description(); 
+            // Récupérer le contenu complet depuis content:encoded en priorité
+            $desc = $item->get_content();
+            if (empty($desc)) {
+                $desc = $item->get_description();
+            }
             if ($description_length > 0) {
                 $summary = (wp_trim_words($desc, $description_length, ' [&hellip;]'));
                 $summary = '<div class="summary">' . ($summary) . '</div>';
-            } else {
-                $summary = '<div class="summary">' . ($desc) . '</div>';
+            } elseif ($description_length === 0) {
+                // Afficher le contenu complet sans troncature
+                $summary = $desc;
+                $summary = '<div class="summary">' . ($summary) . '</div>';
             }
             $date = '';
             if ($show_date) {
@@ -310,37 +319,37 @@ class Tmsm_Frontend_Optimizations_Shortcode
             $thumbnail = '';
             $title_text = esc_html(trim(strip_tags($item->get_title())));
             if ($show_media) {
-                                    // 1. Essayer enclosure
-                                    if ($enclosure = $item->get_enclosure()) {
-                                        $thumbnail = $enclosure->get_link();
-                                    }
-                                    // 2. Essayer balise <enclosure>
-                                    if (empty($thumbnail)) {
-                                        $media = $item->get_item_tags('', 'enclosure');
-                                        if (!empty($media) && isset($media[0]['attribs']['']['url'])) {
-                                            $thumbnail = $media[0]['attribs']['']['url'];
-                                        }
-                                    }
-                                    // 3. Si toujours rien, extraire la première image du contenu
-                                    if (empty($thumbnail)) {
-                                        $desc = $item->get_content();
-                                        if (empty($desc)) {
-                                            $desc = $item->get_description();
-                                        }
-                                        if (preg_match('/<img[^>]+src=[\'"]([^\'"]+)[\'"]/i', $desc, $matches)) {
-                                            $thumbnail = $matches[1];
-                                        }
-                                    }
-                                    if ($thumbnail) {
-                                        $thumbnail = '<div class="thumbnail"><img src="' . esc_url($thumbnail) . '" alt="' . $title_text . '"/></div>';
-                                    }
+                // 1. Essayer enclosure
+                if ($enclosure = $item->get_enclosure()) {
+                    $thumbnail = $enclosure->get_link();
+                }
+                // 2. Essayer balise <enclosure>
+                if (empty($thumbnail)) {
+                    $media = $item->get_item_tags('', 'enclosure');
+                    if (!empty($media) && isset($media[0]['attribs']['']['url'])) {
+                        $thumbnail = $media[0]['attribs']['']['url'];
+                    }
+                }
+                // 3. Si toujours rien, extraire la première image du contenu
+                if (empty($thumbnail)) {
+                    $desc = $item->get_content();
+                    if (empty($desc)) {
+                        $desc = $item->get_description();
+                    }
+                    if (preg_match('/<img[^>]+src=[\'"]([^\'"]+)[\'"]/i', $desc, $matches)) {
+                        $thumbnail = $matches[1];
+                    }
+                }
+                if ($thumbnail) {
+                    $thumbnail = '<div class="thumbnail"><img src="' . esc_url($thumbnail) . '" alt="' . $title_text . '"/></div>';
+                }
             }
             $button = '';
             if ($button_show === true) {
-                $button = '<p class="rss-item-button"><a class="button btn btn-primary" href="' . esc_attr($link) . '">' . __($button_text, 'nouveaumonde')
+                $button = '<p class="rss-item-button"><a class="elementor-button elementor-button-link" href="' . esc_attr($link) . '">' . __($button_text, 'nouveaumonde')
                     . '</a></p>';
             }
-            
+
             echo '<div class="rss-item">';
             echo $thumbnail;
             echo '<div class="rss-content">';
