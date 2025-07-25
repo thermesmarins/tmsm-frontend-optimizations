@@ -1,0 +1,106 @@
+.rss-activities-with-image {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.rss-activities-with-image .rss-item {
+    display: flex;
+    padding: 15px;
+    /* border-radius: 10px; */
+    background: transparent;
+    background-color: transparent;
+}
+
+.rss-activities-with-image .rss-item .thumbnail {
+    flex: 0 0 200px;
+    margin: 0 20px 0 0;
+    background-color: transparent;
+}
+
+.rss-activities-with-image .rss-item .thumbnail img {
+    width: 100%;
+    height: 150px;
+    object-fit: cover;
+    /* border-radius: 8px; */
+}
+
+.rss-activities-with-image .rss-item .rss-content {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+}
+
+.rss-activities-with-image .rss-item .rss-main-content {
+    flex-grow: 1;
+}
+
+.rss-activities-with-image .rss-item h4 {
+    margin: 0 0 10px 0;
+    font-size: 1.2em;
+}
+
+.rss-activities-with-image .rss-item .rss-date {
+    font-size: 0.9em;
+    color: #666;
+    margin-bottom: 10px;
+    display: block;
+}
+
+.rss-activities-with-image .rss-item .summary {
+    margin-bottom: 15px;
+    line-height: 1.5;
+}
+
+.rss-activities-with-image .rss-item cite {
+    font-style: italic;
+    color: #666;
+}
+
+.rss-activities-with-image .rss-item .rss-item-button {
+    margin: 15px 0 0 0;
+}
+
+.rss-activities-with-image .rss-item .rss-item-button a {
+    display: inline-block;
+    padding: 10px 20px;
+    color: white;
+    text-decoration: none;
+}
+
+
+
+/* Responsive design */
+@media (max-width: 768px) {
+    .rss-activities-with-image .rss-item {
+        flex-direction: column;
+    }
+    
+    .rss-activities-with-image .rss-item .thumbnail {
+        flex: none;
+        margin-right: 0;
+        margin-left: 0;
+        margin-bottom: 15px;
+    }
+    
+    .rss-activities-with-image .rss-item .thumbnail img {
+        height: 200px;
+    }
+} 
+
+.rss-with-image-gifts {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr); /* Règle par défaut pour les écrans larges */
+  }
+  
+  @media (max-width: 768px) {
+    .rss-with-image-gifts {
+      grid-template-columns: repeat(2, 1fr); /* Pour les tablettes */
+    }
+  }
+  
+  @media (max-width: 480px) {
+    .rss-with-image-gifts {
+      grid-template-columns: 1fr; /* Pour les téléphones */
+    }
+  }
