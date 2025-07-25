@@ -1,81 +1,160 @@
-TMSM Frontend Optimizations
-=================
+# TMSM Frontend Optimizations
 
-Frontend Optimizations for Thermes Marins de Saint-Malo
+Plugin d'optimisations frontend pour Thermes Marins de Saint-Malo
 
-Features
------------
+## Installation
 
-* Gravity Forms:
-    * Action setting
-    * Action depending on radio input
-    * Phone format for France
-    * Phone format for international numbers
-    * New merge tags: {user_firstname}, {user_lastname}, {user_email} and {user_billingphone}
-    * Autocomplete off for numbers
-    * Block unauthorized domains for email fields
-* Google Tag Manager for WordPress:
-    * Inject Google Tag Manager after body in OceanWP Theme
-    * Exclude orders with status failed (only paid statuses)
-    * Exclude orders of tracking if they are 1 day old
-    * Javascripts in the footer
-* WooCommerce: everyday, sales start, cache should be emptied (WP Rocket), dynamic product meta (free shipping, local pickup)
-  * Block unauthorized domains for billing email
-  * Order received page have title "payment failed" if it has failed
-  * Empty cache when sale starts or ends
-  * Change password strength
-  * Hide shipping on local pickup required
-  * Variations selection are a radio button instead of select
-  * Product variation never include variation attributes in title except on account page
-  * PayPal Express Checkout address required
-  * Product meta:
-    * Cash on delivery custom icon
-    * "Free shipping" meta
-    * "Local Pickup" meta
-    * Flat Rate value meta
-* Polylang:
-    * Body Class Lang
-    * Shortcode for language switcher
-    * Javascript variables
-* Elementor:
-  * Search form only search for products if class name has "woocommerce-searchform" 
-* Post Expirator (PublishPress):
-  * Empty cache when a post expires 
-* WooCommerce Advanced Messages:
-  * Custom locations
-* User Requests: 
-  * Recipient of the data request confirmation notification
-* Robots:
-  * noindex,nofollow,noarchive,nosnippet when site not public
-  * Embed have "no-snippet" attribute
-* YouTube embeds:
-  * Have modestbranding=1 / showinfo=0 / rel=0
-* JetPack
-  * Remove automatic Share feature 
-  * Remove automatic Likes feature
-  * Dequeue various scripts
-* Scripts to footer:
-    * GTM4WP
-    * Gravity Forms: Force scripts to footer
-    * Use of Asset Optimizer to move scripts to footer
-* Shortcode for rss feed:
-    Add to page shortcode [rss-with-image]
-    Attributes variables $atts by default to modify 
-    * 'rss'          => '', Feed URL
-		* 'show_author'  => 0,
-		* 'show_summary' => 0,
-		* 'show_date'    => 0,
-		* 'show_media'   => 0,
-		* 'show_price'   => 0,
-		* 'items'        => 0,
-		* 'columns'      => 3,
-		* 'button_show'  => true,
-		* 'description_length' => 0, Add a truncate description. 
-		* 'button_text'  => 'Voir la prestation',
-  * Add thumbnail for actuality events
-  * Need to add this code into the functions.php where the feed come's from
-  ```php
-    add_action('rss2_item', function() {
+1. Téléchargez le plugin depuis GitHub
+2. Installez et activez le plugin dans WordPress
+3. Le plugin fonctionne automatiquement sans configuration supplémentaire
+
+## Shortcodes disponibles
+
+### [rss-with-image]
+
+Affiche un flux RSS avec des images et un layout en grille, idéal pour les prestations et produits.
+
+**Syntaxe :**
+```
+[rss-with-image rss="URL_DU_FLUX" columns="3" items="10" show_media="1" button_text="Voir la prestation"]
+```
+
+**Attributs :**
+- `rss` (string, requis) : URL du flux RSS à afficher
+- `show_author` (0|1, défaut: 0) : Afficher l'auteur
+- `show_summary` (0|1, défaut: 0) : Afficher le résumé
+- `show_date` (0|1, défaut: 0) : Afficher la date
+- `show_media` (0|1, défaut: 0) : Afficher les images
+- `show_price` (0|1, défaut: 0) : Afficher le prix (si disponible dans le flux)
+- `items` (nombre, défaut: 10, max: 20) : Nombre d'éléments à afficher
+- `columns` (nombre, défaut: 3) : Nombre de colonnes dans la grille
+- `button_show` (true|false, défaut: true) : Afficher le bouton
+- `button_text` (string, défaut: "Voir la prestation") : Texte du bouton
+
+**Exemple :**
+```
+[rss-with-image rss="https://exemple.com/flux.rss" columns="2" items="6" show_media="1" show_date="1" button_text="En savoir plus"]
+```
+
+### [rss-with-image-activities]
+
+Affiche un flux RSS d'activités avec un layout optimisé pour les événements et actualités.
+
+**Syntaxe :**
+```
+[rss-with-image-activities rss="URL_DU_FLUX" columns="3" items="10" description_length="50"]
+```
+
+**Attributs :**
+- `rss` (string, requis) : URL du flux RSS à afficher
+- `show_author` (0|1, défaut: 0) : Afficher l'auteur
+- `show_date` (0|1, défaut: 0) : Afficher la date
+- `show_media` (0|1, défaut: 0) : Afficher les images
+- `items` (nombre, défaut: 10, max: 20) : Nombre d'éléments à afficher
+- `columns` (nombre, défaut: 3) : Nombre de colonnes (0 = auto)
+- `in_lines` (0|1, défaut: 0) : Layout en lignes (1) ou grille (0)
+- `button_show` (true|false, défaut: true) : Afficher le bouton
+- `description_length` (nombre, défaut: 0) : Longueur de la description en mots (0 = complète)
+- `button_text` (string, défaut: "En savoir plus") : Texte du bouton
+
+**Exemple :**
+```
+[rss-with-image-activities rss="https://exemple.com/actualites.rss" description_length="30" show_date="1" button_text="Lire la suite"]
+```
+
+### [language_switcher]
+
+Affiche un sélecteur de langues pour les sites multilingues utilisant Polylang.
+
+**Syntaxe :**
+```
+[language_switcher]
+```
+
+**Attributs :** Aucun attribut configurable (le style s'adapte automatiquement au thème)
+
+**Exemple :**
+```
+[language_switcher]
+```
+
+## Fonctionnalités intégrées
+
+### Gravity Forms
+- **Action personnalisée** : Possibilité de définir une action personnalisée pour les formulaires
+- **Action conditionnelle** : Action dynamique basée sur la sélection d'un bouton radio
+- **Format téléphone** : Formatage automatique pour les numéros français et internationaux
+- **Nouveaux merge tags** : `{user_firstname}`, `{user_lastname}`, `{user_email}`, `{user_billingphone}`
+- **Autocomplete désactivé** : Pour les champs numériques
+- **Blocage domaines** : Empêche l'utilisation de domaines email non autorisés
+- **Scripts en footer** : Force les scripts Gravity Forms en bas de page
+
+### WooCommerce
+- **Optimisations cache** : Vidage automatique du cache lors des ventes
+- **Métadonnées produits** : Affichage d'infos dynamiques (livraison gratuite, retrait sur place)
+- **Sélection de variations** : Boutons radio au lieu de sélecteurs déroulants
+- **Protection email** : Blocage des domaines non autorisés
+- **Page de réception** : Titre "Paiement échoué" si nécessaire
+- **Robustesse mot de passe** : Ajustement des exigences
+- **PayPal Express** : Adresse requise
+
+### Google Tag Manager
+- **Injection après body** : Pour le thème OceanWP
+- **Exclusion commandes** : Ignore les commandes échouées ou anciennes
+- **Scripts en footer** : Optimisation du chargement
+
+### Polylang
+- **Classes CSS** : Ajout de classes pour la langue courante
+- **Variables JavaScript** : Exposition des données de langue
+- **Shortcode switcher** : `[language_switcher]` pour changer de langue
+
+### Optimisations SEO et Performance
+- **Robots** : Meta robots automatique si site non public
+- **YouTube** : Paramètres d'intégration optimisés (`modestbranding=1`, `showinfo=0`, `rel=0`)
+- **Jetpack** : Désactivation des fonctionnalités automatiques (partage, likes)
+- **Scripts footer** : Déplacement des scripts en bas de page
+- **Suppression éléments** : Generator, shortlink, RSD, manifest
+
+### Elementor
+- **Recherche produits** : Formulaire de recherche ciblé WooCommerce avec la classe `woocommerce-searchform`
+
+### Autres intégrations
+- **Post Expirator** : Vidage cache à l'expiration des posts
+- **WooCommerce Advanced Messages** : Emplacements personnalisés
+- **User Requests** : Destinataire personnalisé pour les notifications RGPD
+
+## Configuration Gravity Forms
+
+### Remplacement d'action de formulaire
+
+1. Dans les paramètres du formulaire, remplissez le champ "Action" avec une URL valide
+2. Pour chaque champ nécessitant un nom personnalisé :
+   - Activez "Autoriser le champ à être rempli dynamiquement"
+   - Donnez un "Nom de paramètre"
+
+### Action conditionnelle basée sur un bouton radio
+
+1. Créez un champ radio avec la classe CSS `form-action-replacement`
+2. Donnez une valeur (URL valide) à chaque option radio
+3. JavaScript changera automatiquement l'action selon l'option sélectionnée
+
+### Formulaire de demandes utilisateur RGPD
+
+Créez un formulaire Gravity Forms avec un champ radio ayant le nom CSS `personal_data` :
+
+1. **Contacter le DPO** - Confirmation/notification GF standard
+2. **Modifier les données personnelles** - Confirmation/notification GF standard  
+3. **Exporter les données personnelles** - Valeur : `export_personal_data`
+4. **Supprimer les données personnelles** - Valeur : `remove_personal_data`
+
+Les options 3 et 4 sont automatiquement intégrées au système WordPress de demandes utilisateur.
+
+## Configuration RSS avec images
+
+Pour que les flux RSS incluent les images, ajoutez ce code dans le `functions.php` du site source :
+
+```php
+add_action('rss2_item', function() {
     global $post;
     if (has_post_thumbnail($post->ID)) {
         $thumbnail_id = get_post_thumbnail_id($post->ID);
@@ -84,27 +163,16 @@ Features
             echo '<enclosure url="' . esc_url($thumbnail[0]) . '" length="0" type="image/jpeg" />' . PHP_EOL;
         }
     }
-    });
-  ```
-Gravity Forms Action Replacement How-To
----
-If you want to change the action attribute of a GF form, fill the form setting "Action" with a valid URL.
-Next, for every input that needs a custom name, enable "Allow field to be populated dinamically" and give a "Parameter name"
+});
+```
 
-If the form needs an action depending on a radio button, add a value to each radio option. 
-And add a CSS class "form-action-replacement" to the field.
-Each value needs to be a valid URL.
-With javascript the action will be changed depending on the radio checked.
+## Support et développement
 
-Gravity Forms User Requests custom form
----
-Create a Gravity Forms for User Requests.
-For example create a radio field with CSS name "personal_data":
-1. Contact the DPO
-2. Edit Personal Data
-3. Export Personal Data (with value "export_personal_data" )
-4. Delete Personal Data (with value "remove_personal_data" )
+- **Auteur** : Arnaud Flament
+- **Repository** : [https://github.com/thermesmarins/tmsm-frontend-optimizations](https://github.com/thermesmarins/tmsm-frontend-optimizations)
+- **Licence** : GPL-3.0+
+- **PHP requis** : 8.0+
 
-1 and 2 have regular GF confirmations/notifications.
-3 and 4 are hooked with "user requests" feature from WordPress
-The Gravity Forms pre_submission will check the value of this field and hook if necessary.
+## Changelog
+
+Voir le fichier `CHANGELOG.md` pour l'historique des versions et modifications.

@@ -1,3 +1,12 @@
+### 1.8.0: January 2nd, 2025
+* **Improve** - Complete README documentation rewrite with detailed shortcode documentation
+* **Improve** - All shortcodes now fully documented with examples and all available attributes
+* **Add** - [rss-with-image] shortcode documentation with all parameters
+* **Add** - [rss-with-image-activities] shortcode documentation for activities/events
+* **Add** - [language_switcher] shortcode documentation for Polylang integration
+* **Improve** - Better organized feature categories and configuration guides
+* **Update** - Author information updated to Arnaud Flament
+
 ### 1.7.2: July 21th, 2025
 * **Add** shortcode for rss feed from other sites with attributes to manage what to display
 
