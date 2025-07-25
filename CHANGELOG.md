@@ -1,4 +1,7 @@
-### 1.8.0: January 2nd, 2025
+### 1.8.1: July 25th, 2025
+* **Fix** - Delete button css color in the shortcode to keep the site (elementor) style
+
+### 1.8.0: July 25th, 2025
 * **Improve** - Complete README documentation rewrite with detailed shortcode documentation
 * **Improve** - All shortcodes now fully documented with examples and all available attributes
 * **Add** - [rss-with-image] shortcode documentation with all parameters
