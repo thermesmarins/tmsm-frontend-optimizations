@@ -1,3 +1,6 @@
+### 1.8.3: August 4th, 2025
+* **Fix** - Taking cart of items number in rss shortcode for activities
+
 ### 1.8.2: July 25th, 2025
 * **Fix** - Undefined array key "show_summary" error in RSS shortcodes
 * **Improve** - Changed button classes to use Elementor styling (elementor-button elementor-button-link)

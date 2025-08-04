@@ -136,7 +136,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
                 }
             }
 
-            $thumbnail = '';
+           
             $title_text = esc_html(trim(strip_tags($item->get_title())));
             $thumbnail = '';
             if ($show_media) {
@@ -211,6 +211,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
             'show_summary' => 0,
             'show_date'    => 0,
             'show_media'   => 0,
+            'items'        => 0,
             'columns'      => 3, // 0 = auto, 1 = 1, 2 = 2, 3 = 3, 4 = 4, 5 = 5, 6 = 6, 7 = 7, 8 = 8, 9 = 9, 10 = 10
             'in_lines'     => 0, // 0 = grid, 1 = lines
             'button_show'  => true,
