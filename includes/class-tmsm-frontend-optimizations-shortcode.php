@@ -167,6 +167,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
             }
 
             $price = '';
+            if ($show_price) {
             if ($enclosure = $item->get_enclosure()) {
                 foreach ((array) $enclosure->get_ratings() as $enclosure_price) {
                     $price =  $enclosure_price->get_value();
@@ -176,7 +177,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
                     $price = '<div class="rss-item-price" style="text-align:center; position: absolute;    bottom: 100px;right: 0;    left: 0;">' . ($price) . '</div>';
                 }
             }
-
+        } 
             $button = '';
             if ($button_show === true) {
                 $button = '<p class="rss-item-button" style="text-align:center; position: absolute;    bottom: 20px;right: 0;    left: 0;" ><a class="button btn btn-primary" href="' . esc_attr($link) . '">' . __($button_text, 'nouveaumonde')
