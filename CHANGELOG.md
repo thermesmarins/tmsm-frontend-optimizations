@@ -1,3 +1,6 @@
+### 1.8.4: September 9th, 2025
+* **Fix** - Manage the display of the price wihtin the shortcode
+
 ### 1.8.3: August 4th, 2025
 * **Fix** - Taking cart of items number in rss shortcode for activities
 
