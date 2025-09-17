@@ -36,11 +36,27 @@ class Tmsm_Frontend_Optimizations_Shortcode
             'items'        => 0,
             'columns'      => 3,
             'button_show'  => true,
+            'title_tag'          => 'h3',
             'button_text'  => 'Voir la prestation',
         ), $atts, 'rss-with-image');
 
         $rss = $atts['rss'];
         $columns = $atts['columns'];
+        $tag = $atts['title_tag'];
+       switch ($columns) {
+        case 0:
+            $class = 'rss-with-image-gifts';
+            break;
+        case 1:
+            $class = 'rss-with-image-gifts-1';
+            break;
+        case 2:
+            $class = 'rss-with-image-gifts-2';
+            break;
+        case 3:
+            $class = 'rss-with-image-gifts';
+            break;
+       }
 
         if (is_string($rss)) {
             $rss = fetch_feed($rss);
@@ -81,6 +97,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
         $show_media   = (bool) $args['show_media'];
         $show_price   = (bool) $args['show_price'];
         $button_show = (bool) $args['button_show'];
+        $columns = $args['columns'];
         $paddingbottom = 80;
         $button_text = $args['button_text'];
         if (! $rss->get_item_quantity()) {
@@ -91,9 +108,10 @@ class Tmsm_Frontend_Optimizations_Shortcode
             return;
         }
 
-        // echo '<div class="rss-with-image" style="    display: grid;  grid-template-columns: repeat('.esc_attr($columns).', 1fr);">';
+        // echo '<div class="rss-with-image" style="display: grid;  grid-template-columns: repeat('.esc_attr($columns).', 1fr);">';
         // Css dans le style de Elementor
-            echo '<div class="rss-with-image-gifts">';
+            echo '<div class="'.$class.'">';
+            // echo '<div class="rss-with-image-gifts" style="display: grid;  grid-template-columns: repeat('.esc_attr($columns).', 1fr);"">';
 
         foreach ($rss->get_items(0, $items) as $item) {
 
@@ -103,7 +121,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
             }
             $link = esc_url(strip_tags($link));
 
-            $title = '<h4 class="text-center" style="text-align: center">' . esc_html(trim(strip_tags($item->get_title()))) . '</h4>';
+            $title = '<'.$tag.' class="text-center" style="text-align: center">' . esc_html(trim(strip_tags($item->get_title()))) . '</'.$tag.'>';
             if (empty($title)) {
                 $title = __('Untitled');
             }
@@ -187,6 +205,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
             echo "<div class='rss-item' style=\" flex: 1 1 33%; padding:0 10px " . $paddingbottom . "px 10px; position: relative\" >{$thumbnail}{$title}{$date}{$summary}{$author}{$price}{$button}</div>";
         }
         echo '</div>';
+        // echo '</div>';
         $rss->__destruct();
         unset($rss);
     }
@@ -217,11 +236,12 @@ class Tmsm_Frontend_Optimizations_Shortcode
             'in_lines'     => 0, // 0 = grid, 1 = lines
             'button_show'  => true,
             'description_length' => 0,
+            'title_tag'          => 'h3',
             'button_text'  => 'En savoir plus',
         ), $atts, 'rss-with-image-activities');
         $default_args = array(
             'rss'          => '',
-            'show_author'  => 0,
+            'show_author'  => 0,    
             'show_summary' => 0,
             'show_date'    => 0,
             'items'        => 0,
@@ -230,10 +250,13 @@ class Tmsm_Frontend_Optimizations_Shortcode
             'in_lines'     => 1, // 0 = grid, 1 = lines
             'button_show'  => true,
             'description_length' => 0,
+            'title_tag'          => 'h3',
             'button_text'  => 'En savoir plus',
         );
         $rss = $atts['rss'];
         $columns = $atts['columns'];
+        $tag = $atts['title_tag'];
+       
         $in_lines = $atts['in_lines'];
         if (is_string($rss)) {
             $rss = fetch_feed($rss);
@@ -285,7 +308,7 @@ class Tmsm_Frontend_Optimizations_Shortcode
                 $link = substr($link, 1);
             }
             $link = esc_url(strip_tags($link));
-            $title = '<h4>' . esc_html(trim(strip_tags($item->get_title()))) . '</h4>';
+            $title = '<'.$tag.'>' . esc_html(trim(strip_tags($item->get_title()))) . '</'.$tag.'>';
             if (empty($title)) {
                 $title = __('Untitled');
             }

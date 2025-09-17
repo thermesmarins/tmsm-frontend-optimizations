@@ -35,7 +35,7 @@
     flex-grow: 1;
 }
 
-.rss-activities-with-image .rss-item h4 {
+.rss-activities-with-image .rss-item h4, .rss-activities-with-image .rss-item h3 {
     margin: 0 0 10px 0;
     font-size: 1.2em;
 }
@@ -86,15 +86,19 @@
     display: grid;
     grid-template-columns: repeat(3, 1fr); /* Règle par défaut pour les écrans larges */
   }
+.rss-with-image-gifts-2 {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr); /* Règle par défaut pour les écrans larges */
+  }
   
   @media (max-width: 768px) {
-    .rss-with-image-gifts {
+    .rss-with-image-gifts, .rss-with-image-gifts-2{
       grid-template-columns: repeat(2, 1fr); /* Pour les tablettes */
     }
   }
   
-  @media (max-width: 480px) {
-    .rss-with-image-gifts {
+  @media (max-width: 595px) {
+    .rss-with-image-gifts, .rss-with-image-gifts-2{
       grid-template-columns: 1fr; /* Pour les téléphones */
     }
   }
