@@ -56,6 +56,7 @@ Affiche un flux RSS d'activités avec un layout optimisé pour les événements 
 - `button_show` (true|false, défaut: true) : Afficher le bouton
 - `description_length` (nombre, défaut: 0) : Longueur de la description en mots (0 = complète)
 - `button_text` (string, défaut: "En savoir plus") : Texte du bouton
+- `title_tag` (string, default: "h3") : Niveau du titre des articles
 
 **Exemple :**
 ```
