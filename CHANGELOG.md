@@ -1,3 +1,6 @@
+### 1.8.5: September 17th, 2025
+* **Update** - Manage html tag and manage columns number into the gifts rss feed
+
 ### 1.8.4: September 9th, 2025
 * **Fix** - Manage the display of the price wihtin the shortcode
 

@@ -16,7 +16,7 @@
  * Plugin Name:       TMSM Frontend Optimizations
  * Plugin URI:        https://github.com/thermesmarins/tmsm-frontend-optimizations
  * Description:       Frontend Optimizations for Thermes Marins de Saint-Malo
- * Version:           1.8.4
+ * Version:           1.8.5
  * Author:            Arnaud Flament
  * Author URI:        https://github.com/aflamentTM
  * License:           GPL-3.0+
@@ -38,7 +38,7 @@ if (! defined('WPINC')) {
  * Start at version 1.0.0 and use SemVer - https://semver.org
  * Rename this for your plugin and update it as you release new versions.
  */
-define('TMSM_FRONTEND_OPTIMIZATIONS_VERSION', '1.8.4');
+define('TMSM_FRONTEND_OPTIMIZATIONS_VERSION', '1.8.5');
 defined('TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL') || define('TMSM_FRONTEND_OPTIMIZATIONS_BASE_URL', plugin_dir_url(__FILE__));
 
 /**
