@@ -1,3 +1,6 @@
+### 1.8.6: March 17th, 2026
+* **FIX** -  New gravity forms script and hook handler
+
 ### 1.8.5: September 17th, 2025
 * **Update** - Manage html tag and manage columns number into the gifts rss feed
 

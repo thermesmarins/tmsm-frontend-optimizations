@@ -348,7 +348,7 @@ class Tmsm_Frontend_Optimizations_Public
 	{
 
 		add_filter('wpsao_move', function () {
-			return array(
+		$script_to_move = array(
 				'jquery',
 				'jquery-migrate',
 				'jquery-core',
@@ -356,7 +356,6 @@ class Tmsm_Frontend_Optimizations_Public
 				'gform_json',
 				'bootstrap',
 				'gform_placeholder',
-				'gform_gravityforms',
 				'gform_conditional_logic',
 				'flatpickr',
 				'flatpickr-fr',
@@ -366,7 +365,13 @@ class Tmsm_Frontend_Optimizations_Public
 				'visualizer-render',
 				'optinmonster-api-script',
 			);
+        $gf_scripts_to_exclude = array(
+            'gform_gravityforms',
+        );
+
+        return array_diff($script_to_move, $gf_scripts_to_exclude);
 		});
+
 
 
 		$wp_scripts = wp_scripts();
