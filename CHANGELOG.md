@@ -1,3 +1,6 @@
+### 1.8.7: March 19th, 2026
+* **FIX** - Release notes for version 1.8.7
+
 ### 1.8.6: March 17th, 2026
 * **FIX** -  New gravity forms script and hook handler
 
